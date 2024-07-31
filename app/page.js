@@ -427,6 +427,23 @@ export default function Home() {
         {/* Column 1 */}
         <div className="bg-white rounded-lg overflow-hidden flex flex-col">
           <div className="h-[500px] overflow-y-auto p-4">
+            <div className="flex justify-between mb-4 w-full">
+              <button
+                type="button"
+                // onClick={handleDelete}
+                className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 transition-all duration-300 w-[48%]"
+              >
+                <span>Delete</span>
+              </button>
+              <button
+                type="button"
+                // onClick={handleCopy}
+                className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 transition-all duration-300 w-[48%]"
+              >
+                <span>Copy</span>
+              </button>
+            </div>
+
             <div className="flex flex-col space-y-4">
               <button
                 type="button"
