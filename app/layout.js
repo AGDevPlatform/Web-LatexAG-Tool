@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
             overflowY: "hidden",
           }}
         >
-          <Header /> Đây là Layout
+          <Header />
           {children}
         </main>
       </body>
