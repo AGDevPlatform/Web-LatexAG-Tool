@@ -2,8 +2,8 @@
 import { useState, useCallback, useEffect } from "react";
 import Editor from "./components/Editor";
 import Settings from "./components/Setting";
-import MenuInput from "./components/MenuInput";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Home() {
   const [inputText, setInputText] = useState("");
   const [questions, setQuestions] = useState([]);
@@ -17,121 +17,6 @@ export default function Home() {
 
   const handleFileUpload = (content) => {
     setInputText(content);
-  };
-  const shuffleArray = (array) => {
-    const newArray = [...array];
-    for (let i = newArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-    }
-    return newArray;
-  };
-
-  const handleShuffleAndDownload = () => {
-    const shuffledType1 = shuffleArray(questionType1);
-    const shuffledType2 = shuffleArray(questionType2);
-    const shuffledType3 = shuffleArray(questionType3);
-
-    let texContent = `\\documentclass[12pt,a4paper]{article}
-  \\usepackage{amsmath,amssymb,multicol,enumitem,geometry,fontspec}
-  \\usepackage[vietnamese]{babel}
-  \\usepackage{fancyhdr}
-  
-  \\geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
-  \\setmainfont{Times New Roman}
-  
-  \\pagestyle{fancy}
-  \\fancyhf{}
-  \\renewcommand{\\headrulewidth}{0pt}
-  \\fancyfoot[C]{\\thepage}
-  
-  \\newcommand{\\answerbox}[1]{\\fbox{\\parbox{1cm}{\\centering #1}}}
-  
-  \\begin{document}
-  
-  \\begin{center}
-  \\textbf{\\Large ĐỀ THI TRẮC NGHIỆM VẬT LÝ}
-  \\end{center}
-  
-  \\vspace{0.5cm}
-  
-  \\noindent\\textbf{Họ và tên:} \\underline{\\hspace{8cm}} \\hfill \\textbf{Lớp:} \\underline{\\hspace{3cm}}
-  
-  \\vspace{0.5cm}
-  
-  \\section*{PHẦN I: CÂU HỎI TRẮC NGHIỆM}
-  \\begin{enumerate}[label=\\textbf{Câu \\arabic*.}]
-  ${shuffledType1
-    .map(
-      (q, index) => `
-  \\item ${q.content}
-  \\begin{multicols}{2}
-  \\begin{enumerate}[label=\\textbf{\\Alph*.}]
-  \\item ${q.ans1.replace(/^\\True/, "")}
-  \\item ${q.ans2.replace(/^\\True/, "")}
-  \\item ${q.ans3.replace(/^\\True/, "")}
-  \\item ${q.ans4.replace(/^\\True/, "")}
-  \\end{enumerate}
-  \\end{multicols}
-  \\noindent Đáp án: \\answerbox{${q.key}}
-  ${q.sol ? `\\\\\\textit{Lời giải:} ${q.sol}` : ""}
-  ${index < shuffledType1.length - 1 ? "\\vspace{0.5cm}" : ""}
-  `
-    )
-    .join("\n")}
-  \\end{enumerate}
-  
-  \\newpage
-  
-  \\section*{PHẦN II: CÂU HỎI ĐÚNG/SAI}
-  \\begin{enumerate}[label=\\textbf{Câu \\arabic*.},resume]
-  ${shuffledType2
-    .map(
-      (q, index) => `
-      \\begin{ex} \n
-   ${q.content}
-  
-  \\item ${q.ans1}
-  \\item ${q.ans2}
-  \\item ${q.ans3}
-  \\item ${q.ans4}
-  \\end{enumerate}
-  \\noindent Đáp án: \\answerbox{${q.key}}
-  ${q.sol ? `\\\\\\textit{Lời giải:} ${q.sol}` : ""}
-  ${index < shuffledType2.length - 1 ? "\\vspace{0.5cm}" : ""}
-  `
-    )
-    .join("\n")}
-  \\end{enumerate}
-  
-  \\newpage
-  
-  \\section*{PHẦN III: CÂU HỎI TỰ LUẬN}
-  \\begin{enumerate}[label=\\textbf{Câu \\arabic*.},resume]
-  ${shuffledType3
-    .map(
-      (q, index) => `
-  \\item ${q.content}
-  \\vspace{2cm}
-  \\noindent Đáp án: ${q.key}
-  ${q.sol ? `\\\\\\textit{Lời giải:} ${q.sol}` : ""}
-  ${index < shuffledType3.length - 1 ? "\\vspace{0.5cm}" : ""}
-  `
-    )
-    .join("\n")}
-  \\end{enumerate}
-  
-  \\end{document}`;
-
-    const blob = new Blob([texContent], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "de_thi_vat_ly.tex";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
   };
 
   useEffect(() => {
@@ -251,24 +136,328 @@ export default function Home() {
     setQuestions(newQuestions);
     classifyQuestions(newQuestions);
   }, [inputText]);
+  const formatTracNghiem = useCallback(() => {
+    // Helper function to wrap numbers in $...$ and handle decimal numbers
+    const wrapNumbersInDollars = (text) => {
+      return text.replace(
+        /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
+        (match, p1, p2) => {
+          if (p1) {
+            // Handle numbers already in $...$
+            return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
+          }
+          if (p2.includes(",")) {
+            // Handle decimal numbers with comma
+            return "$" + p2.replace(",", "{,}") + "$";
+          }
+          return `$${p2}$`; // If it's a number not wrapped, wrap it
+        }
+      );
+    };
 
+    // Helper function to replace % with \\% in text, excluding specific cases
+    const replacePercentage = (text) => {
+      return text.replace(/%(?!Câu|\s*======================%)/g, "\\%");
+    };
+
+    const questionBlocks = inputText.split(/Câu\s*(?:\d+[:.]|\.)?\s*/);
+    const normalizedQuestions = questionBlocks
+      .filter((q) => q.trim())
+      .map((question, index) => {
+        // Separate the explanation from the question content
+        const [questionContent, explanation] = question.split(/Lời giải\s*/);
+
+        const parts = questionContent.split(/(?<=\s|^)(A\.|B\.|C\.|D\.)\s*/);
+        const content = parts[0];
+        const choices = [];
+
+        for (let i = 1; i < parts.length; i += 2) {
+          if (i + 1 < parts.length) {
+            let choice = parts[i + 1].trim();
+            // Check if the option starts with "#"
+            if (choice.startsWith("#")) {
+              choice = "\\True " + choice.substring(1);
+            }
+            choices.push(choice);
+          }
+        }
+
+        const normalizedChoices = choices.map(
+          (choice) =>
+            replacePercentage(
+              wrapNumbersInDollars(
+                choice
+                  .replace(/\.$/, "")
+                  .replace(/\s+/g, " ")
+                  .replace(/\\frac/g, "\\dfrac")
+                  .replace(/\\\[/g, "$")
+                  .replace(/\\\]/g, "$")
+              )
+            ).trim() // Remove trailing whitespace
+        );
+
+        const normalizedContent = replacePercentage(
+          wrapNumbersInDollars(
+            content
+              .trim()
+              .replace(/\s+/g, " ")
+              .replace(/\\frac/g, "\\dfrac")
+              .replace(/\\\[/g, "$")
+              .replace(/\\\]/g, "$")
+          )
+        );
+
+        const normalizedExplanation = explanation
+          ? replacePercentage(
+              wrapNumbersInDollars(
+                explanation
+                  .trim()
+                  .replace(/\s+/g, " ")
+                  .replace(/\\frac/g, "\\dfrac")
+                  .replace(/\\\[/g, "$")
+                  .replace(/\\\]/g, "$")
+              )
+            )
+          : "";
+
+        return `\\begin{ex} %Câu ${
+          index + 1
+        }\n${normalizedContent}\n\\choice\n{${normalizedChoices.join(
+          "}\n{"
+        )}}\n${
+          normalizedExplanation ? `\\loigiai{\n${normalizedExplanation}\n}` : ""
+        }\n\\end{ex} \n%======================%`;
+      });
+
+    setInputText(normalizedQuestions.join("\n\n"));
+    toast.success("Chuẩn hóa trắc nghiệm thành công !");
+  }, [inputText]);
+  const formatDungSai = useCallback(() => {
+    // Helper function to wrap numbers in $...$ and handle decimal numbers
+    const wrapNumbersInDollars = (text) => {
+      return text.replace(
+        /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
+        (match, p1, p2) => {
+          if (p1) {
+            return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
+          }
+          if (p2.includes(",")) {
+            return "$" + p2.replace(",", "{,}") + "$";
+          }
+          return `$${p2}$`;
+        }
+      );
+    };
+
+    // Helper function to replace % with \\% in text, excluding specific cases
+    const replacePercentage = (text) => {
+      return text.replace(/%(?!Câu|\s*======================%)/g, "\\%");
+    };
+
+    const questionBlocks = inputText.split(/Câu\s*(?:\d+[:.]|\.)?\s*/);
+    const normalizedQuestions = questionBlocks
+      .filter((q) => q.trim())
+      .map((question, index) => {
+        const [questionContent, explanation] = question.split(/Lời giải\s*/);
+
+        // Modified regex to match options with or without space after the parenthesis
+        const parts = questionContent.split(/(?<=\s|^)([a-d]\))(\s*)/);
+        const content = parts[0];
+        const choices = [];
+
+        for (let i = 1; i < parts.length; i += 3) {
+          if (i + 2 < parts.length) {
+            let choice = parts[i + 2].trim();
+            if (choice.startsWith("#")) {
+              choice = "\\True " + choice.substring(1);
+            }
+            choices.push(choice);
+          }
+        }
+
+        const normalizedChoices = choices.map((choice) =>
+          replacePercentage(
+            wrapNumbersInDollars(
+              choice
+                .replace(/\.$/, "")
+                .replace(/\s+/g, " ")
+                .replace(/\\frac/g, "\\dfrac")
+                .replace(/\\\[/g, "$")
+                .replace(/\\\]/g, "$")
+            )
+          ).trim()
+        );
+
+        const normalizedContent = replacePercentage(
+          wrapNumbersInDollars(
+            content
+              .trim()
+              .replace(/\s+/g, " ")
+              .replace(/\\frac/g, "\\dfrac")
+              .replace(/\\\[/g, "$")
+              .replace(/\\\]/g, "$")
+          )
+        );
+
+        const normalizedExplanation = explanation
+          ? replacePercentage(
+              wrapNumbersInDollars(
+                explanation
+                  .trim()
+                  .replace(/\s+/g, " ")
+                  .replace(/\\frac/g, "\\dfrac")
+                  .replace(/\\\[/g, "$")
+                  .replace(/\\\]/g, "$")
+              )
+            )
+          : "";
+
+        return `\\begin{ex} %Câu ${
+          index + 1
+        }\n${normalizedContent}\n\\choiceTF[1t]\n{${normalizedChoices.join(
+          "}\n{"
+        )}}\n${
+          normalizedExplanation ? `\\loigiai{\n${normalizedExplanation}\n}` : ""
+        }\n\\end{ex} \n%======================%`;
+      });
+
+    setInputText(normalizedQuestions.join("\n\n"));
+    toast.success("Chuẩn hóa đúng sai thành công !");
+  }, [inputText]);
+  const formatTraLoiNgan = useCallback(() => {
+    // Helper function to wrap numbers in $...$ and handle decimal numbers
+    const wrapNumbersInDollars = (text) => {
+      return text.replace(
+        /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
+        (match, p1, p2) => {
+          if (p1) {
+            return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
+          }
+          if (p2.includes(",")) {
+            return "$" + p2.replace(",", "{,}") + "$";
+          }
+          return `$${p2}$`;
+        }
+      );
+    };
+
+    // Helper function to replace % with \\% in text, excluding specific cases
+    const replacePercentage = (text) => {
+      return text.replace(/%(?!Câu|\s*======================)/g, "\\%");
+    };
+
+    const questionBlocks = inputText.split(/Câu\s*(?:\d+[:.]|\.)?\s*/);
+    const normalizedQuestions = questionBlocks
+      .filter((q) => q.trim())
+      .map((question, index) => {
+        const [questionContent, explanation] = question.split(/Lời giải\s*/);
+
+        const answerMatch = questionContent.match(
+          /#\s*((?:\$[^$]+\$|\S+))\s*$/
+        );
+        let answer = "";
+        let cleanedQuestionContent = questionContent;
+
+        if (answerMatch) {
+          answer = answerMatch[1].trim();
+          cleanedQuestionContent = questionContent.replace(/#.*$/, "").trim();
+        }
+
+        const normalizedContent = replacePercentage(
+          wrapNumbersInDollars(
+            cleanedQuestionContent
+              .replace(/\s+/g, " ")
+              .replace(/\\frac/g, "\\dfrac")
+              .replace(/\\\[/g, "$")
+              .replace(/\\\]/g, "$")
+          )
+        );
+
+        const normalizedAnswer =
+          answer.startsWith("$") && answer.endsWith("$")
+            ? answer
+            : replacePercentage(wrapNumbersInDollars(answer));
+
+        const normalizedExplanation = explanation
+          ? replacePercentage(
+              wrapNumbersInDollars(
+                explanation
+                  .trim()
+                  .replace(/\s+/g, " ")
+                  .replace(/\\frac/g, "\\dfrac")
+                  .replace(/\\\[/g, "$")
+                  .replace(/\\\]/g, "$")
+              )
+            )
+          : "";
+
+        // Format the question with proper indentation
+        let formattedQuestion = `\\begin{ex} %Câu ${index + 1}
+     ${normalizedContent}
+  
+     \\shortans[]{${normalizedAnswer}}
+  ${
+    normalizedExplanation
+      ? `
+     \\loigiai{
+        ${normalizedExplanation.split("\n").join("\n      ")}
+     }`
+      : ""
+  }
+  \\end{ex}`;
+
+        // Remove "#Answer" at the end of the question content
+        formattedQuestion = formattedQuestion.replace(
+          /#\s*(?:\$[^$]+\$|\S+)\s*(?=\n\s*\\shortans)/,
+          ""
+        );
+
+        // Add two newline characters to the end of formattedQuestion
+        formattedQuestion += "\n\n";
+
+        return formattedQuestion;
+      });
+
+    setInputText(normalizedQuestions.join("\n%=======================%\n"));
+    toast.success("Chuẩn hóa trả lời ngắn thành công !");
+  }, [inputText]);
   return (
     <div className="bg-[#F3F3F3] rounded-lg">
       <div className="grid grid-cols-[200px,1fr,1fr] divide-x divide-solid divide-gray rounded-lg">
         {/* Column 1 */}
         <div className="bg-white rounded-lg overflow-hidden flex flex-col">
-          <div className="h-[200px] overflow-y-auto p-4">
-            <Settings handleFileUpload={handleFileUpload} />
-            <div>Tổng số câu hỏi: {questions.length}</div>
-            <div>Loại 1: {questionType1.length}</div>
-            <div>Loại 2: {questionType2.length}</div>
-            <div>Loại 3: {questionType3.length}</div>
+          <div className="h-[500px] overflow-y-auto p-4">
+            <div className="flex flex-col space-y-4">
+              <button
+                type="button"
+                onClick={formatTracNghiem}
+                className="flex items-center justify-center w-full text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-4 py-2.5 transition-all duration-300"
+              >
+                <span>Trắc nghiệm</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={formatDungSai}
+                className="flex items-center justify-center w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-4 py-2.5 transition-all duration-300"
+              >
+                <span>Đúng sai</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={formatTraLoiNgan}
+                className="flex items-center justify-center w-full text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-4 py-2.5 transition-all duration-300"
+              >
+                <span>Trả lời ngắn</span>
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Column 2 */}
         <div className="bg-white flex flex-col">
-          <div className="h-[20px]">Menu 1</div>
+          {/* <div className="h-[20px]">Menu 1</div> */}
           <div className="overflow-y-auto h-[1000px]">
             <Editor
               handleInputChange={handleInputChange}
@@ -279,18 +468,12 @@ export default function Home() {
 
         {/* Column 3 */}
         <div className="bg-white flex flex-col">
-          <div className="h-[20px]">Menu 2</div>
+          {/* <div className="h-[20px]">Menu 2</div> */}
           <div className="h-[1000px] p-6 flex flex-col overflow-hidden">
             <div className="overflow-y-auto flex-grow">
               <div className="space-y-6 pr-2" style={{ marginBottom: "200px" }}>
                 {/* Type 1 Questions */}
                 <div>
-                  <button
-                    onClick={handleShuffleAndDownload}
-                    className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  >
-                    Trộn và Tải xuống
-                  </button>
                   <h2 className="text-xl font-bold mb-2">Câu hỏi Loại 1</h2>
                   {questionType1.map((q, index) => (
                     <div
@@ -352,6 +535,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

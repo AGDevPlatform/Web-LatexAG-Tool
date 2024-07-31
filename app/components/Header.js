@@ -68,7 +68,7 @@ export default function Header() {
             Latex AG
           </button>
 
-          <button
+          {/* <button
             className="hover:underline block text-sm font-medium truncate"
             style={{ margin: "0 10px", fontSize: "16px" }}
           >
@@ -117,9 +117,9 @@ export default function Header() {
               </span>
               <span>your visits</span>
             </div>
-          </div>
+          </div> */}
         </div>
-        <div
+        {/* <div
           className="absolute top-0 right-0 hidden md:flex items-center "
           style={{ marginTop: "2.5px", marginRight: "5px", padding: "2px" }}
         >
@@ -129,7 +129,7 @@ export default function Header() {
           >
             ✨ 13/7/2024 - Cập nhật giao diện nút bấm.
           </span>
-        </div>
+        </div> */}
       </div>
     </div>
   );

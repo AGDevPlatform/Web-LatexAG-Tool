@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-
+import React, { useRef, useState } from "react";
+import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 export default function Settings({ handleFileUpload }) {
   const fileInputRef = useRef(null);
 
@@ -28,9 +28,8 @@ export default function Settings({ handleFileUpload }) {
         onClick={() => fileInputRef.current.click()}
         className="upload-button"
       >
-        Upload .tex File
+        Upload
       </button>
-      {/* Thêm các cài đặt khác ở đây nếu cần */}
     </div>
   );
 }
