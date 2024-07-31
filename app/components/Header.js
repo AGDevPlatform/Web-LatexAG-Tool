@@ -23,7 +23,6 @@ export default function Header() {
   useEffect(() => {
     const hasVisited = localStorage.getItem("hasVisited");
     if (!hasVisited) {
-      setOpen2(true);
       localStorage.setItem("hasVisited", "true");
     }
   }, []);
