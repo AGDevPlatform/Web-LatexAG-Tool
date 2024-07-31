@@ -82,7 +82,7 @@ export default function Header() {
             Snippet
           </button>
           <button
-            class="hover:underline block text-sm font-medium truncate"
+            className="hover:underline block text-sm font-medium truncate"
             style={{ margin: "0 10px", fontSize: "16px" }}
           >
             <a
