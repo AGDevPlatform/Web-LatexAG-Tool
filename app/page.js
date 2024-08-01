@@ -444,10 +444,10 @@ export default function Home() {
   };
   return (
     <div className="bg-[#F3F3F3] rounded-lg">
-      <div className="grid grid-cols-[200px,1.5fr,1fr] divide-x divide-solid divide-gray rounded-lg">
+      <div className="grid grid-cols-[250px,1.5fr,1fr] divide-x divide-solid divide-gray rounded-lg">
         {/* Column 1 */}
         <div className="bg-white rounded-lg overflow-hidden flex flex-col">
-          <div className="h-[500px] overflow-y-auto p-4">
+          <div className="h-[1500px] overflow-y-auto p-4">
             <div className="flex justify-between mb-4 w-full">
               <button
                 type="button"
@@ -471,14 +471,23 @@ export default function Home() {
               </button>
             </div>
 
-            <div className="flex flex-col space-y-4">
+            <div
+              className="flex flex-col space-y-2"
+              style={{
+                borderWidth: "1px",
+                padding: "10px",
+                borderRadius: "10px",
+                borderColor: "#21A8DD",
+              }}
+            >
               <button
                 type="button"
                 onClick={formatTracNghiem}
-                className="flex items-center justify-center w-full text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-4 py-2.5 transition-all duration-300"
+                className="flex items-center justify-center w-full text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-2 py-2.5 transition-all duration-300"
               >
                 <span>
-                  <FontAwesomeIcon icon={faCheck} size="xl" /> Trắc nghiệm
+                  <FontAwesomeIcon icon={faCheck} size="xl" /> Câu hỏi 4 phương
+                  án
                 </span>
               </button>
 
@@ -488,7 +497,8 @@ export default function Home() {
                 className="flex items-center justify-center w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-4 py-2.5 transition-all duration-300"
               >
                 <span>
-                  <FontAwesomeIcon icon={faQuestion} size="xl" /> Đúng sai
+                  <FontAwesomeIcon icon={faQuestion} size="xl" /> Câu hỏi
+                  đúng/sai
                 </span>
               </button>
 
@@ -498,9 +508,41 @@ export default function Home() {
                 className="flex items-center justify-center w-full text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-4 py-2.5 transition-all duration-300"
               >
                 <span>
-                  <FontAwesomeIcon icon={faPen} size="xl" /> Trả lời ngắn
+                  <FontAwesomeIcon icon={faPen} size="xl" /> Câu hỏi trả lời
+                  ngắn
                 </span>
               </button>
+            </div>
+            <div className="mt-4 p-2 bg-white rounded-lg  border border-blue-300">
+              {/* <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                Thống kê câu hỏi
+              </h3> */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between bg-blue-50 p-3 rounded-md">
+                  <span className="text-blue-700 font-normal">
+                    Câu hỏi 4 PA:
+                  </span>
+                  <span className="text-2xl font-bold text-blue-600">
+                    {questionType1.length}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between bg-green-50 p-3 rounded-md">
+                  <span className="text-green-700 font-normal">
+                    Câu hỏi đúng sai:
+                  </span>
+                  <span className="text-2xl font-bold text-green-600">
+                    {questionType2.length}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between bg-yellow-50 p-3 rounded-md">
+                  <span className="text-yellow-700 font-normal">
+                    Câu hỏi trả lời ngắn:
+                  </span>
+                  <span className="text-2xl font-bold text-yellow-600">
+                    {questionType3.length}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
