@@ -224,9 +224,9 @@ export default function Home() {
           index + 1
         }\n${normalizedContent}\n\\choice\n{${normalizedChoices.join(
           "}\n{"
-        )}}\n${
-          normalizedExplanation ? `\\loigiai{\n${normalizedExplanation}\n}` : ""
-        }\n\\end{ex} \n%======================%`;
+        )}}\n\\loigiai{${
+          normalizedExplanation ? `\n${normalizedExplanation}\n` : ""
+        }}\n\\end{ex} \n%======================%`;
       });
 
     setInputText(normalizedQuestions.join("\n\n"));
@@ -316,9 +316,9 @@ export default function Home() {
           index + 1
         }\n${normalizedContent}\n\\choiceTF[1t]\n{${normalizedChoices.join(
           "}\n{"
-        )}}\n${
-          normalizedExplanation ? `\\loigiai{\n${normalizedExplanation}\n}` : ""
-        }\n\\end{ex} \n%======================%`;
+        )}}\n\\loigiai{${
+          normalizedExplanation ? `\n${normalizedExplanation}\n` : ""
+        }}\n\\end{ex} \n%======================%`;
       });
 
     setInputText(normalizedQuestions.join("\n\n"));
@@ -396,14 +396,11 @@ export default function Home() {
      ${normalizedContent}
   
      \\shortans[]{${normalizedAnswer}}
-  ${
-    normalizedExplanation
-      ? `
-     \\loigiai{
-        ${normalizedExplanation.split("\n").join("\n      ")}
-     }`
-      : ""
-  }
+     \\loigiai{${
+       normalizedExplanation
+         ? `\n      ${normalizedExplanation.split("\n").join("\n      ")}\n   `
+         : ""
+     }}
   \\end{ex}`;
 
         // Remove "#Answer" at the end of the question content
