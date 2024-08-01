@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
 export default function Header() {
@@ -55,7 +56,7 @@ export default function Header() {
         }}
       >
         <div style={{ display: "flex", justifyContent: "center", flexGrow: 1 }}>
-          <button
+          <Link
             href="/"
             style={{
               margin: "0 10px",
@@ -66,7 +67,7 @@ export default function Header() {
             className="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-500"
           >
             Latex AG - Tools
-          </button>
+          </Link>
 
           {/* 
           <button

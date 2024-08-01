@@ -240,7 +240,7 @@ export default function Home() {
       });
 
     setInputText(normalizedQuestions.join("\n\n"));
-    toast.success("Chuẩn hóa trắc nghiệm thành công !");
+    // toast.success("Chuẩn hóa trắc nghiệm thành công !");
   }, [inputText]);
   const formatDungSai = useCallback(() => {
     // Helper function to wrap numbers in $...$ and handle decimal numbers
@@ -332,7 +332,7 @@ export default function Home() {
       });
 
     setInputText(normalizedQuestions.join("\n\n"));
-    toast.success("Chuẩn hóa đúng sai thành công !");
+    // toast.success("Chuẩn hóa đúng sai thành công !");
   }, [inputText]);
   const formatTraLoiNgan = useCallback(() => {
     // Helper function to wrap numbers in $...$ and handle decimal numbers
@@ -426,7 +426,7 @@ export default function Home() {
       });
 
     setInputText(normalizedQuestions.join("\n%=======================%\n"));
-    toast.success("Chuẩn hóa trả lời ngắn thành công !");
+    // toast.success("Chuẩn hóa trả lời ngắn thành công !");
   }, [inputText]);
   const copyTextToClipboard = async (text) => {
     if ("clipboard" in navigator) {
@@ -438,7 +438,7 @@ export default function Home() {
   const handleCopy = () => {
     copyTextToClipboard(inputText)
       .then(() => {
-        toast.success("All content has been copied successfully !");
+        toast.success("Đã copy tất cả nội dung !");
       })
       .catch((err) => {
         toast.error("Failed to copy text: ", err);

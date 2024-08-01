@@ -1,15 +1,28 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faYoutube } from "@fortawesome/free-solid-svg-icons";
 export default function HuongDan() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex justify-center items-start">
       <div className="bg-white rounded-lg shadow-xl overflow-hidden w-full max-w-3xl">
         <div className="h-[100vh] overflow-y-auto">
           <div className="px-6 py-8">
-            <h1 className="text-3xl font-bold text-center text-gray-900 mb-8">
+            <h1 className="text-3xl font-bold text-center text-gray-900 mb-3">
               Hướng dẫn sử dụng
             </h1>
+            <div className="flex justify-center items-center mb-3">
+              <Link
+                href="https://www.youtube.com/watch?v=pC9yvFWojlw"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="inline-block px-6 py-3 text-center bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 transition duration-300 text-center">
+                  <FontAwesomeIcon icon={faYoutube} /> Video Hướng Dẫn
+                </div>
+              </Link>
+            </div>
 
             <div className="space-y-6">
               <div className="bg-gray-100 p-4 rounded-lg">
@@ -146,7 +159,7 @@ export default function HuongDan() {
               </div>
               <div className="bg-gray-50 px-6 py-4">
                 <p className="text-center text-gray-500 text-sm">
-                  © 2024 Công ty của bạn. Tất cả các quyền được bảo lưu.
+                  © 2024 Latex AG. All right reserved.
                 </p>
               </div>
             </div>
