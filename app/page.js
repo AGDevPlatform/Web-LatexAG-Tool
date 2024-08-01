@@ -11,7 +11,9 @@ import {
   faPen,
   faEraser,
   faCopy,
+  faBook,
 } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 export default function Home() {
   const [inputText, setInputText] = useState("");
   const [questions, setQuestions] = useState([]);
@@ -522,7 +524,7 @@ export default function Home() {
                   <span className="text-blue-700 font-normal">
                     Câu hỏi 4 PA:
                   </span>
-                  <span className="text-2xl font-bold text-blue-600">
+                  <span className="text-xl font-bold text-blue-600">
                     {questionType1.length}
                   </span>
                 </div>
@@ -530,7 +532,7 @@ export default function Home() {
                   <span className="text-green-700 font-normal">
                     Câu hỏi đúng sai:
                   </span>
-                  <span className="text-2xl font-bold text-green-600">
+                  <span className="text-xl font-bold text-green-600">
                     {questionType2.length}
                   </span>
                 </div>
@@ -538,11 +540,22 @@ export default function Home() {
                   <span className="text-yellow-700 font-normal">
                     Câu hỏi trả lời ngắn:
                   </span>
-                  <span className="text-2xl font-bold text-yellow-600">
+                  <span className="text-xl font-bold text-yellow-600">
                     {questionType3.length}
                   </span>
                 </div>
               </div>
+            </div>
+            <div className="flex flex-col space-y-2 mt-3">
+              <Link
+                href="./huongdan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center bg-[#29A4FF] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#2089d8] transition-colors duration-300"
+              >
+                <FontAwesomeIcon icon={faBook} size="lg" className="mr-2" />
+                Hướng dẫn
+              </Link>
             </div>
           </div>
         </div>
@@ -575,10 +588,22 @@ export default function Home() {
                         <span className="font-semibold">Câu {index + 1}: </span>
                         {q.content.replace(/%Câu \d+/g, "")}
                       </p>
-                      <p>A. {q.ans1}</p>
-                      <p>B. {q.ans2}</p>
-                      <p>C. {q.ans3}</p>
-                      <p>D. {q.ans4}</p>
+                      <p>
+                        {" "}
+                        <strong>A.</strong> {q.ans1}
+                      </p>
+                      <p>
+                        {" "}
+                        <strong>B.</strong> {q.ans2}
+                      </p>
+                      <p>
+                        {" "}
+                        <strong>C.</strong> {q.ans3}
+                      </p>
+                      <p>
+                        {" "}
+                        <strong>D.</strong> {q.ans4}
+                      </p>
                       <p
                         className={`font-semibold ${
                           q.key ? "text-green-600" : "text-red-600"
