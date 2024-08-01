@@ -65,16 +65,21 @@ export default function Header() {
             }}
             className="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-500"
           >
-            Latex AG
+            Latex AG - Tools
           </button>
-
-          {/* <button
+          <button
             className="hover:underline block text-sm font-medium truncate"
             style={{ margin: "0 10px", fontSize: "16px" }}
           >
-            <a href="/"> Home</a>
+            <a href="/"> Chuẩn hóa</a>
           </button>
-
+          <button
+            className="hover:underline block text-sm font-medium truncate"
+            style={{ margin: "0 10px", fontSize: "16px" }}
+          >
+            <a href="/about"> Giới thiệu</a>
+          </button>
+          {/* 
           <button
             className="hover:underline block text-sm font-medium truncate"
             style={{ margin: "0 10px", fontSize: "16px" }}
