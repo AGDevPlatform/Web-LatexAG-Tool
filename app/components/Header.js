@@ -67,18 +67,7 @@ export default function Header() {
           >
             Latex AG - Tools
           </button>
-          <button
-            className="hover:underline block text-sm font-medium truncate"
-            style={{ margin: "0 10px", fontSize: "16px" }}
-          >
-            <a href="/"> Chuẩn hóa</a>
-          </button>
-          <button
-            className="hover:underline block text-sm font-medium truncate"
-            style={{ margin: "0 10px", fontSize: "16px" }}
-          >
-            <a href="/about"> Giới thiệu</a>
-          </button>
+
           {/* 
           <button
             className="hover:underline block text-sm font-medium truncate"

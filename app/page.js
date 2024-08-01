@@ -4,6 +4,14 @@ import Editor from "./components/Editor";
 import Settings from "./components/Setting";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheck,
+  faQuestion,
+  faPen,
+  faEraser,
+  faCopy,
+} from "@fortawesome/free-solid-svg-icons";
 export default function Home() {
   const [inputText, setInputText] = useState("");
   const [questions, setQuestions] = useState([]);
@@ -436,7 +444,7 @@ export default function Home() {
   };
   return (
     <div className="bg-[#F3F3F3] rounded-lg">
-      <div className="grid grid-cols-[200px,1fr,1fr] divide-x divide-solid divide-gray rounded-lg">
+      <div className="grid grid-cols-[200px,1.5fr,1fr] divide-x divide-solid divide-gray rounded-lg">
         {/* Column 1 */}
         <div className="bg-white rounded-lg overflow-hidden flex flex-col">
           <div className="h-[500px] overflow-y-auto p-4">
@@ -448,14 +456,18 @@ export default function Home() {
                 }}
                 className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 transition-all duration-300 w-[48%]"
               >
-                <span>Delete</span>
+                <span>
+                  <FontAwesomeIcon icon={faEraser} size="xl" /> Delete
+                </span>
               </button>
               <button
                 type="button"
                 onClick={handleCopy}
                 className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 transition-all duration-300 w-[48%]"
               >
-                <span>Copy</span>
+                <span>
+                  <FontAwesomeIcon icon={faCopy} size="xl" /> Copy
+                </span>
               </button>
             </div>
 
@@ -465,7 +477,9 @@ export default function Home() {
                 onClick={formatTracNghiem}
                 className="flex items-center justify-center w-full text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-4 py-2.5 transition-all duration-300"
               >
-                <span>Trắc nghiệm</span>
+                <span>
+                  <FontAwesomeIcon icon={faCheck} size="xl" /> Trắc nghiệm
+                </span>
               </button>
 
               <button
@@ -473,7 +487,9 @@ export default function Home() {
                 onClick={formatDungSai}
                 className="flex items-center justify-center w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-4 py-2.5 transition-all duration-300"
               >
-                <span>Đúng sai</span>
+                <span>
+                  <FontAwesomeIcon icon={faQuestion} size="xl" /> Đúng sai
+                </span>
               </button>
 
               <button
@@ -481,7 +497,9 @@ export default function Home() {
                 onClick={formatTraLoiNgan}
                 className="flex items-center justify-center w-full text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-4 py-2.5 transition-all duration-300"
               >
-                <span>Trả lời ngắn</span>
+                <span>
+                  <FontAwesomeIcon icon={faPen} size="xl" /> Trả lời ngắn
+                </span>
               </button>
             </div>
           </div>
@@ -503,43 +521,64 @@ export default function Home() {
           {/* <div className="h-[20px]">Menu 2</div> */}
           <div className="h-[1000px] p-6 flex flex-col overflow-hidden">
             <div className="overflow-y-auto flex-grow">
-              <div className="space-y-6 pr-2" style={{ marginBottom: "200px" }}>
+              <div className="space-y-6 pr-2" style={{ marginBottom: "400px" }}>
                 {/* Type 1 Questions */}
                 <div>
-                  <h2 className="text-xl font-bold mb-2">Câu hỏi Loại 1</h2>
                   {questionType1.map((q, index) => (
                     <div
                       key={index}
-                      className="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-4"
+                      className="bg-blue-50 p-2 rounded-lg border border-blue-200 mb-2"
                     >
-                      <p className="font-semibold">Nội dung: {q.content}</p>
-                      <p>Đáp án A: {q.ans1}</p>
-                      <p>Đáp án B: {q.ans2}</p>
-                      <p>Đáp án C: {q.ans3}</p>
-                      <p>Đáp án D: {q.ans4}</p>
-                      <p className="font-semibold text-green-600">
-                        Đáp án đúng: {q.key}
+                      <p>
+                        <span className="font-semibold">Câu {index + 1}: </span>
+                        {q.content.replace(/%Câu \d+/g, "")}
+                      </p>
+                      <p>A. {q.ans1}</p>
+                      <p>B. {q.ans2}</p>
+                      <p>C. {q.ans3}</p>
+                      <p>D. {q.ans4}</p>
+                      <p
+                        className={`font-semibold ${
+                          q.key ? "text-green-600" : "text-red-600"
+                        }`}
+                      >
+                        {q.key ? `Đáp án đúng: ${q.key}` : "Không có đáp án"}
                       </p>
                       {q.sol && <p>Lời giải: {q.sol}</p>}
                     </div>
                   ))}
                 </div>
-
                 {/* Type 2 Questions */}
                 <div>
-                  <h2 className="text-xl font-bold mb-2">Câu hỏi Loại 2</h2>
                   {questionType2.map((q, index) => (
                     <div
                       key={index}
-                      className="bg-green-50 p-4 rounded-lg border border-green-200 mb-4"
+                      className="bg-green-50 p-2 rounded-lg border border-green-200 mb-2"
                     >
-                      <p className="font-semibold">Nội dung: {q.content}</p>
-                      <p>Mệnh đề 1: {q.ans1}</p>
-                      <p>Mệnh đề 2: {q.ans2}</p>
-                      <p>Mệnh đề 3: {q.ans3}</p>
-                      <p>Mệnh đề 4: {q.ans4}</p>
-                      <p className="font-semibold text-green-600">
-                        Đáp án đúng: {q.key}
+                      <p>
+                        <span className="font-semibold">Câu {index + 1}: </span>
+                        {q.content.replace(/%Câu \d+/g, "")}
+                      </p>
+                      <div>
+                        <p>
+                          <strong>a)</strong> {q.ans1}
+                        </p>
+                        <p>
+                          <strong>b)</strong> {q.ans2}
+                        </p>
+                        <p>
+                          <strong>c)</strong> {q.ans3}
+                        </p>
+                        <p>
+                          <strong>d)</strong> {q.ans4}
+                        </p>
+                      </div>
+                      <p
+                        className={`font-semibold ${
+                          q.key ? "text-green-600" : "text-red-600"
+                        }`}
+                      >
+                        {q.key ? `Đáp án đúng: ${q.key}` : "Không có đáp án"}
                       </p>
                       {q.sol && <p>Lời giải: {q.sol}</p>}
                     </div>
@@ -548,15 +587,21 @@ export default function Home() {
 
                 {/* Type 3 Questions */}
                 <div>
-                  <h2 className="text-xl font-bold mb-2">Câu hỏi Loại 3</h2>
                   {questionType3.map((q, index) => (
                     <div
                       key={index}
-                      className="bg-yellow-50 p-4 rounded-lg border border-yellow-200 mb-4"
+                      className="bg-yellow-50 p-2 rounded-lg border border-yellow-200 mb-2"
                     >
-                      <p className="font-semibold">Nội dung: {q.content}</p>
-                      <p className="font-semibold text-green-600">
-                        Đáp án: {q.key}
+                      <p>
+                        <span className="font-semibold">Câu {index + 1}: </span>
+                        {q.content.replace(/%Câu \d+/g, "")}
+                      </p>
+                      <p
+                        className={`font-semibold ${
+                          q.key ? "text-green-600" : "text-red-600"
+                        }`}
+                      >
+                        {q.key ? `Đáp án đúng: ${q.key}` : "Không có đáp án"}
                       </p>
                       {q.sol && <p>Lời giải: {q.sol}</p>}
                     </div>
