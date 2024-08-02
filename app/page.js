@@ -170,6 +170,15 @@ export default function Home() {
       return text.replace(/%(?!Câu|\s*======================%)/g, "\\%");
     };
 
+    // Helper function to remove whitespace after specific characters
+    const removeWhitespaceAfterSymbols = (text) => {
+      return text.replace(/(\(|\{|\[)\s+/g, "$1");
+    };
+
+    const removeChoicePrefix = (text) => {
+      return text.replace(/Chọn (A|B|C|D)\.?/g, "").trim();
+    };
+
     const questionBlocks = inputText.split(/Câu\s*(?:\d+[:.]|\.)?\s*/);
     const normalizedQuestions = questionBlocks
       .filter((q) => q.trim())
@@ -188,12 +197,12 @@ export default function Home() {
             if (choice.startsWith("#")) {
               choice = "\\True " + choice.substring(1);
             }
-            choices.push(choice);
+            choices.push(removeChoicePrefix(choice));
           }
         }
 
-        const normalizedChoices = choices.map(
-          (choice) =>
+        const normalizedChoices = choices.map((choice) =>
+          removeWhitespaceAfterSymbols(
             replacePercentage(
               wrapNumbersInDollars(
                 choice
@@ -204,28 +213,35 @@ export default function Home() {
                   .replace(/\\\]/g, "$")
               )
             ).trim() // Remove trailing whitespace
+          )
         );
 
-        const normalizedContent = replacePercentage(
-          wrapNumbersInDollars(
-            content
-              .trim()
-              .replace(/\s+/g, " ")
-              .replace(/\\frac/g, "\\dfrac")
-              .replace(/\\\[/g, "$")
-              .replace(/\\\]/g, "$")
+        const normalizedContent = removeWhitespaceAfterSymbols(
+          replacePercentage(
+            wrapNumbersInDollars(
+              content
+                .trim()
+                .replace(/\s+/g, " ")
+                .replace(/\\frac/g, "\\dfrac")
+                .replace(/\\\[/g, "$")
+                .replace(/\\\]/g, "$")
+            )
           )
         );
 
         const normalizedExplanation = explanation
-          ? replacePercentage(
-              wrapNumbersInDollars(
-                explanation
-                  .trim()
-                  .replace(/\s+/g, " ")
-                  .replace(/\\frac/g, "\\dfrac")
-                  .replace(/\\\[/g, "$")
-                  .replace(/\\\]/g, "$")
+          ? removeChoicePrefix(
+              removeWhitespaceAfterSymbols(
+                replacePercentage(
+                  wrapNumbersInDollars(
+                    explanation
+                      .trim()
+                      .replace(/\s+/g, " ")
+                      .replace(/\\frac/g, "\\dfrac")
+                      .replace(/\\\[/g, "$")
+                      .replace(/\\\]/g, "$")
+                  )
+                )
               )
             )
           : "";
@@ -242,6 +258,114 @@ export default function Home() {
     setInputText(normalizedQuestions.join("\n\n"));
     // toast.success("Chuẩn hóa trắc nghiệm thành công !");
   }, [inputText]);
+
+  // const formatTracNghiem = useCallback(() => {
+  //   // Helper function to wrap numbers in $...$ and handle decimal numbers
+  //   const wrapNumbersInDollars = (text) => {
+  //     return text.replace(
+  //       /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
+  //       (match, p1, p2) => {
+  //         if (p1) {
+  //           // Handle numbers already in $...$
+  //           return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
+  //         }
+  //         if (p2.includes(",")) {
+  //           // Handle decimal numbers with comma
+  //           return "$" + p2.replace(",", "{,}") + "$";
+  //         }
+  //         return `$${p2}$`; // If it's a number not wrapped, wrap it
+  //       }
+  //     );
+  //   };
+
+  //   // Helper function to replace % with \\% in text, excluding specific cases
+  //   const replacePercentage = (text) => {
+  //     return text.replace(/%(?!Câu|\s*======================%)/g, "\\%");
+  //   };
+
+  //   // Helper function to remove whitespace after specific characters
+  //   const removeWhitespaceAfterSymbols = (text) => {
+  //     return text.replace(/(\(|\{|\[)\s+/g, "$1");
+  //   };
+
+  //   const questionBlocks = inputText.split(/Câu\s*(?:\d+[:.]|\.)?\s*/);
+  //   const normalizedQuestions = questionBlocks
+  //     .filter((q) => q.trim())
+  //     .map((question, index) => {
+  //       // Separate the explanation from the question content
+  //       const [questionContent, explanation] = question.split(/Lời giải\s*/);
+
+  //       const parts = questionContent.split(/(?<=\s|^)(A\.|B\.|C\.|D\.)\s*/);
+  //       const content = parts[0];
+  //       const choices = [];
+
+  //       for (let i = 1; i < parts.length; i += 2) {
+  //         if (i + 1 < parts.length) {
+  //           let choice = parts[i + 1].trim();
+  //           // Check if the option starts with "#"
+  //           if (choice.startsWith("#")) {
+  //             choice = "\\True " + choice.substring(1);
+  //           }
+  //           choices.push(choice);
+  //         }
+  //       }
+
+  //       const normalizedChoices = choices.map((choice) =>
+  //         removeWhitespaceAfterSymbols(
+  //           replacePercentage(
+  //             wrapNumbersInDollars(
+  //               choice
+  //                 .replace(/\.$/, "")
+  //                 .replace(/\s+/g, " ")
+  //                 .replace(/\\frac/g, "\\dfrac")
+  //                 .replace(/\\\[/g, "$")
+  //                 .replace(/\\\]/g, "$")
+  //             )
+  //           ).trim() // Remove trailing whitespace
+  //         )
+  //       );
+
+  //       const normalizedContent = removeWhitespaceAfterSymbols(
+  //         replacePercentage(
+  //           wrapNumbersInDollars(
+  //             content
+  //               .trim()
+  //               .replace(/\s+/g, " ")
+  //               .replace(/\\frac/g, "\\dfrac")
+  //               .replace(/\\\[/g, "$")
+  //               .replace(/\\\]/g, "$")
+  //           )
+  //         )
+  //       );
+
+  //       const normalizedExplanation = explanation
+  //         ? removeWhitespaceAfterSymbols(
+  //             replacePercentage(
+  //               wrapNumbersInDollars(
+  //                 explanation
+  //                   .trim()
+  //                   .replace(/\s+/g, " ")
+  //                   .replace(/\\frac/g, "\\dfrac")
+  //                   .replace(/\\\[/g, "$")
+  //                   .replace(/\\\]/g, "$")
+  //               )
+  //             )
+  //           )
+  //         : "";
+
+  //       return `\\begin{ex} %Câu ${
+  //         index + 1
+  //       }\n${normalizedContent}\n\\choice\n{${normalizedChoices.join(
+  //         "}\n{"
+  //       )}}\n\\loigiai{${
+  //         normalizedExplanation ? `\n${normalizedExplanation}\n` : ""
+  //       }}\n\\end{ex} \n%======================%`;
+  //     });
+
+  //   setInputText(normalizedQuestions.join("\n\n"));
+  //   // toast.success("Chuẩn hóa trắc nghiệm thành công !");
+  // }, [inputText]);
+
   const formatDungSai = useCallback(() => {
     // Helper function to wrap numbers in $...$ and handle decimal numbers
     const wrapNumbersInDollars = (text) => {
@@ -262,6 +386,11 @@ export default function Home() {
     // Helper function to replace % with \\% in text, excluding specific cases
     const replacePercentage = (text) => {
       return text.replace(/%(?!Câu|\s*======================%)/g, "\\%");
+    };
+
+    // Helper function to remove whitespace after specific characters
+    const removeWhitespaceAfterSymbols = (text) => {
+      return text.replace(/(\(|\{|\[)\s+/g, "$1");
     };
 
     const questionBlocks = inputText.split(/Câu\s*(?:\d+[:.]|\.)?\s*/);
@@ -286,38 +415,44 @@ export default function Home() {
         }
 
         const normalizedChoices = choices.map((choice) =>
+          removeWhitespaceAfterSymbols(
+            replacePercentage(
+              wrapNumbersInDollars(
+                choice
+                  .replace(/\.$/, "")
+                  .replace(/\s+/g, " ")
+                  .replace(/\\frac/g, "\\dfrac")
+                  .replace(/\\\[/g, "$")
+                  .replace(/\\\]/g, "$")
+              )
+            ).trim()
+          )
+        );
+
+        const normalizedContent = removeWhitespaceAfterSymbols(
           replacePercentage(
             wrapNumbersInDollars(
-              choice
-                .replace(/\.$/, "")
+              content
+                .trim()
                 .replace(/\s+/g, " ")
                 .replace(/\\frac/g, "\\dfrac")
                 .replace(/\\\[/g, "$")
                 .replace(/\\\]/g, "$")
             )
-          ).trim()
-        );
-
-        const normalizedContent = replacePercentage(
-          wrapNumbersInDollars(
-            content
-              .trim()
-              .replace(/\s+/g, " ")
-              .replace(/\\frac/g, "\\dfrac")
-              .replace(/\\\[/g, "$")
-              .replace(/\\\]/g, "$")
           )
         );
 
         const normalizedExplanation = explanation
-          ? replacePercentage(
-              wrapNumbersInDollars(
-                explanation
-                  .trim()
-                  .replace(/\s+/g, " ")
-                  .replace(/\\frac/g, "\\dfrac")
-                  .replace(/\\\[/g, "$")
-                  .replace(/\\\]/g, "$")
+          ? removeWhitespaceAfterSymbols(
+              replacePercentage(
+                wrapNumbersInDollars(
+                  explanation
+                    .trim()
+                    .replace(/\s+/g, " ")
+                    .replace(/\\frac/g, "\\dfrac")
+                    .replace(/\\\[/g, "$")
+                    .replace(/\\\]/g, "$")
+                )
               )
             )
           : "";
@@ -334,6 +469,7 @@ export default function Home() {
     setInputText(normalizedQuestions.join("\n\n"));
     // toast.success("Chuẩn hóa đúng sai thành công !");
   }, [inputText]);
+
   const formatTraLoiNgan = useCallback(() => {
     // Helper function to wrap numbers in $...$ and handle decimal numbers
     const wrapNumbersInDollars = (text) => {
@@ -356,6 +492,11 @@ export default function Home() {
       return text.replace(/%(?!Câu|\s*======================)/g, "\\%");
     };
 
+    // Helper function to remove whitespace after specific characters
+    const removeWhitespaceAfterSymbols = (text) => {
+      return text.replace(/(\(|\{|\[)\s+/g, "$1");
+    };
+
     const questionBlocks = inputText.split(/Câu\s*(?:\d+[:.]|\.)?\s*/);
     const normalizedQuestions = questionBlocks
       .filter((q) => q.trim())
@@ -373,44 +514,50 @@ export default function Home() {
           cleanedQuestionContent = questionContent.replace(/#.*$/, "").trim();
         }
 
-        const normalizedContent = replacePercentage(
-          wrapNumbersInDollars(
-            cleanedQuestionContent
-              .replace(/\s+/g, " ")
-              .replace(/\\frac/g, "\\dfrac")
-              .replace(/\\\[/g, "$")
-              .replace(/\\\]/g, "$")
+        const normalizedContent = removeWhitespaceAfterSymbols(
+          replacePercentage(
+            wrapNumbersInDollars(
+              cleanedQuestionContent
+                .replace(/\s+/g, " ")
+                .replace(/\\frac/g, "\\dfrac")
+                .replace(/\\\[/g, "$")
+                .replace(/\\\]/g, "$")
+            )
           )
         );
 
         const normalizedAnswer =
           answer.startsWith("$") && answer.endsWith("$")
             ? answer
-            : replacePercentage(wrapNumbersInDollars(answer));
+            : removeWhitespaceAfterSymbols(
+                replacePercentage(wrapNumbersInDollars(answer))
+              );
 
         const normalizedExplanation = explanation
-          ? replacePercentage(
-              wrapNumbersInDollars(
-                explanation
-                  .trim()
-                  .replace(/\s+/g, " ")
-                  .replace(/\\frac/g, "\\dfrac")
-                  .replace(/\\\[/g, "$")
-                  .replace(/\\\]/g, "$")
+          ? removeWhitespaceAfterSymbols(
+              replacePercentage(
+                wrapNumbersInDollars(
+                  explanation
+                    .trim()
+                    .replace(/\s+/g, " ")
+                    .replace(/\\frac/g, "\\dfrac")
+                    .replace(/\\\[/g, "$")
+                    .replace(/\\\]/g, "$")
+                )
               )
             )
           : "";
 
         // Format the question with proper indentation
         let formattedQuestion = `\\begin{ex} %Câu ${index + 1}
-     ${normalizedContent}
+   ${normalizedContent}
   
-     \\shortans[]{${normalizedAnswer}}
-     \\loigiai{${
-       normalizedExplanation
-         ? `\n      ${normalizedExplanation.split("\n").join("\n      ")}\n   `
-         : ""
-     }}
+   \\shortans[]{${normalizedAnswer}}
+   \\loigiai{${
+     normalizedExplanation
+       ? `\n      ${normalizedExplanation.split("\n").join("\n      ")}\n   `
+       : ""
+   }}
   \\end{ex}`;
 
         // Remove "#Answer" at the end of the question content
@@ -428,6 +575,7 @@ export default function Home() {
     setInputText(normalizedQuestions.join("\n%=======================%\n"));
     // toast.success("Chuẩn hóa trả lời ngắn thành công !");
   }, [inputText]);
+
   const copyTextToClipboard = async (text) => {
     if ("clipboard" in navigator) {
       return await navigator.clipboard.writeText(text);
