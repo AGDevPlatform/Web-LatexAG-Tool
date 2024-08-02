@@ -179,6 +179,44 @@ export default function Home() {
       return text.replace(/Chọn (A|B|C|D)\.?/g, "").trim();
     };
 
+    // Updated helper function to normalize punctuation
+    const normalizePunctuation = (text) => {
+      let result = "";
+      let inDollar = false;
+      let i = 0;
+
+      while (i < text.length) {
+        if (text[i] === "$") {
+          inDollar = !inDollar;
+          result += text[i];
+          i++;
+        } else if ((text[i] === "," || text[i] === ".") && !inDollar) {
+          // Remove any spaces before the punctuation
+          while (result.length > 0 && result[result.length - 1] === " ") {
+            result = result.slice(0, -1);
+          }
+
+          // Add the punctuation
+          result += text[i];
+          i++;
+
+          // Add exactly one space after the punctuation if it's not the end of the text
+          if (i < text.length) {
+            result += " ";
+            // Skip any extra spaces
+            while (i < text.length && text[i] === " ") {
+              i++;
+            }
+          }
+        } else {
+          result += text[i];
+          i++;
+        }
+      }
+
+      return result;
+    };
+
     const questionBlocks = inputText.split(/Câu\s*(?:\d+[:.]|\.)?\s*/);
     const normalizedQuestions = questionBlocks
       .filter((q) => q.trim())
@@ -201,50 +239,63 @@ export default function Home() {
           }
         }
 
-        const normalizedChoices = choices.map((choice) =>
-          removeWhitespaceAfterSymbols(
-            replacePercentage(
-              wrapNumbersInDollars(
-                choice
-                  .replace(/\.$/, "")
-                  .replace(/\s+/g, " ")
-                  .replace(/\\frac/g, "\\dfrac")
-                  .replace(/\\\[/g, "$")
-                  .replace(/\\\]/g, "$")
-              )
-            ).trim() // Remove trailing whitespace
-          )
-        );
-
-        const normalizedContent = removeWhitespaceAfterSymbols(
-          replacePercentage(
-            wrapNumbersInDollars(
-              content
-                .trim()
-                .replace(/\s+/g, " ")
-                .replace(/\\frac/g, "\\dfrac")
-                .replace(/\\\[/g, "$")
-                .replace(/\\\]/g, "$")
-            )
-          )
-        );
-
-        const normalizedExplanation = explanation
-          ? removeChoicePrefix(
+        const processChoices = (choices) =>
+          choices.map((choice) =>
+            normalizePunctuation(
               removeWhitespaceAfterSymbols(
                 replacePercentage(
                   wrapNumbersInDollars(
-                    explanation
-                      .trim()
+                    choice
+                      .replace(/\.$/, "")
                       .replace(/\s+/g, " ")
                       .replace(/\\frac/g, "\\dfrac")
                       .replace(/\\\[/g, "$")
                       .replace(/\\\]/g, "$")
                   )
+                ).trim()
+              )
+            )
+          );
+
+        const processContent = (content) =>
+          normalizePunctuation(
+            removeWhitespaceAfterSymbols(
+              replacePercentage(
+                wrapNumbersInDollars(
+                  content
+                    .trim()
+                    .replace(/\s+/g, " ")
+                    .replace(/\\frac/g, "\\dfrac")
+                    .replace(/\\\[/g, "$")
+                    .replace(/\\\]/g, "$")
                 )
               )
             )
-          : "";
+          );
+
+        const processExplanation = (explanation) =>
+          explanation
+            ? normalizePunctuation(
+                removeChoicePrefix(
+                  removeWhitespaceAfterSymbols(
+                    replacePercentage(
+                      wrapNumbersInDollars(
+                        explanation
+                          .trim()
+                          .replace(/\s+/g, " ")
+                          .replace(/\\frac/g, "\\dfrac")
+                          .replace(/\\\[/g, "$")
+                          .replace(/\\\]/g, "$")
+                      )
+                    )
+                  )
+                )
+              )
+            : "";
+
+        const normalizedContent = processContent(content);
+        const normalizedChoices = processChoices(choices);
+        const normalizedExplanation = processExplanation(explanation);
 
         return `\\begin{ex} %Câu ${
           index + 1
@@ -258,113 +309,6 @@ export default function Home() {
     setInputText(normalizedQuestions.join("\n\n"));
     // toast.success("Chuẩn hóa trắc nghiệm thành công !");
   }, [inputText]);
-
-  // const formatTracNghiem = useCallback(() => {
-  //   // Helper function to wrap numbers in $...$ and handle decimal numbers
-  //   const wrapNumbersInDollars = (text) => {
-  //     return text.replace(
-  //       /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
-  //       (match, p1, p2) => {
-  //         if (p1) {
-  //           // Handle numbers already in $...$
-  //           return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
-  //         }
-  //         if (p2.includes(",")) {
-  //           // Handle decimal numbers with comma
-  //           return "$" + p2.replace(",", "{,}") + "$";
-  //         }
-  //         return `$${p2}$`; // If it's a number not wrapped, wrap it
-  //       }
-  //     );
-  //   };
-
-  //   // Helper function to replace % with \\% in text, excluding specific cases
-  //   const replacePercentage = (text) => {
-  //     return text.replace(/%(?!Câu|\s*======================%)/g, "\\%");
-  //   };
-
-  //   // Helper function to remove whitespace after specific characters
-  //   const removeWhitespaceAfterSymbols = (text) => {
-  //     return text.replace(/(\(|\{|\[)\s+/g, "$1");
-  //   };
-
-  //   const questionBlocks = inputText.split(/Câu\s*(?:\d+[:.]|\.)?\s*/);
-  //   const normalizedQuestions = questionBlocks
-  //     .filter((q) => q.trim())
-  //     .map((question, index) => {
-  //       // Separate the explanation from the question content
-  //       const [questionContent, explanation] = question.split(/Lời giải\s*/);
-
-  //       const parts = questionContent.split(/(?<=\s|^)(A\.|B\.|C\.|D\.)\s*/);
-  //       const content = parts[0];
-  //       const choices = [];
-
-  //       for (let i = 1; i < parts.length; i += 2) {
-  //         if (i + 1 < parts.length) {
-  //           let choice = parts[i + 1].trim();
-  //           // Check if the option starts with "#"
-  //           if (choice.startsWith("#")) {
-  //             choice = "\\True " + choice.substring(1);
-  //           }
-  //           choices.push(choice);
-  //         }
-  //       }
-
-  //       const normalizedChoices = choices.map((choice) =>
-  //         removeWhitespaceAfterSymbols(
-  //           replacePercentage(
-  //             wrapNumbersInDollars(
-  //               choice
-  //                 .replace(/\.$/, "")
-  //                 .replace(/\s+/g, " ")
-  //                 .replace(/\\frac/g, "\\dfrac")
-  //                 .replace(/\\\[/g, "$")
-  //                 .replace(/\\\]/g, "$")
-  //             )
-  //           ).trim() // Remove trailing whitespace
-  //         )
-  //       );
-
-  //       const normalizedContent = removeWhitespaceAfterSymbols(
-  //         replacePercentage(
-  //           wrapNumbersInDollars(
-  //             content
-  //               .trim()
-  //               .replace(/\s+/g, " ")
-  //               .replace(/\\frac/g, "\\dfrac")
-  //               .replace(/\\\[/g, "$")
-  //               .replace(/\\\]/g, "$")
-  //           )
-  //         )
-  //       );
-
-  //       const normalizedExplanation = explanation
-  //         ? removeWhitespaceAfterSymbols(
-  //             replacePercentage(
-  //               wrapNumbersInDollars(
-  //                 explanation
-  //                   .trim()
-  //                   .replace(/\s+/g, " ")
-  //                   .replace(/\\frac/g, "\\dfrac")
-  //                   .replace(/\\\[/g, "$")
-  //                   .replace(/\\\]/g, "$")
-  //               )
-  //             )
-  //           )
-  //         : "";
-
-  //       return `\\begin{ex} %Câu ${
-  //         index + 1
-  //       }\n${normalizedContent}\n\\choice\n{${normalizedChoices.join(
-  //         "}\n{"
-  //       )}}\n\\loigiai{${
-  //         normalizedExplanation ? `\n${normalizedExplanation}\n` : ""
-  //       }}\n\\end{ex} \n%======================%`;
-  //     });
-
-  //   setInputText(normalizedQuestions.join("\n\n"));
-  //   // toast.success("Chuẩn hóa trắc nghiệm thành công !");
-  // }, [inputText]);
 
   const formatDungSai = useCallback(() => {
     // Helper function to wrap numbers in $...$ and handle decimal numbers
@@ -392,7 +336,42 @@ export default function Home() {
     const removeWhitespaceAfterSymbols = (text) => {
       return text.replace(/(\(|\{|\[)\s+/g, "$1");
     };
+    const normalizePunctuation = (text) => {
+      let result = "";
+      let inDollar = false;
+      let i = 0;
 
+      while (i < text.length) {
+        if (text[i] === "$") {
+          inDollar = !inDollar;
+          result += text[i];
+          i++;
+        } else if ((text[i] === "," || text[i] === ".") && !inDollar) {
+          // Remove any spaces before the punctuation
+          while (result.length > 0 && result[result.length - 1] === " ") {
+            result = result.slice(0, -1);
+          }
+
+          // Add the punctuation
+          result += text[i];
+          i++;
+
+          // Add exactly one space after the punctuation if it's not the end of the text
+          if (i < text.length) {
+            result += " ";
+            // Skip any extra spaces
+            while (i < text.length && text[i] === " ") {
+              i++;
+            }
+          }
+        } else {
+          result += text[i];
+          i++;
+        }
+      }
+
+      return result;
+    };
     const questionBlocks = inputText.split(/Câu\s*(?:\d+[:.]|\.)?\s*/);
     const normalizedQuestions = questionBlocks
       .filter((q) => q.trim())
@@ -415,43 +394,49 @@ export default function Home() {
         }
 
         const normalizedChoices = choices.map((choice) =>
+          normalizePunctuation(
+            removeWhitespaceAfterSymbols(
+              replacePercentage(
+                wrapNumbersInDollars(
+                  choice
+                    .replace(/\.$/, "")
+                    .replace(/\s+/g, " ")
+                    .replace(/\\frac/g, "\\dfrac")
+                    .replace(/\\\[/g, "$")
+                    .replace(/\\\]/g, "$")
+                )
+              ).trim()
+            )
+          )
+        );
+
+        const normalizedContent = normalizePunctuation(
           removeWhitespaceAfterSymbols(
             replacePercentage(
               wrapNumbersInDollars(
-                choice
-                  .replace(/\.$/, "")
+                content
+                  .trim()
                   .replace(/\s+/g, " ")
                   .replace(/\\frac/g, "\\dfrac")
                   .replace(/\\\[/g, "$")
                   .replace(/\\\]/g, "$")
               )
-            ).trim()
-          )
-        );
-
-        const normalizedContent = removeWhitespaceAfterSymbols(
-          replacePercentage(
-            wrapNumbersInDollars(
-              content
-                .trim()
-                .replace(/\s+/g, " ")
-                .replace(/\\frac/g, "\\dfrac")
-                .replace(/\\\[/g, "$")
-                .replace(/\\\]/g, "$")
             )
           )
         );
 
         const normalizedExplanation = explanation
-          ? removeWhitespaceAfterSymbols(
-              replacePercentage(
-                wrapNumbersInDollars(
-                  explanation
-                    .trim()
-                    .replace(/\s+/g, " ")
-                    .replace(/\\frac/g, "\\dfrac")
-                    .replace(/\\\[/g, "$")
-                    .replace(/\\\]/g, "$")
+          ? normalizePunctuation(
+              removeWhitespaceAfterSymbols(
+                replacePercentage(
+                  wrapNumbersInDollars(
+                    explanation
+                      .trim()
+                      .replace(/\s+/g, " ")
+                      .replace(/\\frac/g, "\\dfrac")
+                      .replace(/\\\[/g, "$")
+                      .replace(/\\\]/g, "$")
+                  )
                 )
               )
             )
@@ -496,7 +481,42 @@ export default function Home() {
     const removeWhitespaceAfterSymbols = (text) => {
       return text.replace(/(\(|\{|\[)\s+/g, "$1");
     };
+    const normalizePunctuation = (text) => {
+      let result = "";
+      let inDollar = false;
+      let i = 0;
 
+      while (i < text.length) {
+        if (text[i] === "$") {
+          inDollar = !inDollar;
+          result += text[i];
+          i++;
+        } else if ((text[i] === "," || text[i] === ".") && !inDollar) {
+          // Remove any spaces before the punctuation
+          while (result.length > 0 && result[result.length - 1] === " ") {
+            result = result.slice(0, -1);
+          }
+
+          // Add the punctuation
+          result += text[i];
+          i++;
+
+          // Add exactly one space after the punctuation if it's not the end of the text
+          if (i < text.length) {
+            result += " ";
+            // Skip any extra spaces
+            while (i < text.length && text[i] === " ") {
+              i++;
+            }
+          }
+        } else {
+          result += text[i];
+          i++;
+        }
+      }
+
+      return result;
+    };
     const questionBlocks = inputText.split(/Câu\s*(?:\d+[:.]|\.)?\s*/);
     const normalizedQuestions = questionBlocks
       .filter((q) => q.trim())
@@ -514,14 +534,16 @@ export default function Home() {
           cleanedQuestionContent = questionContent.replace(/#.*$/, "").trim();
         }
 
-        const normalizedContent = removeWhitespaceAfterSymbols(
-          replacePercentage(
-            wrapNumbersInDollars(
-              cleanedQuestionContent
-                .replace(/\s+/g, " ")
-                .replace(/\\frac/g, "\\dfrac")
-                .replace(/\\\[/g, "$")
-                .replace(/\\\]/g, "$")
+        const normalizedContent = normalizePunctuation(
+          removeWhitespaceAfterSymbols(
+            replacePercentage(
+              wrapNumbersInDollars(
+                cleanedQuestionContent
+                  .replace(/\s+/g, " ")
+                  .replace(/\\frac/g, "\\dfrac")
+                  .replace(/\\\[/g, "$")
+                  .replace(/\\\]/g, "$")
+              )
             )
           )
         );
@@ -529,20 +551,24 @@ export default function Home() {
         const normalizedAnswer =
           answer.startsWith("$") && answer.endsWith("$")
             ? answer
-            : removeWhitespaceAfterSymbols(
-                replacePercentage(wrapNumbersInDollars(answer))
+            : normalizePunctuation(
+                removeWhitespaceAfterSymbols(
+                  replacePercentage(wrapNumbersInDollars(answer))
+                )
               );
 
         const normalizedExplanation = explanation
-          ? removeWhitespaceAfterSymbols(
-              replacePercentage(
-                wrapNumbersInDollars(
-                  explanation
-                    .trim()
-                    .replace(/\s+/g, " ")
-                    .replace(/\\frac/g, "\\dfrac")
-                    .replace(/\\\[/g, "$")
-                    .replace(/\\\]/g, "$")
+          ? normalizePunctuation(
+              removeWhitespaceAfterSymbols(
+                replacePercentage(
+                  wrapNumbersInDollars(
+                    explanation
+                      .trim()
+                      .replace(/\s+/g, " ")
+                      .replace(/\\frac/g, "\\dfrac")
+                      .replace(/\\\[/g, "$")
+                      .replace(/\\\]/g, "$")
+                  )
                 )
               )
             )
