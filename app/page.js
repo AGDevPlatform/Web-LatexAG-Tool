@@ -251,7 +251,11 @@ export default function Home() {
                       .replace(/\\frac/g, "\\dfrac")
                       .replace(/\\\[/g, "$")
                       .replace(/\\\]/g, "$")
-                      .replace(/\\int/g, "\\displaystyle\\int")
+                      .replace(
+                        /(?<!\\displaystyle)\\int/g,
+                        "\\displaystyle\\int"
+                      )
+                      .replace(/\\cdot\s*/g, ".")
                   )
                 ).trim()
               )
@@ -269,7 +273,8 @@ export default function Home() {
                     .replace(/\\frac/g, "\\dfrac")
                     .replace(/\\\[/g, "$")
                     .replace(/\\\]/g, "$")
-                    .replace(/\\int/g, "\\displaystyle\\int")
+                    .replace(/(?<!\\displaystyle)\\int/g, "\\displaystyle\\int")
+                    .replace(/\\cdot\s*/g, ".")
                 )
               )
             )
@@ -288,7 +293,11 @@ export default function Home() {
                           .replace(/\\frac/g, "\\dfrac")
                           .replace(/\\\[/g, "$")
                           .replace(/\\\]/g, "$")
-                          .replace(/\\int/g, "\\displaystyle\\int")
+                          .replace(
+                            /(?<!\\displaystyle)\\int/g,
+                            "\\displaystyle\\int"
+                          )
+                          .replace(/\\cdot\s*/g, ".")
                       )
                     )
                   )
@@ -407,7 +416,8 @@ export default function Home() {
                     .replace(/\\frac/g, "\\dfrac")
                     .replace(/\\\[/g, "$")
                     .replace(/\\\]/g, "$")
-                    .replace(/\\int/g, "\\displaystyle\\int")
+                    .replace(/(?<!\\displaystyle)\\int/g, "\\displaystyle\\int")
+                    .replace(/\\cdot\s*/g, ".")
                 )
               ).trim()
             )
@@ -424,7 +434,8 @@ export default function Home() {
                   .replace(/\\frac/g, "\\dfrac")
                   .replace(/\\\[/g, "$")
                   .replace(/\\\]/g, "$")
-                  .replace(/\\int/g, "\\displaystyle\\int")
+                  .replace(/(?<!\\displaystyle)\\int/g, "\\displaystyle\\int")
+                  .replace(/\\cdot\s*/g, ".")
               )
             )
           )
@@ -441,7 +452,11 @@ export default function Home() {
                       .replace(/\\frac/g, "\\dfrac")
                       .replace(/\\\[/g, "$")
                       .replace(/\\\]/g, "$")
-                      .replace(/\\int/g, "\\displaystyle\\int")
+                      .replace(
+                        /(?<!\\displaystyle)\\int/g,
+                        "\\displaystyle\\int"
+                      )
+                      .replace(/\\cdot\s*/g, ".")
                   )
                 )
               )
@@ -549,7 +564,8 @@ export default function Home() {
                   .replace(/\\frac/g, "\\dfrac")
                   .replace(/\\\[/g, "$")
                   .replace(/\\\]/g, "$")
-                  .replace(/\\int/g, "\\displaystyle\\int")
+                  .replace(/(?<!\\displaystyle)\\int/g, "\\displaystyle\\int")
+                  .replace(/\\cdot\s*/g, ".")
               )
             )
           )
@@ -575,7 +591,11 @@ export default function Home() {
                       .replace(/\\frac/g, "\\dfrac")
                       .replace(/\\\[/g, "$")
                       .replace(/\\\]/g, "$")
-                      .replace(/\\int/g, "\\displaystyle\\int")
+                      .replace(
+                        /(?<!\\displaystyle)\\int/g,
+                        "\\displaystyle\\int"
+                      )
+                      .replace(/\\cdot\s*/g, ".")
                   )
                 )
               )
