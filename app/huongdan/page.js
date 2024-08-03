@@ -5,8 +5,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYoutube } from "@fortawesome/free-solid-svg-icons";
 export default function HuongDan() {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex justify-center items-start">
-      <div className="bg-white rounded-lg shadow-xl overflow-hidden w-full max-w-3xl">
+    <div className="min-h-screen bg-white flex justify-center items-start">
+      <div
+        className="bg-white   overflow-hidden w-full"
+        style={{ paddingLeft: "200px", paddingRight: "200px" }}
+      >
         <div className="h-[100vh] overflow-y-auto">
           <div className="px-6 py-8">
             <h1 className="text-3xl font-bold text-center text-gray-900 mb-3">
@@ -34,7 +37,7 @@ export default function HuongDan() {
                     className="mb-2"
                     src={"/HD1.png"}
                     alt="HD1"
-                    width={1000}
+                    width={700}
                     height={100}
                   />
                   <p className="mb-5 font-bold"> 👉 Quy tắc c&acirc;u hỏi</p>
@@ -82,7 +85,7 @@ export default function HuongDan() {
                     className="mb-2"
                     src={"/HD2.png"}
                     alt="HD1"
-                    width={1000}
+                    width={700}
                     height={100}
                   />
                   <p className="mb-5 font-bold"> 👉 Quy tắc c&acirc;u hỏi</p>
@@ -130,7 +133,7 @@ export default function HuongDan() {
                     className="mb-2"
                     src={"/HD3.png"}
                     alt="HD1"
-                    width={1000}
+                    width={700}
                     height={100}
                   />
                   <p className="mb-5 font-bold"> 👉 Quy tắc c&acirc;u hỏi</p>
@@ -157,9 +160,9 @@ export default function HuongDan() {
                   </div>
                 </div>
               </div>
-              <div className="bg-gray-50 px-6 py-4">
+              <div className="bg-white px-6 py-4">
                 <p className="text-center text-gray-500 text-sm">
-                  © 2024 Latex AG. All right reserved.
+                  © 2024 Nguyen Duong The Vi. All right reserved.
                 </p>
               </div>
             </div>
