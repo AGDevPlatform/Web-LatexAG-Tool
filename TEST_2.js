@@ -15,30 +15,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import "katex/dist/katex.min.css";
-import katex from "katex";
+import { InlineMath, BlockMath } from "react-katex";
 export default function Home() {
   const [inputText, setInputText] = useState("");
   const [questions, setQuestions] = useState([]);
   const [questionType1, setQuestionType1] = useState([]);
   const [questionType2, setQuestionType2] = useState([]);
   const [questionType3, setQuestionType3] = useState([]);
-  const renderLatex = (text) => {
-    const parts = text.split(/(\$[^\$]+\$)/g);
-    return parts.map((part, index) => {
-      if (part.startsWith("$") && part.endsWith("$")) {
-        const latex = part.slice(1, -1);
-        return (
-          <span
-            key={index}
-            dangerouslySetInnerHTML={{
-              __html: katex.renderToString(latex, { throwOnError: false }),
-            }}
-          />
-        );
-      }
-      return part;
-    });
-  };
+
   const handleInputChange = useCallback((value) => {
     setInputText(value);
   }, []);
@@ -889,24 +873,23 @@ export default function Home() {
                     >
                       <p>
                         <span className="font-semibold">Câu {index + 1}: </span>
-                        {/* {q.content.replace(/%Câu \d+/g, "")} */}
-                        {renderLatex(q.content.replace(/%Câu \d+/g, ""))}
+                        {q.content.replace(/%Câu \d+/g, "")}
                       </p>
                       <p>
                         {" "}
-                        <strong>A.</strong> {renderLatex(q.ans1)}
+                        <strong>A.</strong> {q.ans1}
                       </p>
                       <p>
                         {" "}
-                        <strong>B.</strong> {renderLatex(q.ans2)}
+                        <strong>B.</strong> {q.ans2}
                       </p>
                       <p>
                         {" "}
-                        <strong>C.</strong> {renderLatex(q.ans3)}
+                        <strong>C.</strong> {q.ans3}
                       </p>
                       <p>
                         {" "}
-                        <strong>D.</strong> {renderLatex(q.ans4)}
+                        <strong>D.</strong> {q.ans4}
                       </p>
                       <p
                         className={`font-semibold ${
@@ -928,20 +911,20 @@ export default function Home() {
                     >
                       <p>
                         <span className="font-semibold">Câu {index + 1}: </span>
-                        {renderLatex(q.content.replace(/%Câu \d+/g, ""))}
+                        {q.content.replace(/%Câu \d+/g, "")}
                       </p>
                       <div>
                         <p>
-                          <strong>a)</strong> {renderLatex(q.ans1)}
+                          <strong>a)</strong> {q.ans1}
                         </p>
                         <p>
-                          <strong>b)</strong> {renderLatex(q.ans2)}
+                          <strong>b)</strong> {q.ans2}
                         </p>
                         <p>
-                          <strong>c)</strong> {renderLatex(q.ans3)}
+                          <strong>c)</strong> {q.ans3}
                         </p>
                         <p>
-                          <strong>d)</strong> {renderLatex(q.ans4)}
+                          <strong>d)</strong> {q.ans4}
                         </p>
                       </div>
                       <p
@@ -965,7 +948,7 @@ export default function Home() {
                     >
                       <p>
                         <span className="font-semibold">Câu {index + 1}: </span>
-                        {renderLatex(q.content.replace(/%Câu \d+/g, ""))}
+                        {q.content.replace(/%Câu \d+/g, "")}
                       </p>
                       <p
                         className={`font-semibold ${
