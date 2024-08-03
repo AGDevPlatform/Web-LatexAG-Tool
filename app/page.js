@@ -183,7 +183,7 @@ export default function Home() {
             // Handle decimal numbers with comma
             return "$ " + p2.replace(",", "{,}") + " $";
           }
-          return `$ ${p2} $`; // If it's a number not wrapped, wrap it with spaces
+          return `$${p2}$`; // If it's a number not wrapped, wrap it with spaces
         }
       );
     };
