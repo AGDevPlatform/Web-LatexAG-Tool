@@ -300,6 +300,7 @@ export default function Home() {
                         "\\displaystyle\\int"
                       )
                       .replace(/\\cdot\s*/g, ".")
+                      .replace(/\s+\\right/g, "\\right")
                   )
                 ).trim()
               )
@@ -319,6 +320,7 @@ export default function Home() {
                     .replace(/\\\]/g, "$")
                     .replace(/(?<!\\displaystyle)\\int/g, "\\displaystyle\\int")
                     .replace(/\\cdot\s*/g, ".")
+                    .replace(/\s+\\right/g, "\\right")
                 )
               )
             )
@@ -342,6 +344,7 @@ export default function Home() {
                             "\\displaystyle\\int"
                           )
                           .replace(/\\cdot\s*/g, ".")
+                          .replace(/\s+\\right/g, "\\right")
                       )
                     )
                   )
@@ -483,6 +486,7 @@ export default function Home() {
                     .replace(/\\\]/g, "$")
                     .replace(/(?<!\\displaystyle)\\int/g, "\\displaystyle\\int")
                     .replace(/\\cdot\s*/g, ".")
+                    .replace(/\s+\\right/g, "\\right")
                 )
               ).trim()
             )
@@ -501,6 +505,7 @@ export default function Home() {
                   .replace(/\\\]/g, "$")
                   .replace(/(?<!\\displaystyle)\\int/g, "\\displaystyle\\int")
                   .replace(/\\cdot\s*/g, ".")
+                  .replace(/\s+\\right/g, "\\right")
               )
             )
           )
@@ -522,6 +527,7 @@ export default function Home() {
                         "\\displaystyle\\int"
                       )
                       .replace(/\\cdot\s*/g, ".")
+                      .replace(/\s+\\right/g, "\\right")
                   )
                 )
               )
@@ -652,6 +658,7 @@ export default function Home() {
                   .replace(/\\\]/g, "$")
                   .replace(/(?<!\\displaystyle)\\int/g, "\\displaystyle\\int")
                   .replace(/\\cdot\s*/g, ".")
+                  .replace(/\s+\\right/g, "\\right")
               )
             )
           )
@@ -682,6 +689,7 @@ export default function Home() {
                         "\\displaystyle\\int"
                       )
                       .replace(/\\cdot\s*/g, ".")
+                      .replace(/\s+\\right/g, "\\right")
                   )
                 )
               )
