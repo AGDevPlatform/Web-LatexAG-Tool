@@ -6,10 +6,7 @@ import { faYoutube } from "@fortawesome/free-solid-svg-icons";
 export default function HuongDan() {
   return (
     <div className="min-h-screen bg-white flex justify-center items-start">
-      <div
-        className="bg-white   overflow-hidden w-full"
-        style={{ paddingLeft: "200px", paddingRight: "200px" }}
-      >
+      <div className="bg-white   overflow-hidden w-full max-w-29">
         <div className="h-[100vh] overflow-y-auto">
           <div className="px-6 py-8">
             <h1 className="text-3xl font-bold text-center text-gray-900 mb-3">
@@ -27,19 +24,21 @@ export default function HuongDan() {
               </Link>
             </div>
 
-            <div className="space-y-6">
-              <div className="bg-gray-100 p-4 rounded-lg">
+            <div className="space-y-3">
+              <div className="bg-gray-50 p-4 rounded-lg">
                 <p className="text-xl font-semibold text-gray-800 mb-2">
                   1. C&acirc;u hỏi trắc nghiệm 4 phương &aacute;n
                 </p>
                 <div className="text-gray-600">
-                  <Image
-                    className="mb-2"
-                    src={"/HD1.png"}
-                    alt="HD1"
-                    width={700}
-                    height={100}
-                  />
+                  <div class="flex justify-center mb-2">
+                    <Image
+                      src="/HD1.png"
+                      alt="HD1"
+                      width={700}
+                      height={100}
+                      class="max-w-full h-auto"
+                    />
+                  </div>
                   <p className="mb-5 font-bold"> 👉 Quy tắc c&acirc;u hỏi</p>
                   <div className="p-0">
                     <div className="grid grid-cols-1 gap-2 ">
@@ -81,13 +80,15 @@ export default function HuongDan() {
                   2. C&acirc;u hỏi trắc nghiệm đúng sai
                 </p>
                 <div className="text-gray-600">
-                  <Image
-                    className="mb-2"
-                    src={"/HD2.png"}
-                    alt="HD1"
-                    width={700}
-                    height={100}
-                  />
+                  <div class="flex justify-center mb-2">
+                    <Image
+                      src="/HD2.png"
+                      alt="HD1"
+                      width={700}
+                      height={100}
+                      class="max-w-full h-auto"
+                    />
+                  </div>
                   <p className="mb-5 font-bold"> 👉 Quy tắc c&acirc;u hỏi</p>
                   <div className="p-0">
                     <div className="grid grid-cols-1 gap-2 ">
@@ -129,13 +130,15 @@ export default function HuongDan() {
                   3. C&acirc;u hỏi trả lời ngắn
                 </p>
                 <div className="text-gray-600">
-                  <Image
-                    className="mb-2"
-                    src={"/HD3.png"}
-                    alt="HD1"
-                    width={700}
-                    height={100}
-                  />
+                  <div class="flex justify-center mb-2">
+                    <Image
+                      src="/HD3.png"
+                      alt="HD1"
+                      width={700}
+                      height={100}
+                      class="max-w-full h-auto"
+                    />
+                  </div>
                   <p className="mb-5 font-bold"> 👉 Quy tắc c&acirc;u hỏi</p>
                   <div className="p-0">
                     <div className="grid grid-cols-1 gap-2 ">
