@@ -30,8 +30,12 @@ export default function Home() {
         return (
           <span
             key={index}
+            style={{ fontSize: "0.9em" }} // Điều chỉnh kích thước chữ ở đây
             dangerouslySetInnerHTML={{
-              __html: katex.renderToString(latex, { throwOnError: false }),
+              __html: katex.renderToString(latex, {
+                throwOnError: false,
+                fontSize: "0.9em", // Điều chỉnh kích thước chữ trong KaTeX
+              }),
             }}
           />
         );
@@ -147,7 +151,7 @@ export default function Home() {
       const contentMatch = question.match(/(.*?)\\shortans/s);
       const content = contentMatch ? contentMatch[1].trim() : "";
 
-      const keyMatch = question.match(/\\shortans\[oly\]\{([^}]+)\}/);
+      const keyMatch = question.match(/\\shortans(?:\[[^\]]*\])?\{([^}]+)\}/);
       const key = keyMatch ? keyMatch[1] : "";
 
       const solutionMatch = question.match(/\\loigiai\{([^}]+)\}/);
@@ -889,25 +893,25 @@ export default function Home() {
                     >
                       <p>
                         <span className="font-semibold">Câu {index + 1}: </span>
-                        {/* {q.content.replace(/%Câu \d+/g, "")} */}
                         {renderLatex(q.content.replace(/%Câu \d+/g, ""))}
                       </p>
-                      <p>
-                        {" "}
-                        <strong>A.</strong> {renderLatex(q.ans1)}
-                      </p>
-                      <p>
-                        {" "}
-                        <strong>B.</strong> {renderLatex(q.ans2)}
-                      </p>
-                      <p>
-                        {" "}
-                        <strong>C.</strong> {renderLatex(q.ans3)}
-                      </p>
-                      <p>
-                        {" "}
-                        <strong>D.</strong> {renderLatex(q.ans4)}
-                      </p>
+                      {["A", "B", "C", "D"].map((option, i) => {
+                        const ansKey = `ans${i + 1}`;
+                        const answerText = q[ansKey];
+                        const isTrue = answerText.startsWith("\\True");
+                        const displayText = isTrue
+                          ? answerText.replace("\\True", "").trim()
+                          : answerText;
+                        return (
+                          <p
+                            key={option}
+                            className={isTrue ? "font-bold text-green-600" : ""}
+                          >
+                            <strong>{option}.</strong>{" "}
+                            {renderLatex(displayText)}
+                          </p>
+                        );
+                      })}
                       <p
                         className={`font-semibold ${
                           q.key ? "text-green-600" : "text-red-600"
@@ -915,7 +919,7 @@ export default function Home() {
                       >
                         {q.key ? `Đáp án đúng: ${q.key}` : "Không có đáp án"}
                       </p>
-                      {q.sol && <p>Lời giải: {q.sol}</p>}
+                      {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>}
                     </div>
                   ))}
                 </div>
@@ -931,18 +935,25 @@ export default function Home() {
                         {renderLatex(q.content.replace(/%Câu \d+/g, ""))}
                       </p>
                       <div>
-                        <p>
-                          <strong>a)</strong> {renderLatex(q.ans1)}
-                        </p>
-                        <p>
-                          <strong>b)</strong> {renderLatex(q.ans2)}
-                        </p>
-                        <p>
-                          <strong>c)</strong> {renderLatex(q.ans3)}
-                        </p>
-                        <p>
-                          <strong>d)</strong> {renderLatex(q.ans4)}
-                        </p>
+                        {["a", "b", "c", "d"].map((option, i) => {
+                          const ansKey = `ans${i + 1}`;
+                          const answerText = q[ansKey];
+                          const isTrue = answerText.startsWith("\\True");
+                          const displayText = isTrue
+                            ? answerText.replace("\\True", "").trim()
+                            : answerText;
+                          return (
+                            <p
+                              key={option}
+                              className={
+                                isTrue ? "font-bold text-green-600" : ""
+                              }
+                            >
+                              <strong>{option})</strong>{" "}
+                              {renderLatex(displayText)}
+                            </p>
+                          );
+                        })}
                       </div>
                       <p
                         className={`font-semibold ${
@@ -951,7 +962,7 @@ export default function Home() {
                       >
                         {q.key ? `Đáp án đúng: ${q.key}` : "Không có đáp án"}
                       </p>
-                      {q.sol && <p>Lời giải: {q.sol}</p>}
+                      {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>}
                     </div>
                   ))}
                 </div>
@@ -972,9 +983,13 @@ export default function Home() {
                           q.key ? "text-green-600" : "text-red-600"
                         }`}
                       >
-                        {q.key ? `Đáp án đúng: ${q.key}` : "Không có đáp án"}
+                        {q.key ? (
+                          <>Đáp án đúng: {renderLatex(q.key)}</>
+                        ) : (
+                          "Không có đáp án"
+                        )}
                       </p>
-                      {q.sol && <p>Lời giải: {q.sol}</p>}
+                      {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>}
                     </div>
                   ))}
                 </div>
