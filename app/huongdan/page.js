@@ -25,7 +25,7 @@ export default function HuongDan() {
             </div>
 
             <div className="space-y-3">
-              <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="bg-gray-100 p-4 rounded-lg">
                 <p className="text-xl font-semibold text-gray-800 mb-2">
                   1. C&acirc;u hỏi trắc nghiệm 4 phương &aacute;n
                 </p>

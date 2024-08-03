@@ -168,6 +168,7 @@ export default function Home() {
     setQuestions(newQuestions);
     classifyQuestions(newQuestions);
   }, [inputText]);
+
   const formatTracNghiem = useCallback(() => {
     // Helper function to wrap numbers in $...$ and handle decimal numbers
     const wrapNumbersInDollars = (text) => {
