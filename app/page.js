@@ -883,7 +883,10 @@ export default function Home() {
           {/* <div className="h-[20px]">Menu 2</div> */}
           <div className="h-[1000px] p-1 flex flex-col overflow-hidden">
             <div className="overflow-y-auto flex-grow">
-              <div className="space-y-6 pr-2" style={{ marginBottom: "400px" }}>
+              <div
+                className="space-y-0 pr-1 pl-1 pt-1"
+                style={{ marginBottom: "400px" }}
+              >
                 {/* Type 1 Questions */}
                 <div>
                   {questionType1.map((q, index) => (
