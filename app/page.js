@@ -186,6 +186,14 @@ export default function Home() {
         }
       );
     };
+    // const removeDotBeforeCurlyBrace = (text) => {
+    //   // Tìm các phương án trong dấu ngoặc nhọn
+    //   return text.replace(/\{([^{}]+)\}/g, (match, content) => {
+    //     // Xóa dấu chấm trước $} trong mỗi phương án
+    //     const updatedContent = content.replace(/\.(\$})/g, "$1");
+    //     return `{${updatedContent}}`;
+    //   });
+    // };
 
     const removeSingleCharBraces = (text) => {
       return text.replace(
