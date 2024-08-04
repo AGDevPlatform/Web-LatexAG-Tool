@@ -200,6 +200,16 @@ export default function Home() {
     const removeChoicePrefix = (text) => {
       return text.replace(/Chọn (A|B|C|D)\.?/g, "").trim();
     };
+    // Hàm mới để xóa cặp ngoặc {...}' lặp đi lặp lại
+    const removeBracesBeforePrime = (text) => {
+      let result = text;
+      let prevResult;
+      do {
+        prevResult = result;
+        result = result.replace(/\{([^{}]+)\}'/g, "$1'");
+      } while (result !== prevResult);
+      return result;
+    };
 
     const removeCurlyBraces = (text) => {
       return text.replace(
@@ -212,6 +222,7 @@ export default function Home() {
         }
       );
     };
+
     // Updated helper function to normalize punctuation and add space after $
     const normalizePunctuation = (text) => {
       let result = "";
@@ -312,14 +323,44 @@ export default function Home() {
 
         const processChoices = (choices) =>
           choices.map((choice) =>
+            removeBracesBeforePrime(
+              removeCurlyBraces(
+                replaceLeftRight(
+                  normalizePunctuation(
+                    removeWhitespaceAfterSymbols(
+                      replacePercentage(
+                        wrapNumbersInDollars(
+                          choice
+                            .replace(/\.$/, "")
+                            .replace(/\s+/g, " ")
+                            .replace(/\\frac/g, "\\dfrac")
+                            .replace(/\\\[/g, "$")
+                            .replace(/\\\]/g, "$")
+                            .replace(
+                              /(?<!\\displaystyle)\\int/g,
+                              "\\displaystyle\\int"
+                            )
+                            .replace(/\\cdot\s*/g, ".")
+                            .replace(/\s+\\right/g, "\\right")
+                        )
+                      ).trim()
+                    )
+                  )
+                )
+              )
+            )
+          );
+
+        const processContent = (content) =>
+          removeBracesBeforePrime(
             removeCurlyBraces(
               replaceLeftRight(
                 normalizePunctuation(
                   removeWhitespaceAfterSymbols(
                     replacePercentage(
                       wrapNumbersInDollars(
-                        choice
-                          .replace(/\.$/, "")
+                        content
+                          .trim()
                           .replace(/\s+/g, " ")
                           .replace(/\\frac/g, "\\dfrac")
                           .replace(/\\\[/g, "$")
@@ -331,32 +372,6 @@ export default function Home() {
                           .replace(/\\cdot\s*/g, ".")
                           .replace(/\s+\\right/g, "\\right")
                       )
-                    ).trim()
-                  )
-                )
-              )
-            )
-          );
-
-        const processContent = (content) =>
-          removeCurlyBraces(
-            replaceLeftRight(
-              normalizePunctuation(
-                removeWhitespaceAfterSymbols(
-                  replacePercentage(
-                    wrapNumbersInDollars(
-                      content
-                        .trim()
-                        .replace(/\s+/g, " ")
-                        .replace(/\\frac/g, "\\dfrac")
-                        .replace(/\\\[/g, "$")
-                        .replace(/\\\]/g, "$")
-                        .replace(
-                          /(?<!\\displaystyle)\\int/g,
-                          "\\displaystyle\\int"
-                        )
-                        .replace(/\\cdot\s*/g, ".")
-                        .replace(/\s+\\right/g, "\\right")
                     )
                   )
                 )
@@ -366,25 +381,27 @@ export default function Home() {
 
         const processExplanation = (explanation) =>
           explanation
-            ? removeCurlyBraces(
-                replaceLeftRight(
-                  normalizePunctuation(
-                    removeChoicePrefix(
-                      removeWhitespaceAfterSymbols(
-                        replacePercentage(
-                          wrapNumbersInDollars(
-                            explanation
-                              .trim()
-                              .replace(/\s+/g, " ")
-                              .replace(/\\frac/g, "\\dfrac")
-                              .replace(/\\\[/g, "$")
-                              .replace(/\\\]/g, "$")
-                              .replace(
-                                /(?<!\\displaystyle)\\int/g,
-                                "\\displaystyle\\int"
-                              )
-                              .replace(/\\cdot\s*/g, ".")
-                              .replace(/\s+\\right/g, "\\right")
+            ? removeBracesBeforePrime(
+                removeCurlyBraces(
+                  replaceLeftRight(
+                    normalizePunctuation(
+                      removeChoicePrefix(
+                        removeWhitespaceAfterSymbols(
+                          replacePercentage(
+                            wrapNumbersInDollars(
+                              explanation
+                                .trim()
+                                .replace(/\s+/g, " ")
+                                .replace(/\\frac/g, "\\dfrac")
+                                .replace(/\\\[/g, "$")
+                                .replace(/\\\]/g, "$")
+                                .replace(
+                                  /(?<!\\displaystyle)\\int/g,
+                                  "\\displaystyle\\int"
+                                )
+                                .replace(/\\cdot\s*/g, ".")
+                                .replace(/\s+\\right/g, "\\right")
+                            )
                           )
                         )
                       )
@@ -427,7 +444,15 @@ export default function Home() {
         }
       );
     };
-
+    const removeBracesBeforePrime = (text) => {
+      let result = text;
+      let prevResult;
+      do {
+        prevResult = result;
+        result = result.replace(/\{([^{}]+)\}'/g, "$1'");
+      } while (result !== prevResult);
+      return result;
+    };
     // Helper function to replace % with \\% in text, excluding specific cases
     const replacePercentage = (text) => {
       return text.replace(/%(?!Câu|\s*======================%)/g, "\\%");
@@ -541,14 +566,42 @@ export default function Home() {
         }
 
         const normalizedChoices = choices.map((choice) =>
+          removeBracesBeforePrime(
+            removeCurlyBraces(
+              replaceLeftRight(
+                normalizePunctuation(
+                  removeWhitespaceAfterSymbols(
+                    replacePercentage(
+                      wrapNumbersInDollars(
+                        choice
+                          .replace(/\.$/, "")
+                          .replace(/\s+/g, " ")
+                          .replace(/\\frac/g, "\\dfrac")
+                          .replace(/\\\[/g, "$")
+                          .replace(/\\\]/g, "$")
+                          .replace(
+                            /(?<!\\displaystyle)\\int/g,
+                            "\\displaystyle\\int"
+                          )
+                          .replace(/\\cdot\s*/g, ".")
+                          .replace(/\s+\\right/g, "\\right")
+                      )
+                    ).trim()
+                  )
+                )
+              )
+            )
+          )
+        );
+        const normalizedContent = removeBracesBeforePrime(
           removeCurlyBraces(
             replaceLeftRight(
               normalizePunctuation(
                 removeWhitespaceAfterSymbols(
                   replacePercentage(
                     wrapNumbersInDollars(
-                      choice
-                        .replace(/\.$/, "")
+                      content
+                        .trim()
                         .replace(/\s+/g, " ")
                         .replace(/\\frac/g, "\\dfrac")
                         .replace(/\\\[/g, "$")
@@ -560,56 +613,33 @@ export default function Home() {
                         .replace(/\\cdot\s*/g, ".")
                         .replace(/\s+\\right/g, "\\right")
                     )
-                  ).trim()
-                )
-              )
-            )
-          )
-        );
-        const normalizedContent = removeCurlyBraces(
-          replaceLeftRight(
-            normalizePunctuation(
-              removeWhitespaceAfterSymbols(
-                replacePercentage(
-                  wrapNumbersInDollars(
-                    content
-                      .trim()
-                      .replace(/\s+/g, " ")
-                      .replace(/\\frac/g, "\\dfrac")
-                      .replace(/\\\[/g, "$")
-                      .replace(/\\\]/g, "$")
-                      .replace(
-                        /(?<!\\displaystyle)\\int/g,
-                        "\\displaystyle\\int"
-                      )
-                      .replace(/\\cdot\s*/g, ".")
-                      .replace(/\s+\\right/g, "\\right")
                   )
                 )
               )
             )
           )
         );
-
         const normalizedExplanation = explanation
-          ? removeCurlyBraces(
-              replaceLeftRight(
-                normalizePunctuation(
-                  removeWhitespaceAfterSymbols(
-                    replacePercentage(
-                      wrapNumbersInDollars(
-                        explanation
-                          .trim()
-                          .replace(/\s+/g, " ")
-                          .replace(/\\frac/g, "\\dfrac")
-                          .replace(/\\\[/g, "$")
-                          .replace(/\\\]/g, "$")
-                          .replace(
-                            /(?<!\\displaystyle)\\int/g,
-                            "\\displaystyle\\int"
-                          )
-                          .replace(/\\cdot\s*/g, ".")
-                          .replace(/\s+\\right/g, "\\right")
+          ? removeBracesBeforePrime(
+              removeCurlyBraces(
+                replaceLeftRight(
+                  normalizePunctuation(
+                    removeWhitespaceAfterSymbols(
+                      replacePercentage(
+                        wrapNumbersInDollars(
+                          explanation
+                            .trim()
+                            .replace(/\s+/g, " ")
+                            .replace(/\\frac/g, "\\dfrac")
+                            .replace(/\\\[/g, "$")
+                            .replace(/\\\]/g, "$")
+                            .replace(
+                              /(?<!\\displaystyle)\\int/g,
+                              "\\displaystyle\\int"
+                            )
+                            .replace(/\\cdot\s*/g, ".")
+                            .replace(/\s+\\right/g, "\\right")
+                        )
                       )
                     )
                   )
@@ -646,6 +676,15 @@ export default function Home() {
           return `$${p2}$`;
         }
       );
+    };
+    const removeBracesBeforePrime = (text) => {
+      let result = text;
+      let prevResult;
+      do {
+        prevResult = result;
+        result = result.replace(/\{([^{}]+)\}'/g, "$1'");
+      } while (result !== prevResult);
+      return result;
     };
     const replaceLeftRight = (text) => {
       return text
@@ -756,23 +795,25 @@ export default function Home() {
           cleanedQuestionContent = questionContent.replace(/#.*$/, "").trim();
         }
 
-        const normalizedContent = removeCurlyBraces(
-          replaceLeftRight(
-            normalizePunctuation(
-              removeWhitespaceAfterSymbols(
-                replacePercentage(
-                  wrapNumbersInDollars(
-                    cleanedQuestionContent
-                      .replace(/\s+/g, " ")
-                      .replace(/\\frac/g, "\\dfrac")
-                      .replace(/\\\[/g, "$")
-                      .replace(/\\\]/g, "$")
-                      .replace(
-                        /(?<!\\displaystyle)\\int/g,
-                        "\\displaystyle\\int"
-                      )
-                      .replace(/\\cdot\s*/g, ".")
-                      .replace(/\s+\\right/g, "\\right")
+        const normalizedContent = removeBracesBeforePrime(
+          removeCurlyBraces(
+            replaceLeftRight(
+              normalizePunctuation(
+                removeWhitespaceAfterSymbols(
+                  replacePercentage(
+                    wrapNumbersInDollars(
+                      cleanedQuestionContent
+                        .replace(/\s+/g, " ")
+                        .replace(/\\frac/g, "\\dfrac")
+                        .replace(/\\\[/g, "$")
+                        .replace(/\\\]/g, "$")
+                        .replace(
+                          /(?<!\\displaystyle)\\int/g,
+                          "\\displaystyle\\int"
+                        )
+                        .replace(/\\cdot\s*/g, ".")
+                        .replace(/\s+\\right/g, "\\right")
+                    )
                   )
                 )
               )
@@ -791,24 +832,26 @@ export default function Home() {
               );
 
         const normalizedExplanation = explanation
-          ? removeCurlyBraces(
-              replaceLeftRight(
-                normalizePunctuation(
-                  removeWhitespaceAfterSymbols(
-                    replacePercentage(
-                      wrapNumbersInDollars(
-                        explanation
-                          .trim()
-                          .replace(/\s+/g, " ")
-                          .replace(/\\frac/g, "\\dfrac")
-                          .replace(/\\\[/g, "$")
-                          .replace(/\\\]/g, "$")
-                          .replace(
-                            /(?<!\\displaystyle)\\int/g,
-                            "\\displaystyle\\int"
-                          )
-                          .replace(/\\cdot\s*/g, ".")
-                          .replace(/\s+\\right/g, "\\right")
+          ? removeBracesBeforePrime(
+              removeCurlyBraces(
+                replaceLeftRight(
+                  normalizePunctuation(
+                    removeWhitespaceAfterSymbols(
+                      replacePercentage(
+                        wrapNumbersInDollars(
+                          explanation
+                            .trim()
+                            .replace(/\s+/g, " ")
+                            .replace(/\\frac/g, "\\dfrac")
+                            .replace(/\\\[/g, "$")
+                            .replace(/\\\]/g, "$")
+                            .replace(
+                              /(?<!\\displaystyle)\\int/g,
+                              "\\displaystyle\\int"
+                            )
+                            .replace(/\\cdot\s*/g, ".")
+                            .replace(/\s+\\right/g, "\\right")
+                        )
                       )
                     )
                   )
