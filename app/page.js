@@ -1180,7 +1180,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col space-y-2 mt-3">
+            <div className="flex flex-col  mt-3">
               <Link
                 href="./huongdan"
                 target="_blank"
@@ -1190,6 +1190,68 @@ export default function Home() {
                 <FontAwesomeIcon icon={faBook} size="lg" className="mr-2" />
                 Hướng dẫn
               </Link>
+              <div className="inline-flex items-center justify-center">
+                <div class="bg-white w-full h-auto py-3 flex items-center justify-center gap-4 flex-wrap">
+                  <Link
+                    href="https://www.facebook.com/latexvatly31415/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="bg-blue-50 cursor-pointer rounded-md shadow-md shadow-transparent transition-all duration-300 hover:shadow-indigo-200"
+                  >
+                    <svg
+                      class=""
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="48"
+                      height="48"
+                      viewBox="0 0 92 92"
+                      fill="none"
+                    >
+                      <rect
+                        x="0.138672"
+                        width=""
+                        height=""
+                        rx="15"
+                        fill="#EDF4FF"
+                      />
+                      <path
+                        d="M56.4927 48.6403L57.7973 40.3588H49.7611V34.9759C49.7611 32.7114 50.883 30.4987 54.4706 30.4987H58.1756V23.4465C56.018 23.1028 53.8378 22.9168 51.6527 22.8901C45.0385 22.8901 40.7204 26.8626 40.7204 34.0442V40.3588H33.3887V48.6403H40.7204V68.671H49.7611V48.6403H56.4927Z"
+                        fill="#337FFF"
+                      />
+                    </svg>
+                  </Link>
+                  <Link
+                    href="https://www.youtube.com/watch?v=pC9yvFWojlw&t=57s"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      class="cursor-pointer rounded-md shadow-md shadow-transparent transition-all duration-300 hover:shadow-red-200"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="48"
+                      height="48"
+                      viewBox="0 0 92 93"
+                      fill="none"
+                    >
+                      <rect
+                        x="0.138672"
+                        y="1"
+                        width="91.5618"
+                        height="91.5618"
+                        rx="15"
+                        fill="#FFECE8"
+                      />
+                      <path
+                        d="M71.2471 33.8708C70.6493 31.6234 68.8809 29.8504 66.6309 29.2428C62.5626 28.1523 46.2396 28.1523 46.2396 28.1523C46.2396 28.1523 29.925 28.1523 25.8484 29.2428C23.6067 29.8421 21.8383 31.615 21.2322 33.8708C20.1445 37.9495 20.1445 46.4647 20.1445 46.4647C20.1445 46.4647 20.1445 54.98 21.2322 59.0586C21.83 61.306 23.5984 63.079 25.8484 63.6866C29.925 64.7771 46.2396 64.7771 46.2396 64.7771C46.2396 64.7771 62.5626 64.7771 66.6309 63.6866C68.8726 63.0873 70.641 61.3144 71.2471 59.0586C72.3348 54.98 72.3348 46.4647 72.3348 46.4647C72.3348 46.4647 72.3348 37.9495 71.2471 33.8708Z"
+                        fill="#FF3000"
+                      />
+                      <path
+                        d="M41.0256 54.314L54.5838 46.4647L41.0256 38.6154V54.314Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
