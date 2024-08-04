@@ -165,7 +165,7 @@ export default function HuongDan() {
               </div>
               <div className="bg-white px-6 py-4">
                 <p className="text-center text-gray-500 text-sm">
-                  © 2024 Nguyen Duong The Vi. All right reserved.
+                  © 2024 Latex AG. All right reserved.
                 </p>
               </div>
             </div>
