@@ -213,10 +213,12 @@ export default function Home() {
 
     const removeCurlyBraces = (text) => {
       return text.replace(
-        /\$\s*(\{)?\s*(.*?)\s*(\})?\s*\$/g,
-        (match, openBrace, content, closeBrace) => {
-          if (openBrace && closeBrace) {
-            return `$${content.trim()}$`;
+        /\$\s*(\{)((?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*)\}(\s*\$)/g,
+        (match, openBrace, content, closingPart) => {
+          // Kiểm tra xem có phải là cấu trúc "${...}$" không
+          if (openBrace && closingPart.trim() === "$") {
+            // Xóa một cặp ngoặc nhọn ngoài cùng
+            return `$${content}${closingPart}`;
           }
           return match;
         }
@@ -459,15 +461,18 @@ export default function Home() {
     };
     const removeCurlyBraces = (text) => {
       return text.replace(
-        /\$\s*(\{)?\s*(.*?)\s*(\})?\s*\$/g,
-        (match, openBrace, content, closeBrace) => {
-          if (openBrace && closeBrace) {
-            return `$${content.trim()}$`;
+        /\$\s*(\{)((?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*)\}(\s*\$)/g,
+        (match, openBrace, content, closingPart) => {
+          // Kiểm tra xem có phải là cấu trúc "${...}$" không
+          if (openBrace && closingPart.trim() === "$") {
+            // Xóa một cặp ngoặc nhọn ngoài cùng
+            return `$${content}${closingPart}`;
           }
           return match;
         }
       );
     };
+
     // Helper function to remove whitespace after specific characters
     const removeWhitespaceAfterSymbols = (text) => {
       return text.replace(/(\(|\{|\[)\s+/g, "$1");
@@ -703,15 +708,18 @@ export default function Home() {
     };
     const removeCurlyBraces = (text) => {
       return text.replace(
-        /\$\s*(\{)?\s*(.*?)\s*(\})?\s*\$/g,
-        (match, openBrace, content, closeBrace) => {
-          if (openBrace && closeBrace) {
-            return `$${content.trim()}$`;
+        /\$\s*(\{)((?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*)\}(\s*\$)/g,
+        (match, openBrace, content, closingPart) => {
+          // Kiểm tra xem có phải là cấu trúc "${...}$" không
+          if (openBrace && closingPart.trim() === "$") {
+            // Xóa một cặp ngoặc nhọn ngoài cùng
+            return `$${content}${closingPart}`;
           }
           return match;
         }
       );
     };
+
     // Helper function to replace % with \\% in text, excluding specific cases
     const replacePercentage = (text) => {
       return text.replace(/%(?!Câu|\s*======================)/g, "\\%");
