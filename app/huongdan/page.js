@@ -67,7 +67,7 @@ export default function HuongDan() {
                         #Đ&aacute;p &aacute;n 1,...
                       </p>
                       <p>
-                        - Lời giải bắt đầu bằng chữ{" "}
+                        - Lời giải (Có thể không có lời giải) bắt đầu bằng chữ{" "}
                         <strong>&quot;Lời giải&quot;</strong> đặt ở dưới
                         c&ugrave;ng c&acirc;u hỏi.
                       </p>
@@ -117,7 +117,7 @@ export default function HuongDan() {
                         #Đ&aacute;p &aacute;n 1,...
                       </p>
                       <p>
-                        - Lời giải bắt đầu bằng chữ{" "}
+                        - Lời giải (Có thể không có lời giải) bắt đầu bằng chữ{" "}
                         <strong>&quot;Lời giải&quot;</strong> đặt ở phía dưới
                         c&ugrave;ng c&acirc;u hỏi.
                       </p>
@@ -155,7 +155,7 @@ export default function HuongDan() {
                         câu hỏi.
                       </p>
                       <p>
-                        - Lời giải bắt đầu bằng chữ{" "}
+                        - Lời giải (Có thể không có lời giải) bắt đầu bằng chữ{" "}
                         <strong>&quot;Lời giải&quot;</strong> đặt ở phía dưới
                         c&ugrave;ng c&acirc;u hỏi.
                       </p>
@@ -165,7 +165,7 @@ export default function HuongDan() {
               </div>
               <div className="bg-white px-6 py-4">
                 <p className="text-center text-gray-500 text-sm">
-                  © 2024 Latex AG. All right reserved.
+                  © 2024 Nguyen Duong The Vi. All right reserved.
                 </p>
               </div>
             </div>
