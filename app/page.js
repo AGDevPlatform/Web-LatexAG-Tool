@@ -399,6 +399,10 @@ export default function Home() {
                                   .replace(/\\,/g, "")
                                   .replace(/\$\s*\$/g, "")
                                   .replace(/\$~(\S)/g, "$$$1")
+                                  .replace(
+                                    /\$\s*([^$]+?)\s*\$/g,
+                                    (match, p1) => `$${p1.trim()}$`
+                                  )
                               )
                             ).trim()
                           )
@@ -439,6 +443,10 @@ export default function Home() {
                                 .replace(/\\,/g, "")
                                 .replace(/\$\s*\$/g, "")
                                 .replace(/\$~(\S)/g, "$$$1")
+                                .replace(
+                                  /\$\s*([^$]+?)\s*\$/g,
+                                  (match, p1) => `$${p1.trim()}$`
+                                )
                             )
                           )
                         )
@@ -477,6 +485,10 @@ export default function Home() {
                                   .replace(/\\,/g, "")
                                   .replace(/\$\s*\$/g, "")
                                   .replace(/\$~(\S)/g, "$$$1")
+                                  .replace(
+                                    /\$\s*([^$]+?)\s*\$/g,
+                                    (match, p1) => `$${p1.trim()}$`
+                                  )
                               )
                             )
                           )
@@ -696,6 +708,10 @@ export default function Home() {
                                 .replace(/\\,/g, "")
                                 .replace(/\$\s*\$/g, "")
                                 .replace(/\$~(\S)/g, "$$$1")
+                                .replace(
+                                  /\$\s*([^$]+?)\s*\$/g,
+                                  (match, p1) => `$${p1.trim()}$`
+                                )
                             )
                           ).trim()
                         )
@@ -734,6 +750,10 @@ export default function Home() {
                               .replace(/\\,/g, "")
                               .replace(/\$\s*\$/g, "")
                               .replace(/\$~(\S)/g, "$$$1")
+                              .replace(
+                                /\$\s*([^$]+?)\s*\$/g,
+                                (match, p1) => `$${p1.trim()}$`
+                              )
                           )
                         )
                       )
@@ -772,6 +792,10 @@ export default function Home() {
                                   .replace(/\\,/g, "")
                                   .replace(/\$\s*\$/g, "")
                                   .replace(/\$~(\S)/g, "$$$1")
+                                  .replace(
+                                    /\$\s*([^$]+?)\s*\$/g,
+                                    (match, p1) => `$${p1.trim()}$`
+                                  )
                               )
                             )
                           )
@@ -982,6 +1006,10 @@ export default function Home() {
                               .replace(/\\,/g, "")
                               .replace(/\$\s*\$/g, "")
                               .replace(/\$~(\S)/g, "$$$1")
+                              .replace(
+                                /\$\s*([^$]+?)\s*\$/g,
+                                (match, p1) => `$${p1.trim()}$`
+                              )
                           )
                         )
                       )
@@ -1034,6 +1062,10 @@ export default function Home() {
                                   .replace(/\\!/g, "")
                                   .replace(/\$\s*\$/g, "")
                                   .replace(/\$~(\S)/g, "$$$1")
+                                  .replace(
+                                    /\$\s*([^$]+?)\s*\$/g,
+                                    (match, p1) => `$${p1.trim()}$`
+                                  )
                               )
                             )
                           )
