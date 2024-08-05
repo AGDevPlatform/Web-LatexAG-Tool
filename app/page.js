@@ -22,6 +22,22 @@ export default function Home() {
   const [questionType1, setQuestionType1] = useState([]);
   const [questionType2, setQuestionType2] = useState([]);
   const [questionType3, setQuestionType3] = useState([]);
+  const [checkComment, setCheckComment] = useState(false);
+
+  useEffect(() => {
+    // Lấy giá trị từ localStorage khi component mount
+    const savedValue = localStorage.getItem("checkComment");
+    if (savedValue !== null) {
+      setCheckComment(JSON.parse(savedValue));
+    }
+  }, []);
+  const handleChange = (event) => {
+    const newValue = event.target.checked;
+    setCheckComment(newValue);
+    // Lưu giá trị vào localStorage
+    localStorage.setItem("checkComment", JSON.stringify(newValue));
+  };
+
   const renderLatex = (text) => {
     const parts = text.split(/(\$[^\$]+\$)/g);
     return parts.map((part, index) => {
@@ -1041,7 +1057,15 @@ export default function Home() {
     setInputText(normalizedQuestions.join("\n%=======================%\n"));
     // toast.success("Chuẩn hóa trả lời ngắn thành công !");
   }, [inputText]);
+  const removeSpecialCharacters = (text) => {
+    // Xóa các kí tự có dạng %Câu X, với X là số bất kỳ
+    let processedText = text.replace(/%Câu\s*\d+,?/g, "");
 
+    // Xóa các kí tự có dạng %=======% với số lượng dấu = bất kỳ
+    processedText = processedText.replace(/%={2,}%/g, "");
+
+    return processedText;
+  };
   const copyTextToClipboard = async (text) => {
     if ("clipboard" in navigator) {
       return await navigator.clipboard.writeText(text);
@@ -1049,8 +1073,23 @@ export default function Home() {
       return document.execCommand("copy", true, text);
     }
   };
+  // const handleCopy = () => {
+  //   copyTextToClipboard(inputText)
+  //     .then(() => {
+  //       toast.success("Đã copy tất cả nội dung !");
+  //     })
+  //     .catch((err) => {
+  //       toast.error("Failed to copy text: ", err);
+  //     });
+  // };
   const handleCopy = () => {
-    copyTextToClipboard(inputText)
+    let textToCopy = inputText;
+
+    if (!checkComment) {
+      textToCopy = removeSpecialCharacters(inputText);
+    }
+
+    copyTextToClipboard(textToCopy)
       .then(() => {
         toast.success("Đã copy tất cả nội dung !");
       })
@@ -1058,6 +1097,7 @@ export default function Home() {
         toast.error("Failed to copy text: ", err);
       });
   };
+
   return (
     <div className="bg-[#F3F3F3] rounded-lg">
       <div className="grid grid-cols-[246px,1.3fr,1fr] divide-x divide-solid divide-gray rounded-lg">
@@ -1085,7 +1125,7 @@ export default function Home() {
                 Tự động clean code sau khi chuyển !
               </div>
             </div>
-            <div className="flex justify-between mb-4 w-full">
+            <div className="flex justify-between w-full">
               <button
                 type="button"
                 onClick={() => {
@@ -1106,6 +1146,57 @@ export default function Home() {
                   <FontAwesomeIcon icon={faCopy} size="xl" /> Copy
                 </span>
               </button>
+            </div>
+            <div className="flex flex-col space-y-2">
+              <div className="flex items-center justify-center p-2">
+                <label
+                  htmlFor="commentCheckbox"
+                  className="flex items-center cursor-pointer"
+                >
+                  <div
+                    className={`
+          w-6 h-6 
+          flex items-center justify-center 
+          mr-1
+          rounded-md 
+          border-2 
+          transition-all duration-200 ease-in-out
+          ${
+            checkComment
+              ? "bg-green-500 border-green-500"
+              : "bg-white border-gray-400"
+          }
+        `}
+                  >
+                    <input
+                      type="checkbox"
+                      id="commentCheckbox"
+                      checked={checkComment}
+                      onChange={handleChange}
+                      className="hidden"
+                    />
+                    {checkComment && (
+                      <svg
+                        className="w-4 h-4 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M5 13l4 4L19 7"
+                        ></path>
+                      </svg>
+                    )}
+                  </div>
+                  <span className="text-gray-500 text-base">
+                    Hiện %Câu khi copy
+                  </span>
+                </label>
+              </div>
             </div>
             <div
               className="flex flex-col space-y-2"
