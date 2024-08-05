@@ -423,6 +423,16 @@ export default function Home() {
                                       "$"
                                   )
                                   .replace(/\.\$/g, "$.")
+
+                                  .replace(/\\text\{ln\}/g, "\\ln ")
+                                  .replace(/\\text\{sin\}/g, "\\sin ")
+                                  .replace(/\\text\{cos\}/g, "\\cos ")
+                                  .replace(/\\text\{tan\}/g, "\\tan ")
+                                  .replace(/\\text\{cot\}/g, "\\cot ")
+                                  .replace(
+                                    /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                                    (_, x) => `\\log_{${x}} `
+                                  )
                               )
                             ).trim()
                           )
@@ -475,6 +485,15 @@ export default function Home() {
                                     "$"
                                 )
                                 .replace(/\.\$/g, "$.")
+                                .replace(/\\text\{ln\}/g, "\\ln ")
+                                .replace(/\\text\{sin\}/g, "\\sin ")
+                                .replace(/\\text\{cos\}/g, "\\cos ")
+                                .replace(/\\text\{tan\}/g, "\\tan ")
+                                .replace(/\\text\{cot\}/g, "\\cot ")
+                                .replace(
+                                  /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                                  (_, x) => `\\log_{${x}} `
+                                )
                             )
                           )
                         )
@@ -525,6 +544,15 @@ export default function Home() {
                                       "$"
                                   )
                                   .replace(/\.\$/g, "$.")
+                                  .replace(/\\text\{ln\}/g, "\\ln ")
+                                  .replace(/\\text\{sin\}/g, "\\sin ")
+                                  .replace(/\\text\{cos\}/g, "\\cos ")
+                                  .replace(/\\text\{tan\}/g, "\\tan ")
+                                  .replace(/\\text\{cot\}/g, "\\cot ")
+                                  .replace(
+                                    /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                                    (_, x) => `\\log_{${x}} `
+                                  )
                               )
                             )
                           )
@@ -756,6 +784,15 @@ export default function Home() {
                                     "$"
                                 )
                                 .replace(/\.\$/g, "$.")
+                                .replace(/\\text\{ln\}/g, "\\ln ")
+                                .replace(/\\text\{sin\}/g, "\\sin ")
+                                .replace(/\\text\{cos\}/g, "\\cos ")
+                                .replace(/\\text\{tan\}/g, "\\tan ")
+                                .replace(/\\text\{cot\}/g, "\\cot ")
+                                .replace(
+                                  /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                                  (_, x) => `\\log_{${x}} `
+                                )
                             )
                           ).trim()
                         )
@@ -804,6 +841,15 @@ export default function Home() {
                                   "$" + p1.replace(/\s*([{}])\s*/g, "$1") + "$"
                               )
                               .replace(/\.\$/g, "$.")
+                              .replace(/\\text\{ln\}/g, "\\ln ")
+                              .replace(/\\text\{sin\}/g, "\\sin ")
+                              .replace(/\\text\{cos\}/g, "\\cos ")
+                              .replace(/\\text\{tan\}/g, "\\tan ")
+                              .replace(/\\text\{cot\}/g, "\\cot ")
+                              .replace(
+                                /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                                (_, x) => `\\log_{${x}} `
+                              )
                           )
                         )
                       )
@@ -854,6 +900,15 @@ export default function Home() {
                                       "$"
                                   )
                                   .replace(/\.\$/g, "$.")
+                                  .replace(/\\text\{ln\}/g, "\\ln ")
+                                  .replace(/\\text\{sin\}/g, "\\sin ")
+                                  .replace(/\\text\{cos\}/g, "\\cos ")
+                                  .replace(/\\text\{tan\}/g, "\\tan ")
+                                  .replace(/\\text\{cot\}/g, "\\cot ")
+                                  .replace(
+                                    /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                                    (_, x) => `\\log_{${x}} `
+                                  )
                               )
                             )
                           )
@@ -1074,6 +1129,15 @@ export default function Home() {
                                   "$" + p1.replace(/\s*([{}])\s*/g, "$1") + "$"
                               )
                               .replace(/\.\$/g, "$.")
+                              .replace(/\\text\{ln\}/g, "\\ln ")
+                              .replace(/\\text\{sin\}/g, "\\sin ")
+                              .replace(/\\text\{cos\}/g, "\\cos ")
+                              .replace(/\\text\{tan\}/g, "\\tan ")
+                              .replace(/\\text\{cot\}/g, "\\cot ")
+                              .replace(
+                                /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                                (_, x) => `\\log_{${x}} `
+                              )
                           )
                         )
                       )
@@ -1138,6 +1202,15 @@ export default function Home() {
                                       "$"
                                   )
                                   .replace(/\.\$/g, "$.")
+                                  .replace(/\\text\{ln\}/g, "\\ln ")
+                                  .replace(/\\text\{sin\}/g, "\\sin ")
+                                  .replace(/\\text\{cos\}/g, "\\cos ")
+                                  .replace(/\\text\{tan\}/g, "\\tan ")
+                                  .replace(/\\text\{cot\}/g, "\\cot ")
+                                  .replace(
+                                    /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                                    (_, x) => `\\log_{${x}} `
+                                  )
                               )
                             )
                           )

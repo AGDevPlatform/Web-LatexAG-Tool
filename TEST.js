@@ -1,59 +1,61 @@
-import "katex/dist/katex.min.css";
-import katex from "katex";
-const renderLatex = (text) => {
-  const parts = text.split(/(\$[^\$]+\$)/g);
-  return parts.map((part, index) => {
-    if (part.startsWith("$") && part.endsWith("$")) {
-      const latex = part.slice(1, -1);
-      return (
-        <span
-          key={index}
-          style={{ fontSize: "0.9em" }} // Điều chỉnh kích thước chữ ở đây
-          dangerouslySetInnerHTML={{
-            __html: katex.renderToString(latex, {
-              throwOnError: false,
-              fontSize: "0.9em", // Điều chỉnh kích thước chữ trong KaTeX
-            }),
-          }}
-        />
-      );
-    }
-    return part;
-  });
+Tôi hiểu rằng bạn muốn thay thế các trường hợp cụ thể trong code và thêm một khoảng trắng sau mỗi thay thế. Dưới đây là đoạn code sử dụng `replace` để thực hiện các thay thế bạn yêu cầu:
+
+```javascript
+const replaceTexts = (content) => {
+  return content
+    .replace(/\\text\{ln\}/g, "\\ln ")
+    .replace(/\\text\{sin\}/g, "\\sin ")
+    .replace(/\\text\{cos\}/g, "\\cos ")
+    .replace(/\\text\{tan\}/g, "\\tan ")
+    .replace(/\\text\{cot\}/g, "\\cot ")
+    .replace(/\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g, (_, x) => `\\log_{${x}} `);
 };
-<div>
-  {questionType1.map((q, index) => (
-    <div
-      key={index}
-      className="bg-blue-50 p-2 rounded-lg border border-blue-200 mb-2"
-    >
-      <p>
-        <span className="font-semibold">Câu {index + 1}: </span>
-        {renderLatex(q.content.replace(/%Câu \d+/g, ""))}
-      </p>
-      {["A", "B", "C", "D"].map((option, i) => {
-        const ansKey = `ans${i + 1}`;
-        const answerText = q[ansKey];
-        const isTrue = answerText.startsWith("\\True");
-        const displayText = isTrue
-          ? answerText.replace("\\True", "").trim()
-          : answerText;
-        return (
-          <p key={option} className={isTrue ? "font-bold text-green-600" : ""}>
-            <strong>{option}.</strong> {renderLatex(displayText)}
-          </p>
-        );
-      })}
-      <p
-        className={`font-semibold ${q.key ? "text-green-600" : "text-red-600"}`}
-      >
-        {q.key ? `Đáp án đúng: ${q.key}` : "Không có đáp án"}
-      </p>
-      {/* {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>} */}
-      <p>
-        <span className="font-semibold">Câu {index + 1}: </span>
-        {renderLatex(q.sol.replace(/%Câu \d+/g, ""))}
-      </p>
-    </div>
-  ))}
-</div>;
+
+const formatTracNghiem = useCallback(() => {
+  // ... (các hàm helper khác giữ nguyên)
+
+  const processContent = (content) =>
+    removeNestedCurlyBraces(
+      removeSingleCharBraces(
+        removeSingleCharBraces(
+          removeBracesBeforePrime(
+            removeCurlyBraces(
+              replaceLeftRight(
+                normalizePunctuation(
+                  removeWhitespaceAfterSymbols(
+                    replacePercentage(
+                      wrapNumbersInDollars(
+                        replaceTexts( // Thêm hàm replaceTexts vào đây
+                          content
+                            .trim()
+                            .replace(/\s+/g, " ")
+                            // ... (các replace khác giữ nguyên)
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    );
+
+  // ... (phần còn lại của hàm formatTracNghiem giữ nguyên)
+
+}, [inputText]);
+```
+
+Trong đoạn code này, tôi đã thêm một hàm mới `replaceTexts` để xử lý các trường hợp thay thế cụ thể mà bạn yêu cầu. Hàm này được thêm vào chuỗi xử lý trong `processContent`.
+
+Giải thích chi tiết:
+
+1. Các trường hợp 1-5 được xử lý bằng cách sử dụng `replace` với regex đơn giản.
+2. Trường hợp 6 (\text{lo}{{\text{g}}_x} ===> \log_{x}) được xử lý bằng cách sử dụng regex với nhóm bắt (.+?) để bắt bất kỳ ký tự nào trong phần chỉ số.
+3. Mỗi thay thế đều thêm một khoảng trắng ở cuối để đảm bảo có khoảng cách sau mỗi hàm.
+4. Hàm `replaceTexts` được thêm vào chuỗi xử lý trong `processContent`, trước các bước xử lý khác để đảm bảo nó không ảnh hưởng đến các chức năng khác.
+
+Lưu ý rằng thứ tự của các thay thế có thể quan trọng. Nếu bạn nhận thấy có vấn đề với thứ tự cụ thể này, chúng ta có thể điều chỉnh nó.
+
+Bạn có muốn tôi giải thích thêm về bất kỳ phần nào của code này không?
