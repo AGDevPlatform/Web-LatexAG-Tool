@@ -12,6 +12,8 @@ import {
   faEraser,
   faCopy,
   faBook,
+  faCircleCheck,
+  faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import "katex/dist/katex.min.css";
@@ -59,6 +61,7 @@ export default function Home() {
       return part;
     });
   };
+
   const handleInputChange = useCallback((value) => {
     setInputText(value);
   }, []);
@@ -112,7 +115,10 @@ export default function Home() {
         .filter((line) => line.startsWith("{"))
         .map((line) => line.slice(1, -1).trim());
 
-      const solutionMatch = question.match(/\\loigiai\{([^}]+)\}/);
+      // Tách lời giải sử dụng regex
+      const solutionMatch = question.match(
+        /\\loigiai\{((?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*)\}/s
+      );
       const solution = solutionMatch ? solutionMatch[1].trim() : "";
 
       const key = answers.findIndex((ans) => ans.startsWith("\\True"));
@@ -128,6 +134,7 @@ export default function Home() {
         key: keyLetter,
       };
     };
+
     const parseType2 = (question) => {
       const contentMatch = question.match(/(.*?)\\choiceTF/s);
       const content = contentMatch ? contentMatch[1].trim() : "";
@@ -143,7 +150,9 @@ export default function Home() {
         .filter((line) => line.startsWith("{"))
         .map((line) => line.slice(1, -1).trim());
 
-      const solutionMatch = question.match(/\\loigiai\{([^}]+)\}/);
+      const solutionMatch = question.match(
+        /\\loigiai\{((?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*)\}/s
+      );
       const solution = solutionMatch ? solutionMatch[1].trim() : "";
 
       const keys = answers
@@ -167,12 +176,15 @@ export default function Home() {
       const contentMatch = question.match(/(.*?)\\shortans/s);
       const content = contentMatch ? contentMatch[1].trim() : "";
 
-      const keyMatch = question.match(/\\shortans(?:\[[^\]]*\])?\{([^}]+)\}/);
+      const keyMatch = question.match(
+        /\\shortans\[\]\{((?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*)\}/s
+      );
       const key = keyMatch ? keyMatch[1] : "";
 
-      const solutionMatch = question.match(/\\loigiai\{([^}]+)\}/);
-      const solution = solutionMatch ? solutionMatch[1] : "";
-
+      const solutionMatch = question.match(
+        /\\loigiai\{((?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*)\}/s
+      );
+      const solution = solutionMatch ? solutionMatch[1].trim() : "";
       return {
         content,
         sol: solution,
@@ -1181,15 +1193,6 @@ export default function Home() {
       return document.execCommand("copy", true, text);
     }
   };
-  // const handleCopy = () => {
-  //   copyTextToClipboard(inputText)
-  //     .then(() => {
-  //       toast.success("Đã copy tất cả nội dung !");
-  //     })
-  //     .catch((err) => {
-  //       toast.error("Failed to copy text: ", err);
-  //     });
-  // };
   const handleCopy = () => {
     let textToCopy = inputText;
 
@@ -1504,13 +1507,32 @@ export default function Home() {
                         );
                       })}
                       <p
-                        className={`font-semibold ${
+                        className={`font-semibold flex items-center ${
                           q.key ? "text-green-600" : "text-red-600"
                         }`}
                       >
-                        {q.key ? `Đáp án đúng: ${q.key}` : "Không có đáp án"}
+                        {q.key ? (
+                          <>
+                            <FontAwesomeIcon
+                              icon={faCircleCheck}
+                              className="mr-2"
+                            />
+                            <span>Đáp án đúng: {q.key}</span>
+                          </>
+                        ) : (
+                          "Không có đáp án"
+                        )}
                       </p>
-                      {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>}
+                      {/* {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>} */}
+                      {q.sol && q.sol.trim() !== "" && (
+                        <p>
+                          <span className="text-green-600 font-bold">
+                            <FontAwesomeIcon icon={faEdit} className="mr-2" />
+                            Lời giải:
+                          </span>
+                          <span className="ml-2">{renderLatex(q.sol)}</span>
+                        </p>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -1547,13 +1569,32 @@ export default function Home() {
                         })}
                       </div>
                       <p
-                        className={`font-semibold ${
+                        className={`font-semibold flex items-center ${
                           q.key ? "text-green-600" : "text-red-600"
                         }`}
                       >
-                        {q.key ? `Đáp án đúng: ${q.key}` : "Không có đáp án"}
+                        {q.key ? (
+                          <>
+                            <FontAwesomeIcon
+                              icon={faCircleCheck}
+                              className="mr-2"
+                            />
+                            <span>Đáp án đúng: {q.key}</span>
+                          </>
+                        ) : (
+                          "Không có đáp án"
+                        )}
                       </p>
-                      {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>}
+                      {/* {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>} */}
+                      {q.sol && q.sol.trim() !== "" && (
+                        <p>
+                          <span className="text-green-600 font-bold">
+                            <FontAwesomeIcon icon={faEdit} className="mr-2" />
+                            Lời giải:
+                          </span>
+                          <span className="ml-2">{renderLatex(q.sol)}</span>
+                        </p>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -1570,17 +1611,32 @@ export default function Home() {
                         {renderLatex(q.content.replace(/%Câu \d+/g, ""))}
                       </p>
                       <p
-                        className={`font-semibold ${
+                        className={`font-semibold flex items-center ${
                           q.key ? "text-green-600" : "text-red-600"
                         }`}
                       >
                         {q.key ? (
-                          <>Đáp án đúng: {renderLatex(q.key)}</>
+                          <>
+                            <FontAwesomeIcon
+                              icon={faCircleCheck}
+                              className="mr-2"
+                            />
+                            <span>Đáp án đúng: {renderLatex(q.key)}</span>
+                          </>
                         ) : (
                           "Không có đáp án"
                         )}
                       </p>
-                      {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>}
+                      {/* {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>} */}
+                      {q.sol && q.sol.trim() !== "" && (
+                        <p>
+                          <span className="text-green-600 font-bold">
+                            <FontAwesomeIcon icon={faEdit} className="mr-2" />
+                            Lời giải:
+                          </span>
+                          <span className="ml-2">{renderLatex(q.sol)}</span>
+                        </p>
+                      )}
                     </div>
                   ))}
                 </div>
