@@ -403,6 +403,14 @@ export default function Home() {
                                     /\$\s*([^$]+?)\s*\$/g,
                                     (match, p1) => `$${p1.trim()}$`
                                   )
+                                  .replace(
+                                    /\$([^$]+)\$/g,
+                                    (match, p1) =>
+                                      "$" +
+                                      p1.replace(/\s*([{}])\s*/g, "$1") +
+                                      "$"
+                                  )
+                                  .replace(/\.\$/g, "$.")
                               )
                             ).trim()
                           )
@@ -447,6 +455,14 @@ export default function Home() {
                                   /\$\s*([^$]+?)\s*\$/g,
                                   (match, p1) => `$${p1.trim()}$`
                                 )
+                                .replace(
+                                  /\$([^$]+)\$/g,
+                                  (match, p1) =>
+                                    "$" +
+                                    p1.replace(/\s*([{}])\s*/g, "$1") +
+                                    "$"
+                                )
+                                .replace(/\.\$/g, "$.")
                             )
                           )
                         )
@@ -489,6 +505,14 @@ export default function Home() {
                                     /\$\s*([^$]+?)\s*\$/g,
                                     (match, p1) => `$${p1.trim()}$`
                                   )
+                                  .replace(
+                                    /\$([^$]+)\$/g,
+                                    (match, p1) =>
+                                      "$" +
+                                      p1.replace(/\s*([{}])\s*/g, "$1") +
+                                      "$"
+                                  )
+                                  .replace(/\.\$/g, "$.")
                               )
                             )
                           )
@@ -712,6 +736,14 @@ export default function Home() {
                                   /\$\s*([^$]+?)\s*\$/g,
                                   (match, p1) => `$${p1.trim()}$`
                                 )
+                                .replace(
+                                  /\$([^$]+)\$/g,
+                                  (match, p1) =>
+                                    "$" +
+                                    p1.replace(/\s*([{}])\s*/g, "$1") +
+                                    "$"
+                                )
+                                .replace(/\.\$/g, "$.")
                             )
                           ).trim()
                         )
@@ -754,6 +786,12 @@ export default function Home() {
                                 /\$\s*([^$]+?)\s*\$/g,
                                 (match, p1) => `$${p1.trim()}$`
                               )
+                              .replace(
+                                /\$([^$]+)\$/g,
+                                (match, p1) =>
+                                  "$" + p1.replace(/\s*([{}])\s*/g, "$1") + "$"
+                              )
+                              .replace(/\.\$/g, "$.")
                           )
                         )
                       )
@@ -796,6 +834,14 @@ export default function Home() {
                                     /\$\s*([^$]+?)\s*\$/g,
                                     (match, p1) => `$${p1.trim()}$`
                                   )
+                                  .replace(
+                                    /\$([^$]+)\$/g,
+                                    (match, p1) =>
+                                      "$" +
+                                      p1.replace(/\s*([{}])\s*/g, "$1") +
+                                      "$"
+                                  )
+                                  .replace(/\.\$/g, "$.")
                               )
                             )
                           )
@@ -1010,6 +1056,12 @@ export default function Home() {
                                 /\$\s*([^$]+?)\s*\$/g,
                                 (match, p1) => `$${p1.trim()}$`
                               )
+                              .replace(
+                                /\$([^$]+)\$/g,
+                                (match, p1) =>
+                                  "$" + p1.replace(/\s*([{}])\s*/g, "$1") + "$"
+                              )
+                              .replace(/\.\$/g, "$.")
                           )
                         )
                       )
@@ -1066,6 +1118,14 @@ export default function Home() {
                                     /\$\s*([^$]+?)\s*\$/g,
                                     (match, p1) => `$${p1.trim()}$`
                                   )
+                                  .replace(
+                                    /\$([^$]+)\$/g,
+                                    (match, p1) =>
+                                      "$" +
+                                      p1.replace(/\s*([{}])\s*/g, "$1") +
+                                      "$"
+                                  )
+                                  .replace(/\.\$/g, "$.")
                               )
                             )
                           )
