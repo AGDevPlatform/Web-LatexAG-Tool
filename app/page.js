@@ -22,7 +22,7 @@ export default function Home() {
   const [questionType1, setQuestionType1] = useState([]);
   const [questionType2, setQuestionType2] = useState([]);
   const [questionType3, setQuestionType3] = useState([]);
-  const [checkComment, setCheckComment] = useState(false);
+  const [checkComment, setCheckComment] = useState(true);
 
   useEffect(() => {
     // Lấy giá trị từ localStorage khi component mount
