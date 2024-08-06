@@ -458,9 +458,53 @@ export default function Home() {
                   )
                 )
               )
-            ).replace(/(\$[^$]+\$)/g, (match) =>
-              match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
             )
+              .replace(/(\$[^$]+\$)/g, (match) =>
+                match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
+              )
+              .replace(/\$([^$]+)\$/g, (match, p1) => {
+                // Xử lý các cặp ngoặc nhọn lồng nhau trong biểu thức toán học
+                return (
+                  "$" +
+                  p1
+                    .replace(/\{\{([^{}]*)\}\}/g, (nestedMatch, content) => {
+                      // Kiểm tra nếu không có ký tự giữa các dấu ngoặc đóng và mở
+                      if (!/\}\s*\{/.test(content)) {
+                        return `{${content}}`;
+                      }
+                      return nestedMatch;
+                    })
+                    .replace(/\s*([{}])\s*/g, "$1") +
+                  "$"
+                );
+              })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                let prevText;
+                while (prevText !== match) {
+                  prevText = match;
+                  match = match.replace(
+                    /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                    (m, before, braces) => {
+                      if (/^[+\-($=><|]|\d+$/.test(before)) {
+                        return before + braces.slice(1, -1);
+                      }
+                      return m;
+                    }
+                  );
+                }
+                return match;
+              })
+              .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
+                if (p1) {
+                  // Handle numbers already in $...$
+                  return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
+                }
+                if (p2.includes(",")) {
+                  // Handle decimal numbers with comma
+                  return "$ " + p2.replace(",", "{,}") + " $";
+                }
+                return `$${p2}$`; // If it's a number not wrapped, wrap it with spaces
+              })
           );
 
         const processContent = (content) =>
@@ -525,9 +569,53 @@ export default function Home() {
                 )
               )
             )
-          ).replace(/(\$[^$]+\$)/g, (match) =>
-            match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
-          );
+          )
+            .replace(/(\$[^$]+\$)/g, (match) =>
+              match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
+            )
+            .replace(/\$([^$]+)\$/g, (match, p1) => {
+              // Xử lý các cặp ngoặc nhọn lồng nhau trong biểu thức toán học
+              return (
+                "$" +
+                p1
+                  .replace(/\{\{([^{}]*)\}\}/g, (nestedMatch, content) => {
+                    // Kiểm tra nếu không có ký tự giữa các dấu ngoặc đóng và mở
+                    if (!/\}\s*\{/.test(content)) {
+                      return `{${content}}`;
+                    }
+                    return nestedMatch;
+                  })
+                  .replace(/\s*([{}])\s*/g, "$1") +
+                "$"
+              );
+            })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              let prevText;
+              while (prevText !== match) {
+                prevText = match;
+                match = match.replace(
+                  /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                  (m, before, braces) => {
+                    if (/^[+\-($=><|]|\d+$/.test(before)) {
+                      return before + braces.slice(1, -1);
+                    }
+                    return m;
+                  }
+                );
+              }
+              return match;
+            })
+            .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
+              if (p1) {
+                // Handle numbers already in $...$
+                return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
+              }
+              if (p2.includes(",")) {
+                // Handle decimal numbers with comma
+                return "$ " + p2.replace(",", "{,}") + " $";
+              }
+              return `$${p2}$`; // If it's a number not wrapped, wrap it with spaces
+            });
         const processExplanation = (explanation) =>
           explanation
             ? wrapNumbersInDollars(
@@ -589,9 +677,67 @@ export default function Home() {
                     )
                   )
                 )
-              ).replace(/(\$[^$]+\$)/g, (match) =>
-                match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
               )
+                .replace(/(\$[^$]+\$)/g, (match) =>
+                  match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
+                )
+                .replace(/\$([^$]+)\$/g, (match, p1) => {
+                  // Xử lý các cặp ngoặc nhọn lồng nhau trong biểu thức toán học
+                  return (
+                    "$" +
+                    p1
+                      .replace(/\{\{([^{}]*)\}\}/g, (nestedMatch, content) => {
+                        // Kiểm tra nếu không có ký tự giữa các dấu ngoặc đóng và mở
+                        if (!/\}\s*\{/.test(content)) {
+                          return `{${content}}`;
+                        }
+                        return nestedMatch;
+                      })
+                      .replace(/\s*([{}])\s*/g, "$1") +
+                    "$"
+                  );
+                })
+                .replace(/(\$[^$]+\$)/g, (match) => {
+                  return match.replace(
+                    /([+\-($]|\d+)(\{[^{}]+\})/g,
+                    (m, before, braces) => {
+                      if (/^[+\-($]|\d+$/.test(before)) {
+                        return before + braces.slice(1, -1);
+                      }
+                      return m;
+                    }
+                  );
+                })
+                .replace(/(\$[^$]+\$)/g, (match) => {
+                  let prevText;
+                  while (prevText !== match) {
+                    prevText = match;
+                    match = match.replace(
+                      /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                      (m, before, braces) => {
+                        if (/^[+\-($=><|]|\d+$/.test(before)) {
+                          return before + braces.slice(1, -1);
+                        }
+                        return m;
+                      }
+                    );
+                  }
+                  return match;
+                })
+                .replace(
+                  /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
+                  (match, p1, p2) => {
+                    if (p1) {
+                      // Handle numbers already in $...$
+                      return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
+                    }
+                    if (p2.includes(",")) {
+                      // Handle decimal numbers with comma
+                      return "$ " + p2.replace(",", "{,}") + " $";
+                    }
+                    return `$${p2}$`; // If it's a number not wrapped, wrap it with spaces
+                  }
+                )
             : "";
 
         const normalizedContent = processContent(content);
@@ -847,9 +993,53 @@ export default function Home() {
                 )
               )
             )
-          ).replace(/(\$[^$]+\$)/g, (match) =>
-            match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
           )
+            .replace(/(\$[^$]+\$)/g, (match) =>
+              match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
+            )
+            .replace(/\$([^$]+)\$/g, (match, p1) => {
+              // Xử lý các cặp ngoặc nhọn lồng nhau trong biểu thức toán học
+              return (
+                "$" +
+                p1
+                  .replace(/\{\{([^{}]*)\}\}/g, (nestedMatch, content) => {
+                    // Kiểm tra nếu không có ký tự giữa các dấu ngoặc đóng và mở
+                    if (!/\}\s*\{/.test(content)) {
+                      return `{${content}}`;
+                    }
+                    return nestedMatch;
+                  })
+                  .replace(/\s*([{}])\s*/g, "$1") +
+                "$"
+              );
+            })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              let prevText;
+              while (prevText !== match) {
+                prevText = match;
+                match = match.replace(
+                  /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                  (m, before, braces) => {
+                    if (/^[+\-($=><|]|\d+$/.test(before)) {
+                      return before + braces.slice(1, -1);
+                    }
+                    return m;
+                  }
+                );
+              }
+              return match;
+            })
+            .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
+              if (p1) {
+                // Handle numbers already in $...$
+                return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
+              }
+              if (p2.includes(",")) {
+                // Handle decimal numbers with comma
+                return "$ " + p2.replace(",", "{,}") + " $";
+              }
+              return `$${p2}$`; // If it's a number not wrapped, wrap it with spaces
+            })
         );
         const normalizedContent = wrapNumbersInDollars(
           removeCurlyBraces2(
@@ -912,9 +1102,53 @@ export default function Home() {
               )
             )
           )
-        ).replace(/(\$[^$]+\$)/g, (match) =>
-          match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
-        );
+        )
+          .replace(/(\$[^$]+\$)/g, (match) =>
+            match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
+          )
+          .replace(/\$([^$]+)\$/g, (match, p1) => {
+            // Xử lý các cặp ngoặc nhọn lồng nhau trong biểu thức toán học
+            return (
+              "$" +
+              p1
+                .replace(/\{\{([^{}]*)\}\}/g, (nestedMatch, content) => {
+                  // Kiểm tra nếu không có ký tự giữa các dấu ngoặc đóng và mở
+                  if (!/\}\s*\{/.test(content)) {
+                    return `{${content}}`;
+                  }
+                  return nestedMatch;
+                })
+                .replace(/\s*([{}])\s*/g, "$1") +
+              "$"
+            );
+          })
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            let prevText;
+            while (prevText !== match) {
+              prevText = match;
+              match = match.replace(
+                /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                (m, before, braces) => {
+                  if (/^[+\-($=><|]|\d+$/.test(before)) {
+                    return before + braces.slice(1, -1);
+                  }
+                  return m;
+                }
+              );
+            }
+            return match;
+          })
+          .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
+            if (p1) {
+              // Handle numbers already in $...$
+              return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
+            }
+            if (p2.includes(",")) {
+              // Handle decimal numbers with comma
+              return "$ " + p2.replace(",", "{,}") + " $";
+            }
+            return `$${p2}$`; // If it's a number not wrapped, wrap it with spaces
+          });
         const normalizedExplanation = explanation
           ? wrapNumbersInDollars(
               removeCurlyBraces2(
@@ -977,9 +1211,53 @@ export default function Home() {
                   )
                 )
               )
-            ).replace(/(\$[^$]+\$)/g, (match) =>
-              match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
             )
+              .replace(/(\$[^$]+\$)/g, (match) =>
+                match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
+              )
+              .replace(/\$([^$]+)\$/g, (match, p1) => {
+                // Xử lý các cặp ngoặc nhọn lồng nhau trong biểu thức toán học
+                return (
+                  "$" +
+                  p1
+                    .replace(/\{\{([^{}]*)\}\}/g, (nestedMatch, content) => {
+                      // Kiểm tra nếu không có ký tự giữa các dấu ngoặc đóng và mở
+                      if (!/\}\s*\{/.test(content)) {
+                        return `{${content}}`;
+                      }
+                      return nestedMatch;
+                    })
+                    .replace(/\s*([{}])\s*/g, "$1") +
+                  "$"
+                );
+              })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                let prevText;
+                while (prevText !== match) {
+                  prevText = match;
+                  match = match.replace(
+                    /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                    (m, before, braces) => {
+                      if (/^[+\-($=><|]|\d+$/.test(before)) {
+                        return before + braces.slice(1, -1);
+                      }
+                      return m;
+                    }
+                  );
+                }
+                return match;
+              })
+              .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
+                if (p1) {
+                  // Handle numbers already in $...$
+                  return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
+                }
+                if (p2.includes(",")) {
+                  // Handle decimal numbers with comma
+                  return "$ " + p2.replace(",", "{,}") + " $";
+                }
+                return `$${p2}$`; // If it's a number not wrapped, wrap it with spaces
+              })
           : "";
 
         return `\\begin{ex} %Câu ${
@@ -1225,9 +1503,53 @@ export default function Home() {
               )
             )
           )
-        ).replace(/(\$[^$]+\$)/g, (match) =>
-          match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
-        );
+        )
+          .replace(/(\$[^$]+\$)/g, (match) =>
+            match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
+          )
+          .replace(/\$([^$]+)\$/g, (match, p1) => {
+            // Xử lý các cặp ngoặc nhọn lồng nhau trong biểu thức toán học
+            return (
+              "$" +
+              p1
+                .replace(/\{\{([^{}]*)\}\}/g, (nestedMatch, content) => {
+                  // Kiểm tra nếu không có ký tự giữa các dấu ngoặc đóng và mở
+                  if (!/\}\s*\{/.test(content)) {
+                    return `{${content}}`;
+                  }
+                  return nestedMatch;
+                })
+                .replace(/\s*([{}])\s*/g, "$1") +
+              "$"
+            );
+          })
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            let prevText;
+            while (prevText !== match) {
+              prevText = match;
+              match = match.replace(
+                /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                (m, before, braces) => {
+                  if (/^[+\-($=><|]|\d+$/.test(before)) {
+                    return before + braces.slice(1, -1);
+                  }
+                  return m;
+                }
+              );
+            }
+            return match;
+          })
+          .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
+            if (p1) {
+              // Handle numbers already in $...$
+              return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
+            }
+            if (p2.includes(",")) {
+              // Handle decimal numbers with comma
+              return "$ " + p2.replace(",", "{,}") + " $";
+            }
+            return `$${p2}$`; // If it's a number not wrapped, wrap it with spaces
+          });
         const normalizedAnswer =
           answer.startsWith("$") && answer.endsWith("$")
             ? answer
@@ -1247,9 +1569,56 @@ export default function Home() {
                     )
                   )
                 )
-              ).replace(/(\$[^$]+\$)/g, (match) =>
-                match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
-              );
+              )
+                .replace(/(\$[^$]+\$)/g, (match) =>
+                  match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
+                )
+                .replace(/\$([^$]+)\$/g, (match, p1) => {
+                  // Xử lý các cặp ngoặc nhọn lồng nhau trong biểu thức toán học
+                  return (
+                    "$" +
+                    p1
+                      .replace(/\{\{([^{}]*)\}\}/g, (nestedMatch, content) => {
+                        // Kiểm tra nếu không có ký tự giữa các dấu ngoặc đóng và mở
+                        if (!/\}\s*\{/.test(content)) {
+                          return `{${content}}`;
+                        }
+                        return nestedMatch;
+                      })
+                      .replace(/\s*([{}])\s*/g, "$1") +
+                    "$"
+                  );
+                })
+                .replace(/(\$[^$]+\$)/g, (match) => {
+                  let prevText;
+                  while (prevText !== match) {
+                    prevText = match;
+                    match = match.replace(
+                      /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                      (m, before, braces) => {
+                        if (/^[+\-($=><|]|\d+$/.test(before)) {
+                          return before + braces.slice(1, -1);
+                        }
+                        return m;
+                      }
+                    );
+                  }
+                  return match;
+                })
+                .replace(
+                  /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
+                  (match, p1, p2) => {
+                    if (p1) {
+                      // Handle numbers already in $...$
+                      return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
+                    }
+                    if (p2.includes(",")) {
+                      // Handle decimal numbers with comma
+                      return "$ " + p2.replace(",", "{,}") + " $";
+                    }
+                    return `$${p2}$`; // If it's a number not wrapped, wrap it with spaces
+                  }
+                );
         const normalizedExplanation = explanation
           ? wrapNumbersInDollars(
               removeCurlyBraces2(
@@ -1311,6 +1680,49 @@ export default function Home() {
                 )
               )
             )
+              .replace(/\$([^$]+)\$/g, (match, p1) => {
+                // Xử lý các cặp ngoặc nhọn lồng nhau trong biểu thức toán học
+                return (
+                  "$" +
+                  p1
+                    .replace(/\{\{([^{}]*)\}\}/g, (nestedMatch, content) => {
+                      // Kiểm tra nếu không có ký tự giữa các dấu ngoặc đóng và mở
+                      if (!/\}\s*\{/.test(content)) {
+                        return `{${content}}`;
+                      }
+                      return nestedMatch;
+                    })
+                    .replace(/\s*([{}])\s*/g, "$1") +
+                  "$"
+                );
+              })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                let prevText;
+                while (prevText !== match) {
+                  prevText = match;
+                  match = match.replace(
+                    /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                    (m, before, braces) => {
+                      if (/^[+\-($=><|]|\d+$/.test(before)) {
+                        return before + braces.slice(1, -1);
+                      }
+                      return m;
+                    }
+                  );
+                }
+                return match;
+              })
+              .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
+                if (p1) {
+                  // Handle numbers already in $...$
+                  return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
+                }
+                if (p2.includes(",")) {
+                  // Handle decimal numbers with comma
+                  return "$ " + p2.replace(",", "{,}") + " $";
+                }
+                return `$${p2}$`; // If it's a number not wrapped, wrap it with spaces
+              })
           : "";
 
         // Format the question with proper indentation
