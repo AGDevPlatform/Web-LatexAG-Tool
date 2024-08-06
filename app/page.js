@@ -635,57 +635,56 @@ export default function Home() {
               return `$${p2}$`; // If it's a number not wrapped, wrap it with spaces
             });
         const processExplanation = (explanation) =>
-          explanation
-            ? wrapNumbersInDollars(
-                removeCurlyBraces2(
-                  removeNestedCurlyBraces(
+          wrapNumbersInDollars(
+            removeCurlyBraces2(
+              removeNestedCurlyBraces(
+                removeSingleCharBraces(
+                  removeSingleCharBraces(
                     removeBracesBeforePrime(
                       removeCurlyBraces(
                         replaceLeftRight(
                           normalizePunctuation(
-                            removeChoicePrefix(
-                              removeWhitespaceAfterSymbols(
-                                replacePercentage(
-                                  wrapNumbersInDollars(
-                                    explanation
-                                      .trim()
-                                      .replace(/\s+/g, " ")
-                                      .replace(/\\frac/g, "\\dfrac")
-                                      .replace(/\\\[/g, "$")
-                                      .replace(/\\\]/g, "$")
-                                      .replace(
-                                        /(?<!\\displaystyle)\\int/g,
-                                        "\\displaystyle\\int"
-                                      )
-                                      .replace(/\\cdot\s*/g, ".")
-                                      .replace(/\s+\\right/g, "\\right")
-                                      .replace(/\\!/g, "")
-                                      .replace(/\\text\{\s*\}/g, "")
-                                      .replace(/\\,/g, "")
-                                      .replace(/\$\s*\$/g, "")
-                                      .replace(/\$~(\S)/g, "$$$1")
-                                      .replace(
-                                        /\$\s*([^$]+?)\s*\$/g,
-                                        (match, p1) => `$${p1.trim()}$`
-                                      )
-                                      .replace(
-                                        /\$([^$]+)\$/g,
-                                        (match, p1) =>
-                                          "$" +
-                                          p1.replace(/\s*([{}])\s*/g, "$1") +
-                                          "$"
-                                      )
-                                      .replace(/\.\$/g, "$.")
-                                      .replace(/\\text\{ln\}/g, "\\ln ")
-                                      .replace(/\\text\{sin\}/g, "\\sin ")
-                                      .replace(/\\text\{cos\}/g, "\\cos ")
-                                      .replace(/\\text\{tan\}/g, "\\tan ")
-                                      .replace(/\\text\{cot\}/g, "\\cot ")
-                                      .replace(
-                                        /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
-                                        (_, x) => `\\log_{${x}} `
-                                      )
-                                  )
+                            removeWhitespaceAfterSymbols(
+                              replacePercentage(
+                                wrapNumbersInDollars(
+                                  explanation
+                                    .trim()
+                                    .replace(/\s+/g, " ")
+                                    .replace(/\\frac/g, "\\dfrac")
+                                    .replace(/\\\[/g, "$")
+                                    .replace(/\\\]/g, "$")
+                                    .replace(
+                                      /(?<!\\displaystyle)\\int/g,
+                                      "\\displaystyle\\int"
+                                    )
+                                    .replace(/\\cdot\s*/g, ".")
+                                    .replace(/\s+\\right/g, "\\right")
+                                    .replace(/\\!/g, "")
+                                    .replace(/\\text\{\s*\}/g, "")
+                                    .replace(/\\,/g, "")
+                                    .replace(/\$\s*\$/g, "")
+                                    .replace(/\$~(\S)/g, "$$$1")
+                                    .replace(
+                                      /\$\s*([^$]+?)\s*\$/g,
+                                      (match, p1) => `$${p1.trim()}$`
+                                    )
+                                    .replace(
+                                      /\$([^$]+)\$/g,
+                                      (match, p1) =>
+                                        "$" +
+                                        p1.replace(/\s*([{}])\s*/g, "$1") +
+                                        "$"
+                                    )
+                                    .replace(/\.\$/g, "$.")
+                                    .replace(/\\text\{ln\}/g, "\\ln ")
+                                    .replace(/\\text\{sin\}/g, "\\sin ")
+                                    .replace(/\\text\{cos\}/g, "\\cos ")
+                                    .replace(/\\text\{tan\}/g, "\\tan ")
+                                    .replace(/\\text\{cot\}/g, "\\cot ")
+                                    .replace(
+                                      /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                                      (_, x) => `\\log_{${x}} `
+                                    )
                                 )
                               )
                             )
@@ -696,77 +695,59 @@ export default function Home() {
                   )
                 )
               )
-                .replace(/(\$[^$]+\$)/g, (match) =>
-                  match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
-                )
-                .replace(/\$([^$]+)\$/g, (match, p1) => {
-                  // Xử lý các cặp ngoặc nhọn lồng nhau trong biểu thức toán học
-                  return (
-                    "$" +
-                    p1
-                      .replace(/\{\{([^{}]*)\}\}/g, (nestedMatch, content) => {
-                        // Kiểm tra nếu không có ký tự giữa các dấu ngoặc đóng và mở
-                        if (!/\}\s*\{/.test(content)) {
-                          return `{${content}}`;
-                        }
-                        return nestedMatch;
-                      })
-                      .replace(/\s*([{}])\s*/g, "$1") +
-                    "$"
-                  );
-                })
-                .replace(/(\$[^$]+\$)/g, (match) => {
-                  return match.replace(
-                    /([+\-($]|\d+)(\{[^{}]+\})/g,
-                    (m, before, braces) => {
-                      if (/^[+\-($]|\d+$/.test(before)) {
-                        return before + braces.slice(1, -1);
-                      }
-                      return m;
+            )
+          )
+            .replace(/(\$[^$]+\$)/g, (match) =>
+              match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
+            )
+            .replace(/\$([^$]+)\$/g, (match, p1) => {
+              return (
+                "$" +
+                p1
+                  .replace(/\{\{([^{}]*)\}\}/g, (nestedMatch, content) => {
+                    if (!/\}\s*\{/.test(content)) {
+                      return `{${content}}`;
                     }
-                  );
-                })
-                .replace(/(\$[^$]+\$)/g, (match) => {
-                  let prevText;
-                  while (prevText !== match) {
-                    prevText = match;
-                    match = match.replace(
-                      /([+\-($=><|:;]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
-                      (m, before, braces) => {
-                        if (/^[+\-($=><|:;]|\d+$/.test(before)) {
-                          return before + braces.slice(1, -1);
-                        }
-                        return m;
-                      }
-                    );
+                    return nestedMatch;
+                  })
+                  .replace(/\s*([{}])\s*/g, "$1") +
+                "$"
+              );
+            })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              let prevText;
+              while (prevText !== match) {
+                prevText = match;
+                match = match.replace(
+                  /([+\-($=><|:;]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                  (m, before, braces) => {
+                    if (/^[+\-($=><|:;]|\d+$/.test(before)) {
+                      return before + braces.slice(1, -1);
+                    }
+                    return m;
                   }
-                  return match;
-                })
-                .replace(/(\$[^$]+\$)/g, (match) => {
-                  // New functionality to remove one pair of {} if it's in the form "{{x}}"
-                  return match.replace(/\{\{([^{}]+)\}\}/g, "{$1}");
-                })
-                .replace(/(\$[^$]+\$)/g, (match) => {
-                  // New functionality to remove whitespace around "|" within "$...$"
-                  return match.replace(/\s*\|\s*/g, "|");
-                })
-                .replace(/\\text\{log\}/g, "\\log")
-                .replace(
-                  /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
-                  (match, p1, p2) => {
-                    if (p1) {
-                      // Handle numbers already in $...$
-                      return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
-                    }
-                    if (p2.includes(",")) {
-                      // Handle decimal numbers with comma
-                      return "$ " + p2.replace(",", "{,}") + " $";
-                    }
-                    return `$${p2}$`; // If it's a number not wrapped, wrap it with spaces
-                  }
-                )
-            : "";
-
+                );
+              }
+              return match;
+            })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(/\{\{([^{}]+)\}\}/g, "{$1}");
+            })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(/\s*\|\s*/g, "|");
+            })
+            .replace(/\\text\{log\}/g, "\\log")
+            .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
+              if (p1) {
+                return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
+              }
+              if (p2.includes(",")) {
+                return "$ " + p2.replace(",", "{,}") + " $";
+              }
+              return `$${p2}$`;
+            })
+            .replace(/Chọn (A|B|C|D)\.?/g, "")
+            .trim();
         const normalizedContent = processContent(content);
         const normalizedChoices = processChoices(choices);
         const normalizedExplanation = processExplanation(explanation);
@@ -2180,7 +2161,7 @@ export default function Home() {
                         )}
                       </p>
                       {/* {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>} */}
-                      {q.sol && q.sol.trim() !== "" && (
+                      {/* {q.sol && q.sol.trim() !== "" && (
                         <p>
                           <span className="text-green-600 font-bold">
                             <FontAwesomeIcon icon={faEdit} className="mr-2" />
@@ -2188,7 +2169,7 @@ export default function Home() {
                           </span>
                           <span className="ml-2">{renderLatex(q.sol)}</span>
                         </p>
-                      )}
+                      )} */}
                     </div>
                   ))}
                 </div>
@@ -2248,7 +2229,7 @@ export default function Home() {
                         )}
                       </p>
                       {/* {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>} */}
-                      {q.sol && q.sol.trim() !== "" && (
+                      {/* {q.sol && q.sol.trim() !== "" && (
                         <p>
                           <span className="text-green-600 font-bold">
                             <FontAwesomeIcon icon={faEdit} className="mr-2" />
@@ -2256,7 +2237,7 @@ export default function Home() {
                           </span>
                           <span className="ml-2">{renderLatex(q.sol)}</span>
                         </p>
-                      )}
+                      )} */}
                     </div>
                   ))}
                 </div>
@@ -2296,7 +2277,7 @@ export default function Home() {
                         )}
                       </p>
                       {/* {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>} */}
-                      {q.sol && q.sol.trim() !== "" && (
+                      {/* {q.sol && q.sol.trim() !== "" && (
                         <p>
                           <span className="text-green-600 font-bold">
                             <FontAwesomeIcon icon={faEdit} className="mr-2" />
@@ -2304,7 +2285,7 @@ export default function Home() {
                           </span>
                           <span className="ml-2">{renderLatex(q.sol)}</span>
                         </p>
-                      )}
+                      )} */}
                     </div>
                   ))}
                 </div>
