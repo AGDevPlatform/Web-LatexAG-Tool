@@ -275,6 +275,17 @@ export default function Home() {
       );
     };
 
+    const removeCurlyBraces2 = (text) => {
+      return text.replace(/(\$[^$]+\$)/g, (match, p1) => {
+        if (!p1.includes("\\")) {
+          return p1.replace(/([^\^_])(\{[^{}]+\})/g, (m, before, braces) => {
+            return before + braces.slice(1, -1);
+          });
+        }
+        return match;
+      });
+    };
+
     // Updated helper function to normalize punctuation and add space after $
     const normalizePunctuation = (text) => {
       let result = "";
@@ -384,57 +395,61 @@ export default function Home() {
 
         const processChoices = (choices) =>
           choices.map((choice) =>
-            removeNestedCurlyBraces(
-              removeSingleCharBraces(
-                removeSingleCharBraces(
-                  removeBracesBeforePrime(
-                    removeCurlyBraces(
-                      replaceLeftRight(
-                        normalizePunctuation(
-                          removeWhitespaceAfterSymbols(
-                            replacePercentage(
-                              wrapNumbersInDollars(
-                                choice
-                                  .replace(/\.$/, "")
-                                  .replace(/\s+/g, " ")
-                                  .replace(/\\frac/g, "\\dfrac")
-                                  .replace(/\\\[/g, "$")
-                                  .replace(/\\\]/g, "$")
-                                  .replace(
-                                    /(?<!\\displaystyle)\\int/g,
-                                    "\\displaystyle\\int"
-                                  )
-                                  .replace(/\\cdot\s*/g, ".")
-                                  .replace(/\s+\\right/g, "\\right")
-                                  .replace(/\\!/g, "")
-                                  .replace(/\\text\{\s*\}/g, "")
-                                  .replace(/\\,/g, "")
-                                  .replace(/\$\s*\$/g, "")
-                                  .replace(/\$~(\S)/g, "$$$1")
-                                  .replace(
-                                    /\$\s*([^$]+?)\s*\$/g,
-                                    (match, p1) => `$${p1.trim()}$`
-                                  )
-                                  .replace(
-                                    /\$([^$]+)\$/g,
-                                    (match, p1) =>
-                                      "$" +
-                                      p1.replace(/\s*([{}])\s*/g, "$1") +
-                                      "$"
-                                  )
-                                  .replace(/\.\$/g, "$.")
+            wrapNumbersInDollars(
+              removeCurlyBraces2(
+                removeNestedCurlyBraces(
+                  removeSingleCharBraces(
+                    removeSingleCharBraces(
+                      removeBracesBeforePrime(
+                        removeCurlyBraces(
+                          replaceLeftRight(
+                            normalizePunctuation(
+                              removeWhitespaceAfterSymbols(
+                                replacePercentage(
+                                  wrapNumbersInDollars(
+                                    choice
+                                      .replace(/\.$/, "")
+                                      .replace(/\s+/g, " ")
+                                      .replace(/\\frac/g, "\\dfrac")
+                                      .replace(/\\\[/g, "$")
+                                      .replace(/\\\]/g, "$")
+                                      .replace(
+                                        /(?<!\\displaystyle)\\int/g,
+                                        "\\displaystyle\\int"
+                                      )
+                                      .replace(/\\cdot\s*/g, ".")
+                                      .replace(/\s+\\right/g, "\\right")
+                                      .replace(/\\!/g, "")
+                                      .replace(/\\text\{\s*\}/g, "")
+                                      .replace(/\\,/g, "")
+                                      .replace(/\$\s*\$/g, "")
+                                      .replace(/\$~(\S)/g, "$$$1")
+                                      .replace(
+                                        /\$\s*([^$]+?)\s*\$/g,
+                                        (match, p1) => `$${p1.trim()}$`
+                                      )
+                                      .replace(
+                                        /\$([^$]+)\$/g,
+                                        (match, p1) =>
+                                          "$" +
+                                          p1.replace(/\s*([{}])\s*/g, "$1") +
+                                          "$"
+                                      )
+                                      .replace(/\.\$/g, "$.")
 
-                                  .replace(/\\text\{ln\}/g, "\\ln ")
-                                  .replace(/\\text\{sin\}/g, "\\sin ")
-                                  .replace(/\\text\{cos\}/g, "\\cos ")
-                                  .replace(/\\text\{tan\}/g, "\\tan ")
-                                  .replace(/\\text\{cot\}/g, "\\cot ")
-                                  .replace(
-                                    /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
-                                    (_, x) => `\\log_{${x}} `
+                                      .replace(/\\text\{ln\}/g, "\\ln ")
+                                      .replace(/\\text\{sin\}/g, "\\sin ")
+                                      .replace(/\\text\{cos\}/g, "\\cos ")
+                                      .replace(/\\text\{tan\}/g, "\\tan ")
+                                      .replace(/\\text\{cot\}/g, "\\cot ")
+                                      .replace(
+                                        /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                                        (_, x) => `\\log_{${x}} `
+                                      )
                                   )
+                                ).trim()
                               )
-                            ).trim()
+                            )
                           )
                         )
                       )
@@ -446,54 +461,58 @@ export default function Home() {
           );
 
         const processContent = (content) =>
-          removeNestedCurlyBraces(
-            removeSingleCharBraces(
-              removeSingleCharBraces(
-                removeBracesBeforePrime(
-                  removeCurlyBraces(
-                    replaceLeftRight(
-                      normalizePunctuation(
-                        removeWhitespaceAfterSymbols(
-                          replacePercentage(
-                            wrapNumbersInDollars(
-                              content
-                                .trim()
-                                .replace(/\s+/g, " ")
-                                .replace(/\\frac/g, "\\dfrac")
-                                .replace(/\\\[/g, "$")
-                                .replace(/\\\]/g, "$")
-                                .replace(
-                                  /(?<!\\displaystyle)\\int/g,
-                                  "\\displaystyle\\int"
+          wrapNumbersInDollars(
+            removeCurlyBraces2(
+              removeNestedCurlyBraces(
+                removeSingleCharBraces(
+                  removeSingleCharBraces(
+                    removeBracesBeforePrime(
+                      removeCurlyBraces(
+                        replaceLeftRight(
+                          normalizePunctuation(
+                            removeWhitespaceAfterSymbols(
+                              replacePercentage(
+                                wrapNumbersInDollars(
+                                  content
+                                    .trim()
+                                    .replace(/\s+/g, " ")
+                                    .replace(/\\frac/g, "\\dfrac")
+                                    .replace(/\\\[/g, "$")
+                                    .replace(/\\\]/g, "$")
+                                    .replace(
+                                      /(?<!\\displaystyle)\\int/g,
+                                      "\\displaystyle\\int"
+                                    )
+                                    .replace(/\\cdot\s*/g, ".")
+                                    .replace(/\s+\\right/g, "\\right")
+                                    .replace(/\\!/g, "")
+                                    .replace(/\\text\{\s*\}/g, "")
+                                    .replace(/\\,/g, "")
+                                    .replace(/\$\s*\$/g, "")
+                                    .replace(/\$~(\S)/g, "$$$1")
+                                    .replace(
+                                      /\$\s*([^$]+?)\s*\$/g,
+                                      (match, p1) => `$${p1.trim()}$`
+                                    )
+                                    .replace(
+                                      /\$([^$]+)\$/g,
+                                      (match, p1) =>
+                                        "$" +
+                                        p1.replace(/\s*([{}])\s*/g, "$1") +
+                                        "$"
+                                    )
+                                    .replace(/\.\$/g, "$.")
+                                    .replace(/\\text\{ln\}/g, "\\ln ")
+                                    .replace(/\\text\{sin\}/g, "\\sin ")
+                                    .replace(/\\text\{cos\}/g, "\\cos ")
+                                    .replace(/\\text\{tan\}/g, "\\tan ")
+                                    .replace(/\\text\{cot\}/g, "\\cot ")
+                                    .replace(
+                                      /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                                      (_, x) => `\\log_{${x}} `
+                                    )
                                 )
-                                .replace(/\\cdot\s*/g, ".")
-                                .replace(/\s+\\right/g, "\\right")
-                                .replace(/\\!/g, "")
-                                .replace(/\\text\{\s*\}/g, "")
-                                .replace(/\\,/g, "")
-                                .replace(/\$\s*\$/g, "")
-                                .replace(/\$~(\S)/g, "$$$1")
-                                .replace(
-                                  /\$\s*([^$]+?)\s*\$/g,
-                                  (match, p1) => `$${p1.trim()}$`
-                                )
-                                .replace(
-                                  /\$([^$]+)\$/g,
-                                  (match, p1) =>
-                                    "$" +
-                                    p1.replace(/\s*([{}])\s*/g, "$1") +
-                                    "$"
-                                )
-                                .replace(/\.\$/g, "$.")
-                                .replace(/\\text\{ln\}/g, "\\ln ")
-                                .replace(/\\text\{sin\}/g, "\\sin ")
-                                .replace(/\\text\{cos\}/g, "\\cos ")
-                                .replace(/\\text\{tan\}/g, "\\tan ")
-                                .replace(/\\text\{cot\}/g, "\\cot ")
-                                .replace(
-                                  /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
-                                  (_, x) => `\\log_{${x}} `
-                                )
+                              )
                             )
                           )
                         )
@@ -506,53 +525,57 @@ export default function Home() {
           );
         const processExplanation = (explanation) =>
           explanation
-            ? removeNestedCurlyBraces(
-                removeBracesBeforePrime(
-                  removeCurlyBraces(
-                    replaceLeftRight(
-                      normalizePunctuation(
-                        removeChoicePrefix(
-                          removeWhitespaceAfterSymbols(
-                            replacePercentage(
-                              wrapNumbersInDollars(
-                                explanation
-                                  .trim()
-                                  .replace(/\s+/g, " ")
-                                  .replace(/\\frac/g, "\\dfrac")
-                                  .replace(/\\\[/g, "$")
-                                  .replace(/\\\]/g, "$")
-                                  .replace(
-                                    /(?<!\\displaystyle)\\int/g,
-                                    "\\displaystyle\\int"
+            ? wrapNumbersInDollars(
+                removeCurlyBraces2(
+                  removeNestedCurlyBraces(
+                    removeBracesBeforePrime(
+                      removeCurlyBraces(
+                        replaceLeftRight(
+                          normalizePunctuation(
+                            removeChoicePrefix(
+                              removeWhitespaceAfterSymbols(
+                                replacePercentage(
+                                  wrapNumbersInDollars(
+                                    explanation
+                                      .trim()
+                                      .replace(/\s+/g, " ")
+                                      .replace(/\\frac/g, "\\dfrac")
+                                      .replace(/\\\[/g, "$")
+                                      .replace(/\\\]/g, "$")
+                                      .replace(
+                                        /(?<!\\displaystyle)\\int/g,
+                                        "\\displaystyle\\int"
+                                      )
+                                      .replace(/\\cdot\s*/g, ".")
+                                      .replace(/\s+\\right/g, "\\right")
+                                      .replace(/\\!/g, "")
+                                      .replace(/\\text\{\s*\}/g, "")
+                                      .replace(/\\,/g, "")
+                                      .replace(/\$\s*\$/g, "")
+                                      .replace(/\$~(\S)/g, "$$$1")
+                                      .replace(
+                                        /\$\s*([^$]+?)\s*\$/g,
+                                        (match, p1) => `$${p1.trim()}$`
+                                      )
+                                      .replace(
+                                        /\$([^$]+)\$/g,
+                                        (match, p1) =>
+                                          "$" +
+                                          p1.replace(/\s*([{}])\s*/g, "$1") +
+                                          "$"
+                                      )
+                                      .replace(/\.\$/g, "$.")
+                                      .replace(/\\text\{ln\}/g, "\\ln ")
+                                      .replace(/\\text\{sin\}/g, "\\sin ")
+                                      .replace(/\\text\{cos\}/g, "\\cos ")
+                                      .replace(/\\text\{tan\}/g, "\\tan ")
+                                      .replace(/\\text\{cot\}/g, "\\cot ")
+                                      .replace(
+                                        /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                                        (_, x) => `\\log_{${x}} `
+                                      )
                                   )
-                                  .replace(/\\cdot\s*/g, ".")
-                                  .replace(/\s+\\right/g, "\\right")
-                                  .replace(/\\!/g, "")
-                                  .replace(/\\text\{\s*\}/g, "")
-                                  .replace(/\\,/g, "")
-                                  .replace(/\$\s*\$/g, "")
-                                  .replace(/\$~(\S)/g, "$$$1")
-                                  .replace(
-                                    /\$\s*([^$]+?)\s*\$/g,
-                                    (match, p1) => `$${p1.trim()}$`
-                                  )
-                                  .replace(
-                                    /\$([^$]+)\$/g,
-                                    (match, p1) =>
-                                      "$" +
-                                      p1.replace(/\s*([{}])\s*/g, "$1") +
-                                      "$"
-                                  )
-                                  .replace(/\.\$/g, "$.")
-                                  .replace(/\\text\{ln\}/g, "\\ln ")
-                                  .replace(/\\text\{sin\}/g, "\\sin ")
-                                  .replace(/\\text\{cos\}/g, "\\cos ")
-                                  .replace(/\\text\{tan\}/g, "\\tan ")
-                                  .replace(/\\text\{cot\}/g, "\\cot ")
-                                  .replace(
-                                    /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
-                                    (_, x) => `\\log_{${x}} `
-                                  )
+                                )
                               )
                             )
                           )
@@ -622,6 +645,17 @@ export default function Home() {
           return match;
         }
       );
+    };
+
+    const removeCurlyBraces2 = (text) => {
+      return text.replace(/(\$[^$]+\$)/g, (match, p1) => {
+        if (!p1.includes("\\")) {
+          return p1.replace(/([^\^_])(\{[^{}]+\})/g, (m, before, braces) => {
+            return before + braces.slice(1, -1);
+          });
+        }
+        return match;
+      });
     };
 
     // Helper function to remove whitespace after specific characters
@@ -745,111 +779,59 @@ export default function Home() {
         }
 
         const normalizedChoices = choices.map((choice) =>
-          removeNestedCurlyBraces(
-            removeSingleCharBraces(
-              removeSingleCharBraces(
-                removeBracesBeforePrime(
-                  removeCurlyBraces(
-                    replaceLeftRight(
-                      normalizePunctuation(
-                        removeWhitespaceAfterSymbols(
-                          replacePercentage(
-                            wrapNumbersInDollars(
-                              choice
-                                .replace(/\.$/, "")
-                                .replace(/\s+/g, " ")
-                                .replace(/\\frac/g, "\\dfrac")
-                                .replace(/\\\[/g, "$")
-                                .replace(/\\\]/g, "$")
-                                .replace(
-                                  /(?<!\\displaystyle)\\int/g,
-                                  "\\displaystyle\\int"
+          wrapNumbersInDollars(
+            removeCurlyBraces2(
+              removeNestedCurlyBraces(
+                removeSingleCharBraces(
+                  removeSingleCharBraces(
+                    removeBracesBeforePrime(
+                      removeCurlyBraces(
+                        replaceLeftRight(
+                          normalizePunctuation(
+                            removeWhitespaceAfterSymbols(
+                              replacePercentage(
+                                wrapNumbersInDollars(
+                                  choice
+                                    .replace(/\.$/, "")
+                                    .replace(/\s+/g, " ")
+                                    .replace(/\\frac/g, "\\dfrac")
+                                    .replace(/\\\[/g, "$")
+                                    .replace(/\\\]/g, "$")
+                                    .replace(
+                                      /(?<!\\displaystyle)\\int/g,
+                                      "\\displaystyle\\int"
+                                    )
+                                    .replace(/\\cdot\s*/g, ".")
+                                    .replace(/\s+\\right/g, "\\right")
+                                    .replace(/\\!/g, "")
+                                    .replace(/\\text\{\s*\}/g, "")
+                                    .replace(/\\,/g, "")
+                                    .replace(/\$\s*\$/g, "")
+                                    .replace(/\$~(\S)/g, "$$$1")
+                                    .replace(
+                                      /\$\s*([^$]+?)\s*\$/g,
+                                      (match, p1) => `$${p1.trim()}$`
+                                    )
+                                    .replace(
+                                      /\$([^$]+)\$/g,
+                                      (match, p1) =>
+                                        "$" +
+                                        p1.replace(/\s*([{}])\s*/g, "$1") +
+                                        "$"
+                                    )
+                                    .replace(/\.\$/g, "$.")
+                                    .replace(/\\text\{ln\}/g, "\\ln ")
+                                    .replace(/\\text\{sin\}/g, "\\sin ")
+                                    .replace(/\\text\{cos\}/g, "\\cos ")
+                                    .replace(/\\text\{tan\}/g, "\\tan ")
+                                    .replace(/\\text\{cot\}/g, "\\cot ")
+                                    .replace(
+                                      /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                                      (_, x) => `\\log_{${x}} `
+                                    )
                                 )
-                                .replace(/\\cdot\s*/g, ".")
-                                .replace(/\s+\\right/g, "\\right")
-                                .replace(/\\!/g, "")
-                                .replace(/\\text\{\s*\}/g, "")
-                                .replace(/\\,/g, "")
-                                .replace(/\$\s*\$/g, "")
-                                .replace(/\$~(\S)/g, "$$$1")
-                                .replace(
-                                  /\$\s*([^$]+?)\s*\$/g,
-                                  (match, p1) => `$${p1.trim()}$`
-                                )
-                                .replace(
-                                  /\$([^$]+)\$/g,
-                                  (match, p1) =>
-                                    "$" +
-                                    p1.replace(/\s*([{}])\s*/g, "$1") +
-                                    "$"
-                                )
-                                .replace(/\.\$/g, "$.")
-                                .replace(/\\text\{ln\}/g, "\\ln ")
-                                .replace(/\\text\{sin\}/g, "\\sin ")
-                                .replace(/\\text\{cos\}/g, "\\cos ")
-                                .replace(/\\text\{tan\}/g, "\\tan ")
-                                .replace(/\\text\{cot\}/g, "\\cot ")
-                                .replace(
-                                  /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
-                                  (_, x) => `\\log_{${x}} `
-                                )
+                              ).trim()
                             )
-                          ).trim()
-                        )
-                      )
-                    )
-                  )
-                )
-              )
-            )
-          )
-        );
-        const normalizedContent = removeNestedCurlyBraces(
-          removeSingleCharBraces(
-            removeSingleCharBraces(
-              removeBracesBeforePrime(
-                removeCurlyBraces(
-                  replaceLeftRight(
-                    normalizePunctuation(
-                      removeWhitespaceAfterSymbols(
-                        replacePercentage(
-                          wrapNumbersInDollars(
-                            content
-                              .trim()
-                              .replace(/\s+/g, " ")
-                              .replace(/\\frac/g, "\\dfrac")
-                              .replace(/\\\[/g, "$")
-                              .replace(/\\\]/g, "$")
-                              .replace(
-                                /(?<!\\displaystyle)\\int/g,
-                                "\\displaystyle\\int"
-                              )
-                              .replace(/\\cdot\s*/g, ".")
-                              .replace(/\s+\\right/g, "\\right")
-                              .replace(/\\!/g, "")
-                              .replace(/\\text\{\s*\}/g, "")
-                              .replace(/\\,/g, "")
-                              .replace(/\$\s*\$/g, "")
-                              .replace(/\$~(\S)/g, "$$$1")
-                              .replace(
-                                /\$\s*([^$]+?)\s*\$/g,
-                                (match, p1) => `$${p1.trim()}$`
-                              )
-                              .replace(
-                                /\$([^$]+)\$/g,
-                                (match, p1) =>
-                                  "$" + p1.replace(/\s*([{}])\s*/g, "$1") + "$"
-                              )
-                              .replace(/\.\$/g, "$.")
-                              .replace(/\\text\{ln\}/g, "\\ln ")
-                              .replace(/\\text\{sin\}/g, "\\sin ")
-                              .replace(/\\text\{cos\}/g, "\\cos ")
-                              .replace(/\\text\{tan\}/g, "\\tan ")
-                              .replace(/\\text\{cot\}/g, "\\cot ")
-                              .replace(
-                                /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
-                                (_, x) => `\\log_{${x}} `
-                              )
                           )
                         )
                       )
@@ -860,8 +842,9 @@ export default function Home() {
             )
           )
         );
-        const normalizedExplanation = explanation
-          ? removeNestedCurlyBraces(
+        const normalizedContent = wrapNumbersInDollars(
+          removeCurlyBraces2(
+            removeNestedCurlyBraces(
               removeSingleCharBraces(
                 removeSingleCharBraces(
                   removeBracesBeforePrime(
@@ -871,7 +854,7 @@ export default function Home() {
                           removeWhitespaceAfterSymbols(
                             replacePercentage(
                               wrapNumbersInDollars(
-                                explanation
+                                content
                                   .trim()
                                   .replace(/\s+/g, " ")
                                   .replace(/\\frac/g, "\\dfrac")
@@ -909,6 +892,71 @@ export default function Home() {
                                     /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
                                     (_, x) => `\\log_{${x}} `
                                   )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        );
+        const normalizedExplanation = explanation
+          ? wrapNumbersInDollars(
+              removeCurlyBraces2(
+                removeNestedCurlyBraces(
+                  removeSingleCharBraces(
+                    removeSingleCharBraces(
+                      removeBracesBeforePrime(
+                        removeCurlyBraces(
+                          replaceLeftRight(
+                            normalizePunctuation(
+                              removeWhitespaceAfterSymbols(
+                                replacePercentage(
+                                  wrapNumbersInDollars(
+                                    explanation
+                                      .trim()
+                                      .replace(/\s+/g, " ")
+                                      .replace(/\\frac/g, "\\dfrac")
+                                      .replace(/\\\[/g, "$")
+                                      .replace(/\\\]/g, "$")
+                                      .replace(
+                                        /(?<!\\displaystyle)\\int/g,
+                                        "\\displaystyle\\int"
+                                      )
+                                      .replace(/\\cdot\s*/g, ".")
+                                      .replace(/\s+\\right/g, "\\right")
+                                      .replace(/\\!/g, "")
+                                      .replace(/\\text\{\s*\}/g, "")
+                                      .replace(/\\,/g, "")
+                                      .replace(/\$\s*\$/g, "")
+                                      .replace(/\$~(\S)/g, "$$$1")
+                                      .replace(
+                                        /\$\s*([^$]+?)\s*\$/g,
+                                        (match, p1) => `$${p1.trim()}$`
+                                      )
+                                      .replace(
+                                        /\$([^$]+)\$/g,
+                                        (match, p1) =>
+                                          "$" +
+                                          p1.replace(/\s*([{}])\s*/g, "$1") +
+                                          "$"
+                                      )
+                                      .replace(/\.\$/g, "$.")
+                                      .replace(/\\text\{ln\}/g, "\\ln ")
+                                      .replace(/\\text\{sin\}/g, "\\sin ")
+                                      .replace(/\\text\{cos\}/g, "\\cos ")
+                                      .replace(/\\text\{tan\}/g, "\\tan ")
+                                      .replace(/\\text\{cot\}/g, "\\cot ")
+                                      .replace(
+                                        /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                                        (_, x) => `\\log_{${x}} `
+                                      )
+                                  )
+                                )
                               )
                             )
                           )
@@ -959,6 +1007,17 @@ export default function Home() {
       } while (result !== prevResult);
       return result;
     };
+    const removeCurlyBraces2 = (text) => {
+      return text.replace(/(\$[^$]+\$)/g, (match, p1) => {
+        if (!p1.includes("\\")) {
+          return p1.replace(/([^\^_])(\{[^{}]+\})/g, (m, before, braces) => {
+            return before + braces.slice(1, -1);
+          });
+        }
+        return match;
+      });
+    };
+
     const replaceLeftRight = (text) => {
       return text
         .replace(/\\left\(((?![\\^_]).)*?\\right\)/g, (match) => {
@@ -1093,79 +1152,9 @@ export default function Home() {
           cleanedQuestionContent = questionContent.replace(/#.*$/, "").trim();
         }
 
-        const normalizedContent = removeNestedCurlyBraces(
-          removeSingleCharBraces(
-            removeSingleCharBraces(
-              removeBracesBeforePrime(
-                removeCurlyBraces(
-                  replaceLeftRight(
-                    normalizePunctuation(
-                      removeWhitespaceAfterSymbols(
-                        replacePercentage(
-                          wrapNumbersInDollars(
-                            cleanedQuestionContent
-                              .replace(/\s+/g, " ")
-                              .replace(/\\frac/g, "\\dfrac")
-                              .replace(/\\\[/g, "$")
-                              .replace(/\\\]/g, "$")
-                              .replace(
-                                /(?<!\\displaystyle)\\int/g,
-                                "\\displaystyle\\int"
-                              )
-                              .replace(/\\cdot\s*/g, ".")
-                              .replace(/\s+\\right/g, "\\right")
-                              .replace(/\\!/g, "")
-                              .replace(/\\text\{\s*\}/g, "")
-                              .replace(/\\,/g, "")
-                              .replace(/\$\s*\$/g, "")
-                              .replace(/\$~(\S)/g, "$$$1")
-                              .replace(
-                                /\$\s*([^$]+?)\s*\$/g,
-                                (match, p1) => `$${p1.trim()}$`
-                              )
-                              .replace(
-                                /\$([^$]+)\$/g,
-                                (match, p1) =>
-                                  "$" + p1.replace(/\s*([{}])\s*/g, "$1") + "$"
-                              )
-                              .replace(/\.\$/g, "$.")
-                              .replace(/\\text\{ln\}/g, "\\ln ")
-                              .replace(/\\text\{sin\}/g, "\\sin ")
-                              .replace(/\\text\{cos\}/g, "\\cos ")
-                              .replace(/\\text\{tan\}/g, "\\tan ")
-                              .replace(/\\text\{cot\}/g, "\\cot ")
-                              .replace(
-                                /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
-                                (_, x) => `\\log_{${x}} `
-                              )
-                          )
-                        )
-                      )
-                    )
-                  )
-                )
-              )
-            )
-          )
-        );
-        const normalizedAnswer =
-          answer.startsWith("$") && answer.endsWith("$")
-            ? answer
-            : removeNestedCurlyBraces(
-                removeSingleCharBraces(
-                  removeSingleCharBraces(
-                    normalizePunctuation(
-                      removeWhitespaceAfterSymbols(
-                        replacePercentage(
-                          replaceLeftRight(wrapNumbersInDollars(answer))
-                        )
-                      )
-                    )
-                  )
-                )
-              );
-        const normalizedExplanation = explanation
-          ? removeNestedCurlyBraces(
+        const normalizedContent = wrapNumbersInDollars(
+          removeCurlyBraces2(
+            removeNestedCurlyBraces(
               removeSingleCharBraces(
                 removeSingleCharBraces(
                   removeBracesBeforePrime(
@@ -1175,8 +1164,7 @@ export default function Home() {
                           removeWhitespaceAfterSymbols(
                             replacePercentage(
                               wrapNumbersInDollars(
-                                explanation
-                                  .trim()
+                                cleanedQuestionContent
                                   .replace(/\s+/g, " ")
                                   .replace(/\\frac/g, "\\dfrac")
                                   .replace(/\\\[/g, "$")
@@ -1188,6 +1176,8 @@ export default function Home() {
                                   .replace(/\\cdot\s*/g, ".")
                                   .replace(/\s+\\right/g, "\\right")
                                   .replace(/\\!/g, "")
+                                  .replace(/\\text\{\s*\}/g, "")
+                                  .replace(/\\,/g, "")
                                   .replace(/\$\s*\$/g, "")
                                   .replace(/\$~(\S)/g, "$$$1")
                                   .replace(
@@ -1211,6 +1201,89 @@ export default function Home() {
                                     /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
                                     (_, x) => `\\log_{${x}} `
                                   )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        );
+        const normalizedAnswer =
+          answer.startsWith("$") && answer.endsWith("$")
+            ? answer
+            : wrapNumbersInDollars(
+                removeCurlyBraces2(
+                  removeNestedCurlyBraces(
+                    removeSingleCharBraces(
+                      removeSingleCharBraces(
+                        normalizePunctuation(
+                          removeWhitespaceAfterSymbols(
+                            replacePercentage(
+                              replaceLeftRight(wrapNumbersInDollars(answer))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              );
+        const normalizedExplanation = explanation
+          ? wrapNumbersInDollars(
+              removeCurlyBraces2(
+                removeNestedCurlyBraces(
+                  removeSingleCharBraces(
+                    removeSingleCharBraces(
+                      removeBracesBeforePrime(
+                        removeCurlyBraces(
+                          replaceLeftRight(
+                            normalizePunctuation(
+                              removeWhitespaceAfterSymbols(
+                                replacePercentage(
+                                  wrapNumbersInDollars(
+                                    explanation
+                                      .trim()
+                                      .replace(/\s+/g, " ")
+                                      .replace(/\\frac/g, "\\dfrac")
+                                      .replace(/\\\[/g, "$")
+                                      .replace(/\\\]/g, "$")
+                                      .replace(
+                                        /(?<!\\displaystyle)\\int/g,
+                                        "\\displaystyle\\int"
+                                      )
+                                      .replace(/\\cdot\s*/g, ".")
+                                      .replace(/\s+\\right/g, "\\right")
+                                      .replace(/\\!/g, "")
+                                      .replace(/\$\s*\$/g, "")
+                                      .replace(/\$~(\S)/g, "$$$1")
+                                      .replace(
+                                        /\$\s*([^$]+?)\s*\$/g,
+                                        (match, p1) => `$${p1.trim()}$`
+                                      )
+                                      .replace(
+                                        /\$([^$]+)\$/g,
+                                        (match, p1) =>
+                                          "$" +
+                                          p1.replace(/\s*([{}])\s*/g, "$1") +
+                                          "$"
+                                      )
+                                      .replace(/\.\$/g, "$.")
+                                      .replace(/\\text\{ln\}/g, "\\ln ")
+                                      .replace(/\\text\{sin\}/g, "\\sin ")
+                                      .replace(/\\text\{cos\}/g, "\\cos ")
+                                      .replace(/\\text\{tan\}/g, "\\tan ")
+                                      .replace(/\\text\{cot\}/g, "\\cot ")
+                                      .replace(
+                                        /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                                        (_, x) => `\\log_{${x}} `
+                                      )
+                                  )
+                                )
                               )
                             )
                           )

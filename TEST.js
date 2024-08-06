@@ -1,16 +1,6 @@
-Tôi hiểu rằng bạn muốn thay thế các trường hợp cụ thể trong code và thêm một khoảng trắng sau mỗi thay thế. Dưới đây là đoạn code sử dụng `replace` để thực hiện các thay thế bạn yêu cầu:
+Tôi hiểu rồi. Bạn muốn thực hiện thay đổi trực tiếp trong chuỗi xử lý mà không tạo hàm riêng và không sử dụng return. Đây là cách chúng ta có thể thực hiện điều đó:
 
 ```javascript
-const replaceTexts = (content) => {
-  return content
-    .replace(/\\text\{ln\}/g, "\\ln ")
-    .replace(/\\text\{sin\}/g, "\\sin ")
-    .replace(/\\text\{cos\}/g, "\\cos ")
-    .replace(/\\text\{tan\}/g, "\\tan ")
-    .replace(/\\text\{cot\}/g, "\\cot ")
-    .replace(/\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g, (_, x) => `\\log_{${x}} `);
-};
-
 const formatTracNghiem = useCallback(() => {
   // ... (các hàm helper khác giữ nguyên)
 
@@ -25,12 +15,45 @@ const formatTracNghiem = useCallback(() => {
                   removeWhitespaceAfterSymbols(
                     replacePercentage(
                       wrapNumbersInDollars(
-                        replaceTexts( // Thêm hàm replaceTexts vào đây
-                          content
-                            .trim()
-                            .replace(/\s+/g, " ")
-                            // ... (các replace khác giữ nguyên)
-                        )
+                        content
+                          .trim()
+                          .replace(/\s+/g, " ")
+                          .replace(/\\frac/g, "\\dfrac")
+                          .replace(/\\\[/g, "$")
+                          .replace(/\\\]/g, "$")
+                          .replace(
+                            /(?<!\\displaystyle)\\int/g,
+                            "\\displaystyle\\int"
+                          )
+                          .replace(/\\cdot\s*/g, ".")
+                          .replace(/\s+\\right/g, "\\right")
+                          .replace(/\\!/g, "")
+                          .replace(/\\text\{\s*\}/g, "")
+                          .replace(/\\,/g, "")
+                          .replace(/\$\s*\$/g, "")
+                          .replace(/\$~(\S)/g, "$$$1")
+                          .replace(
+                            /\$\s*([^$]+?)\s*\$/g,
+                            (match, p1) => `$${p1.trim()}$`
+                          )
+                          .replace(
+                            /\$([^$]+)\$/g,
+                            (match, p1) =>
+                              "$" +
+                              p1.replace(/\s*([{}])\s*/g, "$1") +
+                              "$"
+                          )
+                          .replace(/\.\$/g, "$.")
+                          // Thêm các replace mới vào đây
+                          .replace(/\\text\{ln\}/g, "\\ln ")
+                          .replace(/\\text\{sin\}/g, "\\sin ")
+                          .replace(/\\text\{cos\}/g, "\\cos ")
+                          .replace(/\\text\{tan\}/g, "\\tan ")
+                          .replace(/\\text\{cot\}/g, "\\cot ")
+                          .replace(/\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g, (_, x) => `\\log_{${x}} `)
+                          .replace(/(?<![\^_]|\\(?:dfrac|frac|text|sqrt|mathbb))\{([^{}]+)\}/g, (match, p1) => 
+                            /{.*}/.test(p1) ? match : p1
+                          )
                       )
                     )
                   )
@@ -47,15 +70,18 @@ const formatTracNghiem = useCallback(() => {
 }, [inputText]);
 ```
 
-Trong đoạn code này, tôi đã thêm một hàm mới `replaceTexts` để xử lý các trường hợp thay thế cụ thể mà bạn yêu cầu. Hàm này được thêm vào chuỗi xử lý trong `processContent`.
+Trong phiên bản này:
 
-Giải thích chi tiết:
+1. Tôi đã thêm các `replace` mới trực tiếp vào chuỗi xử lý trong `processContent`.
 
-1. Các trường hợp 1-5 được xử lý bằng cách sử dụng `replace` với regex đơn giản.
-2. Trường hợp 6 (\text{lo}{{\text{g}}_x} ===> \log_{x}) được xử lý bằng cách sử dụng regex với nhóm bắt (.+?) để bắt bất kỳ ký tự nào trong phần chỉ số.
-3. Mỗi thay thế đều thêm một khoảng trắng ở cuối để đảm bảo có khoảng cách sau mỗi hàm.
-4. Hàm `replaceTexts` được thêm vào chuỗi xử lý trong `processContent`, trước các bước xử lý khác để đảm bảo nó không ảnh hưởng đến các chức năng khác.
+2. Các thay thế cho \text{ln}, \text{sin}, \text{cos}, \text{tan}, và \text{cot} được thực hiện đơn giản bằng cách sử dụng `.replace()` với regex tương ứng.
 
-Lưu ý rằng thứ tự của các thay thế có thể quan trọng. Nếu bạn nhận thấy có vấn đề với thứ tự cụ thể này, chúng ta có thể điều chỉnh nó.
+3. Thay thế cho \text{lo}{{\text{g}}_x} được thực hiện bằng cách sử dụng `.replace()` với một hàm callback.
+
+4. Xóa bớt một cặp ngoặc nhọn không cần thiết được thực hiện bằng cách sử dụng `.replace()` với một regex phức tạp và một hàm callback. Hàm callback này kiểm tra xem bên trong ngoặc nhọn có cặp ngoặc nhọn khác không và quyết định có nên xóa cặp ngoặc nhọn bên ngoài hay không.
+
+5. Tất cả các thay đổi này được thêm vào cuối chuỗi xử lý, sau các bước xử lý khác.
+
+Lưu ý rằng thứ tự của các bước xử lý có thể ảnh hưởng đến kết quả cuối cùng. Nếu bạn nhận thấy có vấn đề với thứ tự cụ thể này, chúng ta có thể điều chỉnh nó.
 
 Bạn có muốn tôi giải thích thêm về bất kỳ phần nào của code này không?
