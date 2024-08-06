@@ -1359,8 +1359,11 @@ export default function Home() {
     <div className="bg-[#F3F3F3] rounded-lg">
       <div className="grid grid-cols-[246px,1.3fr,1fr] divide-x divide-solid divide-gray rounded-lg">
         {/* Column 1 */}
-        <div className="bg-white rounded-lg overflow-hidden flex flex-col">
-          <div className="h-[1500px] overflow-y-auto p-4">
+        <div
+          className="bg-white rounded-lg overflow-hidden flex flex-col"
+          style={{ marginBottom: "400px" }}
+        >
+          <div className="h-[700px] overflow-y-auto p-4">
             <div
               id="toast-success"
               className="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
@@ -1605,9 +1608,9 @@ export default function Home() {
         </div>
 
         {/* Column 2 */}
-        <div className="bg-white flex flex-col">
+        <div className="bg-white flex flex-col h-[700px] ">
           {/* <div className="h-[20px]">Menu 1</div> */}
-          <div className="overflow-y-auto h-[1000px]">
+          <div className="overflow-y-auto h-[700px]">
             <Editor
               handleInputChange={handleInputChange}
               inputText={inputText}
@@ -1616,7 +1619,7 @@ export default function Home() {
         </div>
 
         {/* Column 3 */}
-        <div className="bg-white flex flex-col">
+        <div className="bg-white flex flex-col h-[700px]">
           {/* <div className="h-[20px]">Menu 2</div> */}
           <div className="h-[1000px] p-1 flex flex-col overflow-hidden">
             <div className="overflow-y-auto flex-grow">
