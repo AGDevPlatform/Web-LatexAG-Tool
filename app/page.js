@@ -457,6 +457,8 @@ export default function Home() {
                   )
                 )
               )
+            ).replace(/(\$[^$]+\$)/g, (match) =>
+              match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
             )
           );
 
@@ -522,6 +524,8 @@ export default function Home() {
                 )
               )
             )
+          ).replace(/(\$[^$]+\$)/g, (match) =>
+            match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
           );
         const processExplanation = (explanation) =>
           explanation
@@ -584,6 +588,8 @@ export default function Home() {
                     )
                   )
                 )
+              ).replace(/(\$[^$]+\$)/g, (match) =>
+                match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
               )
             : "";
 
@@ -840,6 +846,8 @@ export default function Home() {
                 )
               )
             )
+          ).replace(/(\$[^$]+\$)/g, (match) =>
+            match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
           )
         );
         const normalizedContent = wrapNumbersInDollars(
@@ -903,6 +911,8 @@ export default function Home() {
               )
             )
           )
+        ).replace(/(\$[^$]+\$)/g, (match) =>
+          match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
         );
         const normalizedExplanation = explanation
           ? wrapNumbersInDollars(
@@ -966,6 +976,8 @@ export default function Home() {
                   )
                 )
               )
+            ).replace(/(\$[^$]+\$)/g, (match) =>
+              match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
             )
           : "";
 
@@ -1212,6 +1224,8 @@ export default function Home() {
               )
             )
           )
+        ).replace(/(\$[^$]+\$)/g, (match) =>
+          match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
         );
         const normalizedAnswer =
           answer.startsWith("$") && answer.endsWith("$")
@@ -1232,6 +1246,8 @@ export default function Home() {
                     )
                   )
                 )
+              ).replace(/(\$[^$]+\$)/g, (match) =>
+                match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
               );
         const normalizedExplanation = explanation
           ? wrapNumbersInDollars(
