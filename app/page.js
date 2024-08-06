@@ -494,6 +494,15 @@ export default function Home() {
                 }
                 return match;
               })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                // New functionality to remove one pair of {} if it's in the form "{{x}}"
+                return match.replace(/\{\{([^{}]+)\}\}/g, "{$1}");
+              })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                // New functionality to remove whitespace around "|" within "$...$"
+                return match.replace(/\s*\|\s*/g, "|");
+              })
+              .replace(/\\text\{log\}/g, "\\log")
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
@@ -604,7 +613,16 @@ export default function Home() {
                 );
               }
               return match;
+            }) //Moi them
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              // New functionality to remove one pair of {} if it's in the form "{{x}}"
+              return match.replace(/\{\{([^{}]+)\}\}/g, "{$1}");
             })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              // New functionality to remove whitespace around "|" within "$...$"
+              return match.replace(/\s*\|\s*/g, "|");
+            })
+            .replace(/\\text\{log\}/g, "\\log")
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 // Handle numbers already in $...$
@@ -724,6 +742,15 @@ export default function Home() {
                   }
                   return match;
                 })
+                .replace(/(\$[^$]+\$)/g, (match) => {
+                  // New functionality to remove one pair of {} if it's in the form "{{x}}"
+                  return match.replace(/\{\{([^{}]+)\}\}/g, "{$1}");
+                })
+                .replace(/(\$[^$]+\$)/g, (match) => {
+                  // New functionality to remove whitespace around "|" within "$...$"
+                  return match.replace(/\s*\|\s*/g, "|");
+                })
+                .replace(/\\text\{log\}/g, "\\log")
                 .replace(
                   /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
                   (match, p1, p2) => {
@@ -1029,6 +1056,15 @@ export default function Home() {
               }
               return match;
             })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              // New functionality to remove one pair of {} if it's in the form "{{x}}"
+              return match.replace(/\{\{([^{}]+)\}\}/g, "{$1}");
+            })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              // New functionality to remove whitespace around "|" within "$...$"
+              return match.replace(/\s*\|\s*/g, "|");
+            })
+            .replace(/\\text\{log\}/g, "\\log")
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 // Handle numbers already in $...$
@@ -1138,6 +1174,15 @@ export default function Home() {
             }
             return match;
           })
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            // New functionality to remove one pair of {} if it's in the form "{{x}}"
+            return match.replace(/\{\{([^{}]+)\}\}/g, "{$1}");
+          })
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            // New functionality to remove whitespace around "|" within "$...$"
+            return match.replace(/\s*\|\s*/g, "|");
+          })
+          .replace(/\\text\{log\}/g, "\\log")
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
               // Handle numbers already in $...$
@@ -1247,6 +1292,15 @@ export default function Home() {
                 }
                 return match;
               })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                // New functionality to remove one pair of {} if it's in the form "{{x}}"
+                return match.replace(/\{\{([^{}]+)\}\}/g, "{$1}");
+              })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                // New functionality to remove whitespace around "|" within "$...$"
+                return match.replace(/\s*\|\s*/g, "|");
+              })
+              .replace(/\\text\{log\}/g, "\\log")
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
@@ -1539,6 +1593,15 @@ export default function Home() {
             }
             return match;
           })
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            // New functionality to remove one pair of {} if it's in the form "{{x}}"
+            return match.replace(/\{\{([^{}]+)\}\}/g, "{$1}");
+          })
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            // New functionality to remove whitespace around "|" within "$...$"
+            return match.replace(/\s*\|\s*/g, "|");
+          })
+          .replace(/\\text\{log\}/g, "\\log")
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
               // Handle numbers already in $...$
@@ -1605,6 +1668,15 @@ export default function Home() {
                   }
                   return match;
                 })
+                .replace(/(\$[^$]+\$)/g, (match) => {
+                  // New functionality to remove one pair of {} if it's in the form "{{x}}"
+                  return match.replace(/\{\{([^{}]+)\}\}/g, "{$1}");
+                })
+                .replace(/(\$[^$]+\$)/g, (match) => {
+                  // New functionality to remove whitespace around "|" within "$...$"
+                  return match.replace(/\s*\|\s*/g, "|");
+                })
+                .replace(/\\text\{log\}/g, "\\log")
                 .replace(
                   /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
                   (match, p1, p2) => {
