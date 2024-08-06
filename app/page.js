@@ -634,8 +634,16 @@ export default function Home() {
               }
               return `$${p2}$`; // If it's a number not wrapped, wrap it with spaces
             });
-        const processExplanation = (explanation) =>
-          wrapNumbersInDollars(
+        const processExplanation = (explanation) => {
+          if (
+            explanation === null ||
+            explanation === undefined ||
+            explanation.trim() === ""
+          ) {
+            return explanation;
+          }
+
+          return wrapNumbersInDollars(
             removeCurlyBraces2(
               removeNestedCurlyBraces(
                 removeSingleCharBraces(
@@ -748,6 +756,7 @@ export default function Home() {
             })
             .replace(/Chọn (A|B|C|D)\.?/g, "")
             .trim();
+        };
         const normalizedContent = processContent(content);
         const normalizedChoices = processChoices(choices);
         const normalizedExplanation = processExplanation(explanation);
