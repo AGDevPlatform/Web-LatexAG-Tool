@@ -483,9 +483,9 @@ export default function Home() {
                 while (prevText !== match) {
                   prevText = match;
                   match = match.replace(
-                    /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                    /([+\-($=><|:;]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
                     (m, before, braces) => {
-                      if (/^[+\-($=><|]|\d+$/.test(before)) {
+                      if (/^[+\-($=><|:;]|\d+$/.test(before)) {
                         return before + braces.slice(1, -1);
                       }
                       return m;
@@ -594,9 +594,9 @@ export default function Home() {
               while (prevText !== match) {
                 prevText = match;
                 match = match.replace(
-                  /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                  /([+\-($=><|:;]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
                   (m, before, braces) => {
-                    if (/^[+\-($=><|]|\d+$/.test(before)) {
+                    if (/^[+\-($=><|:;]|\d+$/.test(before)) {
                       return before + braces.slice(1, -1);
                     }
                     return m;
@@ -713,9 +713,9 @@ export default function Home() {
                   while (prevText !== match) {
                     prevText = match;
                     match = match.replace(
-                      /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                      /([+\-($=><|:;]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
                       (m, before, braces) => {
-                        if (/^[+\-($=><|]|\d+$/.test(before)) {
+                        if (/^[+\-($=><|:;]|\d+$/.test(before)) {
                           return before + braces.slice(1, -1);
                         }
                         return m;
@@ -1018,9 +1018,9 @@ export default function Home() {
               while (prevText !== match) {
                 prevText = match;
                 match = match.replace(
-                  /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                  /([+\-($=><|:;]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
                   (m, before, braces) => {
-                    if (/^[+\-($=><|]|\d+$/.test(before)) {
+                    if (/^[+\-($=><|:;]|\d+$/.test(before)) {
                       return before + braces.slice(1, -1);
                     }
                     return m;
@@ -1127,9 +1127,9 @@ export default function Home() {
             while (prevText !== match) {
               prevText = match;
               match = match.replace(
-                /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                /([+\-($=><|:;]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
                 (m, before, braces) => {
-                  if (/^[+\-($=><|]|\d+$/.test(before)) {
+                  if (/^[+\-($=><|:;]|\d+$/.test(before)) {
                     return before + braces.slice(1, -1);
                   }
                   return m;
@@ -1236,9 +1236,9 @@ export default function Home() {
                 while (prevText !== match) {
                   prevText = match;
                   match = match.replace(
-                    /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                    /([+\-($=><|:;]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
                     (m, before, braces) => {
-                      if (/^[+\-($=><|]|\d+$/.test(before)) {
+                      if (/^[+\-($=><|:;]|\d+$/.test(before)) {
                         return before + braces.slice(1, -1);
                       }
                       return m;
@@ -1528,9 +1528,9 @@ export default function Home() {
             while (prevText !== match) {
               prevText = match;
               match = match.replace(
-                /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                /([+\-($=><|:;]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
                 (m, before, braces) => {
-                  if (/^[+\-($=><|]|\d+$/.test(before)) {
+                  if (/^[+\-($=><|:;]|\d+$/.test(before)) {
                     return before + braces.slice(1, -1);
                   }
                   return m;
@@ -1594,9 +1594,9 @@ export default function Home() {
                   while (prevText !== match) {
                     prevText = match;
                     match = match.replace(
-                      /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                      /([+\-($=><|:;]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
                       (m, before, braces) => {
-                        if (/^[+\-($=><|]|\d+$/.test(before)) {
+                        if (/^[+\-($=><|:;]|\d+$/.test(before)) {
                           return before + braces.slice(1, -1);
                         }
                         return m;
@@ -1701,9 +1701,9 @@ export default function Home() {
                 while (prevText !== match) {
                   prevText = match;
                   match = match.replace(
-                    /([+\-($=><|]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+                    /([+\-($=><|:;]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
                     (m, before, braces) => {
-                      if (/^[+\-($=><|]|\d+$/.test(before)) {
+                      if (/^[+\-($=><|:;]|\d+$/.test(before)) {
                         return before + braces.slice(1, -1);
                       }
                       return m;
