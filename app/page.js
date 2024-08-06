@@ -14,6 +14,7 @@ import {
   faBook,
   faCircleCheck,
   faEdit,
+  faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import "katex/dist/katex.min.css";
@@ -1685,7 +1686,13 @@ export default function Home() {
                             <span>Đáp án đúng: {q.key}</span>
                           </>
                         ) : (
-                          "Không có đáp án"
+                          <>
+                            <FontAwesomeIcon
+                              icon={faCircleXmark}
+                              className="mr-2"
+                            />
+                            <span>Không có đáp án</span>
+                          </>
                         )}
                       </p>
                       {/* {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>} */}
@@ -1747,7 +1754,13 @@ export default function Home() {
                             <span>Đáp án đúng: {q.key}</span>
                           </>
                         ) : (
-                          "Không có đáp án"
+                          <>
+                            <FontAwesomeIcon
+                              icon={faCircleXmark}
+                              className="mr-2"
+                            />
+                            <span>Không có đáp án</span>
+                          </>
                         )}
                       </p>
                       {/* {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>} */}
@@ -1789,7 +1802,13 @@ export default function Home() {
                             <span>Đáp án đúng: {renderLatex(q.key)}</span>
                           </>
                         ) : (
-                          "Không có đáp án"
+                          <>
+                            <FontAwesomeIcon
+                              icon={faCircleXmark}
+                              className="mr-2"
+                            />
+                            <span>Không có đáp án</span>
+                          </>
                         )}
                       </p>
                       {/* {q.sol && <p>Lời giải: {renderLatex(q.sol)}</p>} */}
