@@ -544,6 +544,12 @@ export default function Home() {
                 // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
                 return ".";
               })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                return match.replace(
+                  /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                  "\\overrightarrow{$1}"
+                );
+              })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
@@ -703,6 +709,12 @@ export default function Home() {
               }
               // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
               return ".";
+            })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(
+                /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                "\\overrightarrow{$1}"
+              );
             })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -865,6 +877,12 @@ export default function Home() {
               }
               // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
               return ".";
+            })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(
+                /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                "\\overrightarrow{$1}"
+              );
             })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -1217,6 +1235,12 @@ export default function Home() {
               // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
               return ".";
             })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(
+                /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                "\\overrightarrow{$1}"
+              );
+            })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 // Handle numbers already in $...$
@@ -1371,6 +1395,12 @@ export default function Home() {
             }
             // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
             return ".";
+          })
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            return match.replace(
+              /\\overrightarrow\{\{([^{}]+)\}\}/g,
+              "\\overrightarrow{$1}"
+            );
           })
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
@@ -1529,6 +1559,12 @@ export default function Home() {
                 }
                 // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
                 return ".";
+              })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                return match.replace(
+                  /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                  "\\overrightarrow{$1}"
+                );
               })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
@@ -1868,6 +1904,12 @@ export default function Home() {
             // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
             return ".";
           })
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            return match.replace(
+              /\\overrightarrow\{\{([^{}]+)\}\}/g,
+              "\\overrightarrow{$1}"
+            );
+          })
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
               // Handle numbers already in $...$
@@ -1982,6 +2024,12 @@ export default function Home() {
                   }
                   // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
                   return ".";
+                })
+                .replace(/(\$[^$]+\$)/g, (match) => {
+                  return match.replace(
+                    /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                    "\\overrightarrow{$1}"
+                  );
                 })
                 .replace(
                   /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
@@ -2141,6 +2189,12 @@ export default function Home() {
                 }
                 // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
                 return ".";
+              })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                return match.replace(
+                  /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                  "\\overrightarrow{$1}"
+                );
               })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {

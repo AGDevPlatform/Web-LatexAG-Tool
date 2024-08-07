@@ -122,7 +122,7 @@ export default function Header() {
             className="bg-blue-100 text-blue-800  font-semibold px-2.5 py-0.5 rounded-lg "
             style={{ fontSize: "13px" }}
           >
-            ✨ 7/8/2024 - Cải thiện thuật toán clean code.
+            ✨ 7/8/2024 - Cập nhật.
           </span>
         </div>
       </div>
