@@ -527,6 +527,9 @@ export default function Home() {
                 "\\overrightarrow $1"
               )
               .replace(/\$\./g, "$")
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+              })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
@@ -667,6 +670,9 @@ export default function Home() {
             })
             .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
             .replace(/\\overrightarrow(?!\s)([A-Za-z])/g, "\\overrightarrow $1")
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+            })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 // Handle numbers already in $...$
@@ -809,6 +815,9 @@ export default function Home() {
             })
             .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
             .replace(/\\overrightarrow(?!\s)([A-Za-z])/g, "\\overrightarrow $1")
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+            })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
@@ -1140,6 +1149,9 @@ export default function Home() {
             .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
             .replace(/\\overrightarrow(?!\s)([A-Za-z])/g, "\\overrightarrow $1")
             .replace(/\$\./g, "$")
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+            })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 // Handle numbers already in $...$
@@ -1275,6 +1287,9 @@ export default function Home() {
           })
           .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
           .replace(/\\overrightarrow(?!\s)([A-Za-z])/g, "\\overrightarrow $1")
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+          })
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
               // Handle numbers already in $...$
@@ -1416,6 +1431,9 @@ export default function Home() {
                 /\\overrightarrow(?!\s)([A-Za-z])/g,
                 "\\overrightarrow $1"
               )
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+              })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
@@ -1734,6 +1752,9 @@ export default function Home() {
           })
           .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
           .replace(/\\overrightarrow(?!\s)([A-Za-z])/g, "\\overrightarrow $1")
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+          })
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
               // Handle numbers already in $...$
@@ -1832,6 +1853,9 @@ export default function Home() {
                   /\\overrightarrow(?!\s)([A-Za-z])/g,
                   "\\overrightarrow $1"
                 )
+                .replace(/(\$[^$]+\$)/g, (match) => {
+                  return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+                })
                 .replace(
                   /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
                   (match, p1, p2) => {
@@ -1974,6 +1998,9 @@ export default function Home() {
                 /\\overrightarrow(?!\s)([A-Za-z])/g,
                 "\\overrightarrow $1"
               )
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+              })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
