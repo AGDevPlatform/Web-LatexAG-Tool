@@ -533,6 +533,17 @@ export default function Home() {
                   "$1{$2}$3"
                 );
               })
+              .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
+              .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
+              .replace(/\\left\\{/g, "")
+              .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
+                if (group1) {
+                  // Nếu là nội dung trong $...$, giữ nguyên
+                  return group1;
+                }
+                // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
+                return ".";
+              })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
@@ -680,6 +691,18 @@ export default function Home() {
                 /(\\(?:overline|bar|sqrt|text|overrightarrow))([a-zA-Z0-9_^{}]+)([+\-<>=])/g,
                 "$1{$2}$3"
               );
+            })
+
+            .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
+            .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
+            .replace(/\\left\\{/g, "")
+            .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
+              if (group1) {
+                // Nếu là nội dung trong $...$, giữ nguyên
+                return group1;
+              }
+              // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
+              return ".";
             })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -831,6 +854,17 @@ export default function Home() {
                 /(\\(?:overline|bar|sqrt|text|overrightarrow))([a-zA-Z0-9_^{}]+)([+\-<>=])/g,
                 "$1{$2}$3"
               );
+            })
+            .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
+            .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
+            .replace(/\\left\\{/g, "")
+            .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
+              if (group1) {
+                // Nếu là nội dung trong $...$, giữ nguyên
+                return group1;
+              }
+              // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
+              return ".";
             })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -1172,6 +1206,17 @@ export default function Home() {
                 "$1{$2}$3"
               );
             })
+            .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
+            .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
+            .replace(/\\left\\{/g, "")
+            .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
+              if (group1) {
+                // Nếu là nội dung trong $...$, giữ nguyên
+                return group1;
+              }
+              // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
+              return ".";
+            })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 // Handle numbers already in $...$
@@ -1315,6 +1360,17 @@ export default function Home() {
               /(\\(?:overline|bar|sqrt|text|overrightarrow))([a-zA-Z0-9_^{}]+)([+\-<>=])/g,
               "$1{$2}$3"
             );
+          })
+          .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
+          .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
+          .replace(/\\left\\{/g, "")
+          .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
+            if (group1) {
+              // Nếu là nội dung trong $...$, giữ nguyên
+              return group1;
+            }
+            // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
+            return ".";
           })
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
@@ -1462,6 +1518,17 @@ export default function Home() {
                   /(\\(?:overline|bar|sqrt|text|overrightarrow))([a-zA-Z0-9_^{}]+)([+\-<>=])/g,
                   "$1{$2}$3"
                 );
+              })
+              .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
+              .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
+              .replace(/\\left\\{/g, "")
+              .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
+                if (group1) {
+                  // Nếu là nội dung trong $...$, giữ nguyên
+                  return group1;
+                }
+                // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
+                return ".";
               })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
@@ -1790,6 +1857,17 @@ export default function Home() {
               "$1{$2}$3"
             );
           })
+          .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
+          .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
+          .replace(/\\left\\{/g, "")
+          .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
+            if (group1) {
+              // Nếu là nội dung trong $...$, giữ nguyên
+              return group1;
+            }
+            // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
+            return ".";
+          })
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
               // Handle numbers already in $...$
@@ -1893,6 +1971,17 @@ export default function Home() {
                     /(\\(?:overline|bar|sqrt|text|overrightarrow))([a-zA-Z0-9_^{}]+)([+\-<>=])/g,
                     "$1{$2}$3"
                   );
+                })
+                .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
+                .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
+                .replace(/\\left\\{/g, "")
+                .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
+                  if (group1) {
+                    // Nếu là nội dung trong $...$, giữ nguyên
+                    return group1;
+                  }
+                  // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
+                  return ".";
                 })
                 .replace(
                   /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
@@ -2041,6 +2130,17 @@ export default function Home() {
                   /(\\(?:overline|bar|sqrt|text|overrightarrow))([a-zA-Z0-9_^{}]+)([+\-<>=])/g,
                   "$1{$2}$3"
                 );
+              })
+              .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
+              .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
+              .replace(/\\left\\{/g, "")
+              .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
+                if (group1) {
+                  // Nếu là nội dung trong $...$, giữ nguyên
+                  return group1;
+                }
+                // Nếu là chuỗi dấu chấm bên ngoài $...$, thay thế bằng một dấu chấm
+                return ".";
               })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
