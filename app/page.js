@@ -514,6 +514,9 @@ export default function Home() {
                   "$1$2$3"
                 );
               })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                return match.replace(/\{\\log\}(_[^{}]+)/g, "\\log$1");
+              })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
@@ -644,6 +647,9 @@ export default function Home() {
                 /([a-zA-Z])\{([^{}]+)\}([+\-><])/g,
                 "$1$2$3"
               );
+            })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(/\{\\log\}(_[^{}]+)/g, "\\log$1");
             })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -777,6 +783,9 @@ export default function Home() {
                 /([a-zA-Z])\{([^{}]+)\}([+\-><])/g,
                 "$1$2$3"
               );
+            })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(/\{\\log\}(_[^{}]+)/g, "\\log$1");
             })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -1099,6 +1108,9 @@ export default function Home() {
                 "$1$2$3"
               );
             })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(/\{\\log\}(_[^{}]+)/g, "\\log$1");
+            })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 // Handle numbers already in $...$
@@ -1224,6 +1236,9 @@ export default function Home() {
           })
           .replace(/(\$[^$]+\$)/g, (match) => {
             return match.replace(/([a-zA-Z])\{([^{}]+)\}([+\-><])/g, "$1$2$3");
+          })
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            return match.replace(/\{\\log\}(_[^{}]+)/g, "\\log$1");
           })
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
@@ -1353,6 +1368,9 @@ export default function Home() {
                   /([a-zA-Z])\{([^{}]+)\}([+\-><])/g,
                   "$1$2$3"
                 );
+              })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                return match.replace(/\{\\log\}(_[^{}]+)/g, "\\log$1");
               })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
@@ -1663,6 +1681,9 @@ export default function Home() {
           .replace(/(\$[^$]+\$)/g, (match) => {
             return match.replace(/([a-zA-Z])\{([^{}]+)\}([+\-><])/g, "$1$2$3");
           })
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            return match.replace(/\{\\log\}(_[^{}]+)/g, "\\log$1");
+          })
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
               // Handle numbers already in $...$
@@ -1749,6 +1770,9 @@ export default function Home() {
                     "$1$2$3"
                   );
                 })
+                .replace(/(\$[^$]+\$)/g, (match) => {
+                  return match.replace(/\{\\log\}(_[^{}]+)/g, "\\log$1");
+                })
                 .replace(
                   /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
                   (match, p1, p2) => {
@@ -1824,6 +1848,9 @@ export default function Home() {
                 )
               )
             )
+              .replace(/(\$[^$]+\$)/g, (match) =>
+                match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
+              )
               .replace(/\$([^$]+)\$/g, (match, p1) => {
                 // Xử lý các cặp ngoặc nhọn lồng nhau trong biểu thức toán học
                 return (
@@ -1855,7 +1882,16 @@ export default function Home() {
                   );
                 }
                 return match;
+              }) //Moi them
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                // New functionality to remove one pair of {} if it's in the form "{{x}}"
+                return match.replace(/\{\{([^{}]+)\}\}/g, "{$1}");
               })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                // New functionality to remove whitespace around "|" within "$...$"
+                return match.replace(/\s*\|\s*/g, "|");
+              })
+              .replace(/\\text\{log\}/g, "\\log") //The moi 2
               .replace(/(\$[^$]+\$)/g, (match) => {
                 return match
                   .replace(/\{\{([^{}]+)\}\}/g, "{$1}")
@@ -1866,6 +1902,9 @@ export default function Home() {
                   /([a-zA-Z])\{([^{}]+)\}([+\-><])/g,
                   "$1$2$3"
                 );
+              })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                return match.replace(/\{\\log\}(_[^{}]+)/g, "\\log$1");
               })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
