@@ -526,6 +526,7 @@ export default function Home() {
                 /\\overrightarrow(?!\s)([A-Za-z])/g,
                 "\\overrightarrow $1"
               )
+              .replace(/\$\./g, "$")
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
@@ -1138,6 +1139,7 @@ export default function Home() {
             })
             .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
             .replace(/\\overrightarrow(?!\s)([A-Za-z])/g, "\\overrightarrow $1")
+            .replace(/\$\./g, "$")
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 // Handle numbers already in $...$
