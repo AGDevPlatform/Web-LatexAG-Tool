@@ -522,13 +522,16 @@ export default function Home() {
                 return match.replace(/,\{([^{}]+)\}=/g, ",$1=");
               })
               .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
-              .replace(
-                /\\overrightarrow(?!\s)([A-Za-z])/g,
-                "\\overrightarrow $1"
-              )
+
               .replace(/\$\./g, "$")
               .replace(/(\$[^$]+\$)/g, (match) => {
                 return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+              })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                return match.replace(
+                  /(\\(?:overline|bar|sqrt|text|overrightarrow))([a-zA-Z0-9_^{}]+)([+\-<>=])/g,
+                  "$1{$2}$3"
+                );
               })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
@@ -669,9 +672,14 @@ export default function Home() {
               return match.replace(/,\{([^{}]+)\}=/g, ",$1=");
             })
             .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
-            .replace(/\\overrightarrow(?!\s)([A-Za-z])/g, "\\overrightarrow $1")
             .replace(/(\$[^$]+\$)/g, (match) => {
               return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+            })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(
+                /(\\(?:overline|bar|sqrt|text|overrightarrow))([a-zA-Z0-9_^{}]+)([+\-<>=])/g,
+                "$1{$2}$3"
+              );
             })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -814,9 +822,15 @@ export default function Home() {
               return match.replace(/,\{([^{}]+)\}=/g, ",$1=");
             })
             .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
-            .replace(/\\overrightarrow(?!\s)([A-Za-z])/g, "\\overrightarrow $1")
+
             .replace(/(\$[^$]+\$)/g, (match) => {
               return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+            })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(
+                /(\\(?:overline|bar|sqrt|text|overrightarrow))([a-zA-Z0-9_^{}]+)([+\-<>=])/g,
+                "$1{$2}$3"
+              );
             })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -1147,10 +1161,16 @@ export default function Home() {
               return match.replace(/,\{([^{}]+)\}=/g, ",$1=");
             })
             .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
-            .replace(/\\overrightarrow(?!\s)([A-Za-z])/g, "\\overrightarrow $1")
+
             .replace(/\$\./g, "$")
             .replace(/(\$[^$]+\$)/g, (match) => {
               return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+            })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(
+                /(\\(?:overline|bar|sqrt|text|overrightarrow))([a-zA-Z0-9_^{}]+)([+\-<>=])/g,
+                "$1{$2}$3"
+              );
             })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -1286,9 +1306,15 @@ export default function Home() {
             return match.replace(/,\{([^{}]+)\}=/g, ",$1=");
           })
           .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
-          .replace(/\\overrightarrow(?!\s)([A-Za-z])/g, "\\overrightarrow $1")
+
           .replace(/(\$[^$]+\$)/g, (match) => {
             return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+          })
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            return match.replace(
+              /(\\(?:overline|bar|sqrt|text|overrightarrow))([a-zA-Z0-9_^{}]+)([+\-<>=])/g,
+              "$1{$2}$3"
+            );
           })
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
@@ -1427,12 +1453,15 @@ export default function Home() {
                 return match.replace(/,\{([^{}]+)\}=/g, ",$1=");
               })
               .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
-              .replace(
-                /\\overrightarrow(?!\s)([A-Za-z])/g,
-                "\\overrightarrow $1"
-              )
+
               .replace(/(\$[^$]+\$)/g, (match) => {
                 return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+              })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                return match.replace(
+                  /(\\(?:overline|bar|sqrt|text|overrightarrow))([a-zA-Z0-9_^{}]+)([+\-<>=])/g,
+                  "$1{$2}$3"
+                );
               })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
@@ -1751,9 +1780,15 @@ export default function Home() {
             return match.replace(/,\{([^{}]+)\}=/g, ",$1=");
           })
           .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
-          .replace(/\\overrightarrow(?!\s)([A-Za-z])/g, "\\overrightarrow $1")
+
           .replace(/(\$[^$]+\$)/g, (match) => {
             return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+          })
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            return match.replace(
+              /(\\(?:overline|bar|sqrt|text|overrightarrow))([a-zA-Z0-9_^{}]+)([+\-<>=])/g,
+              "$1{$2}$3"
+            );
           })
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
@@ -1849,12 +1884,15 @@ export default function Home() {
                   return match.replace(/,\{([^{}]+)\}=/g, ",$1=");
                 })
                 .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
-                .replace(
-                  /\\overrightarrow(?!\s)([A-Za-z])/g,
-                  "\\overrightarrow $1"
-                )
+
                 .replace(/(\$[^$]+\$)/g, (match) => {
                   return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+                })
+                .replace(/(\$[^$]+\$)/g, (match) => {
+                  return match.replace(
+                    /(\\(?:overline|bar|sqrt|text|overrightarrow))([a-zA-Z0-9_^{}]+)([+\-<>=])/g,
+                    "$1{$2}$3"
+                  );
                 })
                 .replace(
                   /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
@@ -1994,12 +2032,15 @@ export default function Home() {
                 return match.replace(/,\{([^{}]+)\}=/g, ",$1=");
               })
               .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
-              .replace(
-                /\\overrightarrow(?!\s)([A-Za-z])/g,
-                "\\overrightarrow $1"
-              )
+
               .replace(/(\$[^$]+\$)/g, (match) => {
                 return match.replace(/\s*([+\-<>=])\s*/g, "$1");
+              })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                return match.replace(
+                  /(\\(?:overline|bar|sqrt|text|overrightarrow))([a-zA-Z0-9_^{}]+)([+\-<>=])/g,
+                  "$1{$2}$3"
+                );
               })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
