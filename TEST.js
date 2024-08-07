@@ -1,59 +1,66 @@
-Tôi hiểu rồi. Bạn muốn thực hiện thay đổi trực tiếp trong chuỗi xử lý mà không tạo hàm riêng và không sử dụng return. Đây là cách chúng ta có thể thực hiện điều đó:
+Here's a rewritten version of the `processExplanation` function in NextJS that recognizes line breaks copied from Word and inserts "ENTER" at those line breaks:
 
 ```javascript
-const formatTracNghiem = useCallback(() => {
-  // ... (các hàm helper khác giữ nguyên)
+const processExplanation = (explanation) => {
+  if (!explanation || explanation.trim() === "") {
+    return explanation;
+  }
 
-  const processContent = (content) =>
-    removeNestedCurlyBraces(
-      removeSingleCharBraces(
+  // Recognize and replace Word line breaks with "ENTER"
+  const withEnters = explanation.replace(/\r\n|\n|\r/g, "ENTER");
+
+  // The rest of the processing remains the same
+  return wrapNumbersInDollars(
+    removeCurlyBraces2(
+      removeNestedCurlyBraces(
         removeSingleCharBraces(
-          removeBracesBeforePrime(
-            removeCurlyBraces(
-              replaceLeftRight(
-                normalizePunctuation(
-                  removeWhitespaceAfterSymbols(
-                    replacePercentage(
-                      wrapNumbersInDollars(
-                        content
-                          .trim()
-                          .replace(/\s+/g, " ")
-                          .replace(/\\frac/g, "\\dfrac")
-                          .replace(/\\\[/g, "$")
-                          .replace(/\\\]/g, "$")
-                          .replace(
-                            /(?<!\\displaystyle)\\int/g,
-                            "\\displaystyle\\int"
-                          )
-                          .replace(/\\cdot\s*/g, ".")
-                          .replace(/\s+\\right/g, "\\right")
-                          .replace(/\\!/g, "")
-                          .replace(/\\text\{\s*\}/g, "")
-                          .replace(/\\,/g, "")
-                          .replace(/\$\s*\$/g, "")
-                          .replace(/\$~(\S)/g, "$$$1")
-                          .replace(
-                            /\$\s*([^$]+?)\s*\$/g,
-                            (match, p1) => `$${p1.trim()}$`
-                          )
-                          .replace(
-                            /\$([^$]+)\$/g,
-                            (match, p1) =>
-                              "$" +
-                              p1.replace(/\s*([{}])\s*/g, "$1") +
-                              "$"
-                          )
-                          .replace(/\.\$/g, "$.")
-                          // Thêm các replace mới vào đây
-                          .replace(/\\text\{ln\}/g, "\\ln ")
-                          .replace(/\\text\{sin\}/g, "\\sin ")
-                          .replace(/\\text\{cos\}/g, "\\cos ")
-                          .replace(/\\text\{tan\}/g, "\\tan ")
-                          .replace(/\\text\{cot\}/g, "\\cot ")
-                          .replace(/\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g, (_, x) => `\\log_{${x}} `)
-                          .replace(/(?<![\^_]|\\(?:dfrac|frac|text|sqrt|mathbb))\{([^{}]+)\}/g, (match, p1) => 
-                            /{.*}/.test(p1) ? match : p1
-                          )
+          removeSingleCharBraces(
+            removeBracesBeforePrime(
+              removeCurlyBraces(
+                replaceLeftRight(
+                  normalizePunctuation(
+                    removeWhitespaceAfterSymbols(
+                      replacePercentage(
+                        wrapNumbersInDollars(
+                          withEnters
+                            .trim()
+                            .replace(/\s+/g, " ")
+                            .replace(/\\frac/g, "\\dfrac")
+                            .replace(/\\\[/g, "$")
+                            .replace(/\\\]/g, "$")
+                            .replace(
+                              /(?<!\\displaystyle)\\int/g,
+                              "\\displaystyle\\int"
+                            )
+                            .replace(/\\cdot\s*/g, ".")
+                            .replace(/\s+\\right/g, "\\right")
+                            .replace(/\\!/g, "")
+                            .replace(/\\text\{\s*\}/g, "")
+                            .replace(/\\,/g, "")
+                            .replace(/\$\s*\$/g, "")
+                            .replace(/\$~(\S)/g, "$$$1")
+                            .replace(
+                              /\$\s*([^$]+?)\s*\$/g,
+                              (match, p1) => `$${p1.trim()}$`
+                            )
+                            .replace(
+                              /\$([^$]+)\$/g,
+                              (match, p1) =>
+                                "$" +
+                                p1.replace(/\s*([{}])\s*/g, "$1") +
+                                "$"
+                            )
+                            .replace(/\.\$/g, "$.")
+                            .replace(/\\text\{ln\}/g, "\\ln ")
+                            .replace(/\\text\{sin\}/g, "\\sin ")
+                            .replace(/\\text\{cos\}/g, "\\cos ")
+                            .replace(/\\text\{tan\}/g, "\\tan ")
+                            .replace(/\\text\{cot\}/g, "\\cot ")
+                            .replace(
+                              /\\text\{lo\}\{\{\\text\{g\}\}_(.+?)\}/g,
+                              (_, x) => `\\log_{${x}} `
+                            )
+                        )
                       )
                     )
                   )
@@ -63,25 +70,78 @@ const formatTracNghiem = useCallback(() => {
           )
         )
       )
-    );
-
-  // ... (phần còn lại của hàm formatTracNghiem giữ nguyên)
-
-}, [inputText]);
+    )
+  )
+    .replace(/(\$[^$]+\$)/g, (match) =>
+      match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
+    )
+    .replace(/\$([^$]+)\$/g, (match, p1) => {
+      return (
+        "$" +
+        p1
+          .replace(/\{\{([^{}]*)\}\}/g, (nestedMatch, content) => {
+            if (!/\}\s*\{/.test(content)) {
+              return `{${content}}`;
+            }
+            return nestedMatch;
+          })
+          .replace(/\s*([{}])\s*/g, "$1") +
+        "$"
+      );
+    })
+    .replace(/(\$[^$]+\$)/g, (match) => {
+      let prevText;
+      while (prevText !== match) {
+        prevText = match;
+        match = match.replace(
+          /([+\-($=><|:;]|\d+)(\{(?:[^{}]|\{[^{}]*\})*\})/g,
+          (m, before, braces) => {
+            if (/^[+\-($=><|:;]|\d+$/.test(before)) {
+              return before + braces.slice(1, -1);
+            }
+            return m;
+          }
+        );
+      }
+      return match;
+    })
+    .replace(/(\$[^$]+\$)/g, (match) => {
+      return match.replace(/\{\{([^{}]+)\}\}/g, "{$1}");
+    })
+    .replace(/(\$[^$]+\$)/g, (match) => {
+      return match.replace(/\s*\|\s*/g, "|");
+    })
+    .replace(/\\text\{log\}/g, "\\log")
+    .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
+      if (p1) {
+        return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
+      }
+      if (p2.includes(",")) {
+        return "$ " + p2.replace(",", "{,}") + " $";
+      }
+      return `$${p2}$`;
+    })
+    .replace(/Chọn (A|B|C|D)\.?/g, "")
+    .trim();
+};
 ```
 
-Trong phiên bản này:
+The main change in this version is at the beginning of the function:
 
-1. Tôi đã thêm các `replace` mới trực tiếp vào chuỗi xử lý trong `processContent`.
+1. We've simplified the initial check for null, undefined, or empty string.
+2. We've added a step to replace line breaks with "ENTER":
 
-2. Các thay thế cho \text{ln}, \text{sin}, \text{cos}, \text{tan}, và \text{cot} được thực hiện đơn giản bằng cách sử dụng `.replace()` với regex tương ứng.
+```javascript
+const withEnters = explanation.replace(/\r\n|\n|\r/g, "ENTER");
+```
 
-3. Thay thế cho \text{lo}{{\text{g}}_x} được thực hiện bằng cách sử dụng `.replace()` với một hàm callback.
+This regular expression `/\r\n|\n|\r/g` matches all common types of line breaks:
+- `\r\n`: Windows line breaks
+- `\n`: Unix/Linux line breaks
+- `\r`: Old Mac line breaks
 
-4. Xóa bớt một cặp ngoặc nhọn không cần thiết được thực hiện bằng cách sử dụng `.replace()` với một regex phức tạp và một hàm callback. Hàm callback này kiểm tra xem bên trong ngoặc nhọn có cặp ngoặc nhọn khác không và quyết định có nên xóa cặp ngoặc nhọn bên ngoài hay không.
+These are replaced with the string "ENTER". The rest of the function remains the same, but it now operates on `withEnters` instead of directly on `explanation`.
 
-5. Tất cả các thay đổi này được thêm vào cuối chuỗi xử lý, sau các bước xử lý khác.
+This change will preserve the line break information from the original Word document, replacing each line break with the word "ENTER". The rest of the processing remains intact.
 
-Lưu ý rằng thứ tự của các bước xử lý có thể ảnh hưởng đến kết quả cuối cùng. Nếu bạn nhận thấy có vấn đề với thứ tự cụ thể này, chúng ta có thể điều chỉnh nó.
-
-Bạn có muốn tôi giải thích thêm về bất kỳ phần nào của code này không?
+Would you like me to explain any part of this code in more detail?
