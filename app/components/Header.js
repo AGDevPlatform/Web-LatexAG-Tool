@@ -114,7 +114,7 @@ export default function Header() {
             </div>
           </div> */}
         </div>
-        {/* <div
+        <div
           className="absolute top-0 right-0 hidden md:flex items-center "
           style={{ marginTop: "2.5px", marginRight: "5px", padding: "2px" }}
         >
@@ -122,9 +122,9 @@ export default function Header() {
             className="bg-blue-100 text-blue-800  font-semibold px-2.5 py-0.5 rounded-lg "
             style={{ fontSize: "13px" }}
           >
-            ✨ 13/7/2024 - Cập nhật giao diện nút bấm.
+            ✨ 7/8/2024 - Cải thiện thuật toán clean code.
           </span>
-        </div> */}
+        </div>
       </div>
     </div>
   );
