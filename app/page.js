@@ -508,6 +508,12 @@ export default function Home() {
                   .replace(/\{\{([^{}]+)\}\}/g, "{$1}")
                   .replace(/\{\{([^{}]+)\}([+-])/g, "{$1$2");
               })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                return match.replace(
+                  /([a-zA-Z])\{([^{}]+)\}([+\-><])/g,
+                  "$1$2$3"
+                );
+              })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
@@ -632,6 +638,12 @@ export default function Home() {
               return match
                 .replace(/\{\{([^{}]+)\}\}/g, "{$1}")
                 .replace(/\{\{([^{}]+)\}([+-])/g, "{$1$2");
+            })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(
+                /([a-zA-Z])\{([^{}]+)\}([+\-><])/g,
+                "$1$2$3"
+              );
             })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -759,6 +771,12 @@ export default function Home() {
               return match
                 .replace(/\{\{([^{}]+)\}\}/g, "{$1}")
                 .replace(/\{\{([^{}]+)\}([+-])/g, "{$1$2");
+            })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(
+                /([a-zA-Z])\{([^{}]+)\}([+\-><])/g,
+                "$1$2$3"
+              );
             })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -1075,6 +1093,12 @@ export default function Home() {
                 .replace(/\{\{([^{}]+)\}\}/g, "{$1}")
                 .replace(/\{\{([^{}]+)\}([+-])/g, "{$1$2");
             })
+            .replace(/(\$[^$]+\$)/g, (match) => {
+              return match.replace(
+                /([a-zA-Z])\{([^{}]+)\}([+\-><])/g,
+                "$1$2$3"
+              );
+            })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 // Handle numbers already in $...$
@@ -1198,6 +1222,9 @@ export default function Home() {
               .replace(/\{\{([^{}]+)\}\}/g, "{$1}")
               .replace(/\{\{([^{}]+)\}([+-])/g, "{$1$2");
           })
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            return match.replace(/([a-zA-Z])\{([^{}]+)\}([+\-><])/g, "$1$2$3");
+          })
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
               // Handle numbers already in $...$
@@ -1320,6 +1347,12 @@ export default function Home() {
                 return match
                   .replace(/\{\{([^{}]+)\}\}/g, "{$1}")
                   .replace(/\{\{([^{}]+)\}([+-])/g, "{$1$2");
+              })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                return match.replace(
+                  /([a-zA-Z])\{([^{}]+)\}([+\-><])/g,
+                  "$1$2$3"
+                );
               })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
@@ -1627,6 +1660,9 @@ export default function Home() {
               .replace(/\{\{([^{}]+)\}\}/g, "{$1}")
               .replace(/\{\{([^{}]+)\}([+-])/g, "{$1$2");
           })
+          .replace(/(\$[^$]+\$)/g, (match) => {
+            return match.replace(/([a-zA-Z])\{([^{}]+)\}([+\-><])/g, "$1$2$3");
+          })
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
               // Handle numbers already in $...$
@@ -1706,6 +1742,12 @@ export default function Home() {
                   return match
                     .replace(/\{\{([^{}]+)\}\}/g, "{$1}")
                     .replace(/\{\{([^{}]+)\}([+-])/g, "{$1$2");
+                })
+                .replace(/(\$[^$]+\$)/g, (match) => {
+                  return match.replace(
+                    /([a-zA-Z])\{([^{}]+)\}([+\-><])/g,
+                    "$1$2$3"
+                  );
                 })
                 .replace(
                   /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
@@ -1818,6 +1860,12 @@ export default function Home() {
                 return match
                   .replace(/\{\{([^{}]+)\}\}/g, "{$1}")
                   .replace(/\{\{([^{}]+)\}([+-])/g, "{$1$2");
+              })
+              .replace(/(\$[^$]+\$)/g, (match) => {
+                return match.replace(
+                  /([a-zA-Z])\{([^{}]+)\}([+\-><])/g,
+                  "$1$2$3"
+                );
               })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
