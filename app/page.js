@@ -561,6 +561,7 @@ export default function Home() {
                   )
                   .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
               })
+              .replace(/\\text\{\{d\}x\}/g, "\\text{d}x")
               .replace(
                 /(\$[^$]*)((?:(?<!\\)d|\\text\{d\})x)([^$]*\$)/g,
                 "$1\\mathrm{\\,d}x$3"
@@ -746,6 +747,7 @@ export default function Home() {
                 )
                 .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
             })
+            .replace(/\\text\{\{d\}x\}/g, "\\text{d}x")
             .replace(
               /(\$[^$]*)((?:(?<!\\)d|\\text\{d\})x)([^$]*\$)/g,
               "$1\\mathrm{\\,d}x$3"
@@ -931,6 +933,7 @@ export default function Home() {
                 )
                 .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
             })
+            .replace(/\\text\{\{d\}x\}/g, "\\text{d}x")
             .replace(
               /(\$[^$]*)((?:(?<!\\)d|\\text\{d\})x)([^$]*\$)/g,
               "$1\\mathrm{\\,d}x$3"
@@ -1303,6 +1306,7 @@ export default function Home() {
                 )
                 .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
             })
+            .replace(/\\text\{\{d\}x\}/g, "\\text{d}x")
             .replace(
               /(\$[^$]*)((?:(?<!\\)d|\\text\{d\})x)([^$]*\$)/g,
               "$1\\mathrm{\\,d}x$3"
@@ -1480,6 +1484,7 @@ export default function Home() {
               )
               .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
           })
+          .replace(/\\text\{\{d\}x\}/g, "\\text{d}x")
           .replace(
             /(\$[^$]*)((?:(?<!\\)d|\\text\{d\})x)([^$]*\$)/g,
             "$1\\mathrm{\\,d}x$3"
@@ -1660,6 +1665,7 @@ export default function Home() {
                   )
                   .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
               })
+              .replace(/\\text\{\{d\}x\}/g, "\\text{d}x")
               .replace(
                 /(\$[^$]*)((?:(?<!\\)d|\\text\{d\})x)([^$]*\$)/g,
                 "$1\\mathrm{\\,d}x$3"
@@ -2020,6 +2026,7 @@ export default function Home() {
               )
               .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
           })
+          .replace(/\\text\{\{d\}x\}/g, "\\text{d}x")
           .replace(
             /(\$[^$]*)((?:(?<!\\)d|\\text\{d\})x)([^$]*\$)/g,
             "$1\\mathrm{\\,d}x$3"
@@ -2157,6 +2164,7 @@ export default function Home() {
                     )
                     .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
                 })
+                .replace(/\\text\{\{d\}x\}/g, "\\text{d}x")
                 .replace(
                   /(\$[^$]*)((?:(?<!\\)d|\\text\{d\})x)([^$]*\$)/g,
                   "$1\\mathrm{\\,d}x$3"
@@ -2338,6 +2346,7 @@ export default function Home() {
                   )
                   .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
               })
+              .replace(/\\text\{\{d\}x\}/g, "\\text{d}x")
               .replace(
                 /(\$[^$]*)((?:(?<!\\)d|\\text\{d\})x)([^$]*\$)/g,
                 "$1\\mathrm{\\,d}x$3"
