@@ -554,10 +554,12 @@ export default function Home() {
                 return ".";
               })
               .replace(/(\$[^$]+\$)/g, (match) => {
-                return match.replace(
-                  /\\overrightarrow\{\{([^{}]+)\}\}/g,
-                  "\\overrightarrow{$1}"
-                );
+                return match
+                  .replace(
+                    /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                    "\\overrightarrow{$1}"
+                  )
+                  .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
               })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
@@ -730,10 +732,12 @@ export default function Home() {
               return ".";
             })
             .replace(/(\$[^$]+\$)/g, (match) => {
-              return match.replace(
-                /\\overrightarrow\{\{([^{}]+)\}\}/g,
-                "\\overrightarrow{$1}"
-              );
+              return match
+                .replace(
+                  /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                  "\\overrightarrow{$1}"
+                )
+                .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
             })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -905,10 +909,12 @@ export default function Home() {
               return ".";
             })
             .replace(/(\$[^$]+\$)/g, (match) => {
-              return match.replace(
-                /\\overrightarrow\{\{([^{}]+)\}\}/g,
-                "\\overrightarrow{$1}"
-              );
+              return match
+                .replace(
+                  /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                  "\\overrightarrow{$1}"
+                )
+                .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
             })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -1269,10 +1275,12 @@ export default function Home() {
               return ".";
             })
             .replace(/(\$[^$]+\$)/g, (match) => {
-              return match.replace(
-                /\\overrightarrow\{\{([^{}]+)\}\}/g,
-                "\\overrightarrow{$1}"
-              );
+              return match
+                .replace(
+                  /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                  "\\overrightarrow{$1}"
+                )
+                .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
             })
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -1437,10 +1445,12 @@ export default function Home() {
             return ".";
           })
           .replace(/(\$[^$]+\$)/g, (match) => {
-            return match.replace(
-              /\\overrightarrow\{\{([^{}]+)\}\}/g,
-              "\\overrightarrow{$1}"
-            );
+            return match
+              .replace(
+                /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                "\\overrightarrow{$1}"
+              )
+              .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
           })
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
@@ -1608,10 +1618,12 @@ export default function Home() {
                 return ".";
               })
               .replace(/(\$[^$]+\$)/g, (match) => {
-                return match.replace(
-                  /\\overrightarrow\{\{([^{}]+)\}\}/g,
-                  "\\overrightarrow{$1}"
-                );
+                return match
+                  .replace(
+                    /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                    "\\overrightarrow{$1}"
+                  )
+                  .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
               })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
@@ -1959,10 +1971,12 @@ export default function Home() {
             return ".";
           })
           .replace(/(\$[^$]+\$)/g, (match) => {
-            return match.replace(
-              /\\overrightarrow\{\{([^{}]+)\}\}/g,
-              "\\overrightarrow{$1}"
-            );
+            return match
+              .replace(
+                /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                "\\overrightarrow{$1}"
+              )
+              .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
           })
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
@@ -2087,10 +2101,12 @@ export default function Home() {
                   return ".";
                 })
                 .replace(/(\$[^$]+\$)/g, (match) => {
-                  return match.replace(
-                    /\\overrightarrow\{\{([^{}]+)\}\}/g,
-                    "\\overrightarrow{$1}"
-                  );
+                  return match
+                    .replace(
+                      /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                      "\\overrightarrow{$1}"
+                    )
+                    .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
                 })
                 .replace(
                   /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
@@ -2259,10 +2275,12 @@ export default function Home() {
                 return ".";
               })
               .replace(/(\$[^$]+\$)/g, (match) => {
-                return match.replace(
-                  /\\overrightarrow\{\{([^{}]+)\}\}/g,
-                  "\\overrightarrow{$1}"
-                );
+                return match
+                  .replace(
+                    /\\overrightarrow\{\{([^{}]+)\}\}/g,
+                    "\\overrightarrow{$1}"
+                  )
+                  .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
               })
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
