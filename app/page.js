@@ -569,6 +569,7 @@ export default function Home() {
               .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
               .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
               .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
+              .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
@@ -755,6 +756,7 @@ export default function Home() {
             .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
             .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
             .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
+            .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 // Handle numbers already in $...$
@@ -940,6 +942,7 @@ export default function Home() {
             )
             .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
             .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
+            .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
@@ -1314,6 +1317,7 @@ export default function Home() {
             .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
             .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
             .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
+            .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 // Handle numbers already in $...$
@@ -1492,6 +1496,7 @@ export default function Home() {
           .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
           .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
           .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
+          .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
               // Handle numbers already in $...$
@@ -1673,6 +1678,7 @@ export default function Home() {
               .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
               .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
               .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
+              .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
@@ -2034,6 +2040,7 @@ export default function Home() {
           .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
           .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
           .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
+          .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
               // Handle numbers already in $...$
@@ -2172,6 +2179,7 @@ export default function Home() {
                 .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
                 .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
                 .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
+                .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
                 .replace(
                   /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
                   (match, p1, p2) => {
@@ -2354,6 +2362,7 @@ export default function Home() {
               .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
               .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
               .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
+              .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
