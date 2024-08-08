@@ -2401,7 +2401,7 @@ export default function Home() {
 
   return (
     <div className="bg-[#F3F3F3] rounded-lg">
-      <div className="grid grid-cols-[246px,1.3fr,1fr] divide-x divide-solid divide-gray rounded-lg">
+      <div className="grid grid-cols-[254px,1.3fr,1fr] divide-x divide-solid divide-gray rounded-lg">
         {/* Column 1 */}
         <div
           className="bg-white rounded-lg overflow-hidden flex flex-col"
