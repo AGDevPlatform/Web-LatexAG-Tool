@@ -739,6 +739,21 @@ export default function Home() {
                 )
                 .replace(/\\overline\{\{([^{}]+)\}\}/g, "\\overline{$1}");
             })
+            // .replace(
+            //   /\$([a-zA-Z])=\{(.+)\}\$/g,
+            //   (match, variable, expression) => {
+            //     // Đếm số cặp ngoặc nhọn trong expression
+            //     let braceCount = 0;
+            //     for (let char of expression) {
+            //       if (char === "{") braceCount++;
+            //       if (char === "}") braceCount--;
+            //     }
+            //     if (braceCount === 0) {
+            //       return `$${variable}=${expression}$`;
+            //     }
+            //     return match;
+            //   }
+            // )
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 // Handle numbers already in $...$
