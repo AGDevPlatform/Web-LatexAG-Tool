@@ -848,6 +848,7 @@ export default function Home() {
             .replace(/(\$[^$]+\$)/g, (match) =>
               match.replace(/([A-Z])\s+(?=[A-Z])/g, "$1")
             )
+            .replace(/Chọn (A|B|C|D)\.?/g, "")
             .replace(/\$([^$]+)\$/g, (match, p1) => {
               return (
                 "$" +
@@ -962,7 +963,7 @@ export default function Home() {
               }
               return `$${p2}$`;
             })
-            .replace(/Chọn (A|B|C|D)\.?/g, "")
+
             .trim();
         };
         const normalizedContent = processContent(content);
