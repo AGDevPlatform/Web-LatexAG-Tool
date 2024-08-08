@@ -566,6 +566,7 @@ export default function Home() {
                 "$1\\mathrm{\\,d}x$3"
               )
               .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
+              .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
@@ -749,6 +750,7 @@ export default function Home() {
               "$1\\mathrm{\\,d}x$3"
             )
             .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
+            .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 // Handle numbers already in $...$
@@ -931,6 +933,7 @@ export default function Home() {
               /(\$[^$]*)((?:(?<!\\)d|\\text\{d\})x)([^$]*\$)/g,
               "$1\\mathrm{\\,d}x$3"
             )
+            .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 return p1.replace(/(\d+),(\d+)/g, "$1{,}$2");
@@ -1302,6 +1305,7 @@ export default function Home() {
               "$1\\mathrm{\\,d}x$3"
             )
             .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
+            .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 // Handle numbers already in $...$
@@ -1477,6 +1481,7 @@ export default function Home() {
             "$1\\mathrm{\\,d}x$3"
           )
           .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
+          .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
               // Handle numbers already in $...$
@@ -1655,6 +1660,7 @@ export default function Home() {
                 "$1\\mathrm{\\,d}x$3"
               )
               .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
+              .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
@@ -2013,6 +2019,7 @@ export default function Home() {
             "$1\\mathrm{\\,d}x$3"
           )
           .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
+          .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
               // Handle numbers already in $...$
@@ -2148,6 +2155,7 @@ export default function Home() {
                   "$1\\mathrm{\\,d}x$3"
                 )
                 .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
+                .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
                 .replace(
                   /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
                   (match, p1, p2) => {
@@ -2327,6 +2335,7 @@ export default function Home() {
                 "$1\\mathrm{\\,d}x$3"
               )
               .replace(/\\mathrm([a-zA-Z])/g, "\\mathrm $1")
+              .replace(/\\Leftrightarrow([a-zA-Z])/g, "\\Leftrightarrow $1")
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
                   // Handle numbers already in $...$
