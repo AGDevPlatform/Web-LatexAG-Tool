@@ -534,8 +534,17 @@ export default function Home() {
                 );
               })
               .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
-              .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
-              .replace(/\\left\\{/g, "")
+              // .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
+              // .replace(/\\left\\{/g, "")
+              .replace(
+                /(\\left\\\{)(\s*\\begin\s*\{\s*align\s*\})/g,
+                (match, p1, p2) => {
+                  if (p1 && p2) {
+                    return "\\heva{";
+                  }
+                  return match;
+                }
+              )
               .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
                 if (group1) {
                   // Nếu là nội dung trong $...$, giữ nguyên
@@ -700,8 +709,18 @@ export default function Home() {
             })
 
             .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
-            .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
-            .replace(/\\left\\{/g, "")
+            // .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
+            // .replace(/\\left\\{/g, "")
+            // .replace(/\\left\\{\s*\\begin\s*\{\s*align\s*\}/g, "\\heva{")
+            .replace(
+              /(\\left\\\{)(\s*\\begin\s*\{\s*align\s*\})/g,
+              (match, p1, p2) => {
+                if (p1 && p2) {
+                  return "\\heva{";
+                }
+                return match;
+              }
+            )
             .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
               if (group1) {
                 // Nếu là nội dung trong $...$, giữ nguyên
@@ -868,8 +887,15 @@ export default function Home() {
               );
             })
             .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
-            .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
-            .replace(/\\left\\{/g, "")
+            .replace(
+              /(\\left\\\{)(\s*\\begin\s*\{\s*align\s*\})/g,
+              (match, p1, p2) => {
+                if (p1 && p2) {
+                  return "\\heva{";
+                }
+                return match;
+              }
+            )
             .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
               if (group1) {
                 // Nếu là nội dung trong $...$, giữ nguyên
@@ -1225,8 +1251,15 @@ export default function Home() {
               );
             })
             .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
-            .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
-            .replace(/\\left\\{/g, "")
+            .replace(
+              /(\\left\\\{)(\s*\\begin\s*\{\s*align\s*\})/g,
+              (match, p1, p2) => {
+                if (p1 && p2) {
+                  return "\\heva{";
+                }
+                return match;
+              }
+            )
             .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
               if (group1) {
                 // Nếu là nội dung trong $...$, giữ nguyên
@@ -1386,8 +1419,15 @@ export default function Home() {
             );
           })
           .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
-          .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
-          .replace(/\\left\\{/g, "")
+          .replace(
+            /(\\left\\\{)(\s*\\begin\s*\{\s*align\s*\})/g,
+            (match, p1, p2) => {
+              if (p1 && p2) {
+                return "\\heva{";
+              }
+              return match;
+            }
+          )
           .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
             if (group1) {
               // Nếu là nội dung trong $...$, giữ nguyên
@@ -1550,8 +1590,15 @@ export default function Home() {
                 );
               })
               .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
-              .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
-              .replace(/\\left\\{/g, "")
+              .replace(
+                /(\\left\\\{)(\s*\\begin\s*\{\s*align\s*\})/g,
+                (match, p1, p2) => {
+                  if (p1 && p2) {
+                    return "\\heva{";
+                  }
+                  return match;
+                }
+              )
               .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
                 if (group1) {
                   // Nếu là nội dung trong $...$, giữ nguyên
@@ -1894,8 +1941,15 @@ export default function Home() {
             );
           })
           .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
-          .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
-          .replace(/\\left\\{/g, "")
+          .replace(
+            /(\\left\\\{)(\s*\\begin\s*\{\s*align\s*\})/g,
+            (match, p1, p2) => {
+              if (p1 && p2) {
+                return "\\heva{";
+              }
+              return match;
+            }
+          )
           .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
             if (group1) {
               // Nếu là nội dung trong $...$, giữ nguyên
@@ -2015,8 +2069,15 @@ export default function Home() {
                   );
                 })
                 .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
-                .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
-                .replace(/\\left\\{/g, "")
+                .replace(
+                  /(\\left\\\{)(\s*\\begin\s*\{\s*align\s*\})/g,
+                  (match, p1, p2) => {
+                    if (p1 && p2) {
+                      return "\\heva{";
+                    }
+                    return match;
+                  }
+                )
                 .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
                   if (group1) {
                     // Nếu là nội dung trong $...$, giữ nguyên
@@ -2180,8 +2241,15 @@ export default function Home() {
                 );
               })
               .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
-              .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
-              .replace(/\\left\\{/g, "")
+              .replace(
+                /(\\left\\\{)(\s*\\begin\s*\{\s*align\s*\})/g,
+                (match, p1, p2) => {
+                  if (p1 && p2) {
+                    return "\\heva{";
+                  }
+                  return match;
+                }
+              )
               .replace(/(\$[^$]*\$)|\.{2,}/g, (match, group1) => {
                 if (group1) {
                   // Nếu là nội dung trong $...$, giữ nguyên
