@@ -571,6 +571,7 @@ export default function Home() {
               .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
               .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
               .replace(/\\vec([^{}\s]+)([+\-><])/g, "\\vec{$1}$2")
+              .replace(/\{\./g, ".{")
 
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
@@ -760,6 +761,7 @@ export default function Home() {
             .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
             .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
             .replace(/\\vec([^{}\s]+)([+\-><])/g, "\\vec{$1}$2")
+            .replace(/\{\./g, ".{")
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
                 // Handle numbers already in $...$
@@ -947,6 +949,7 @@ export default function Home() {
             .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
             .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
             .replace(/\\vec([^{}\s]+)([+\-><])/g, "\\vec{$1}$2")
+            .replace(/\{\./g, ".{")
 
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -1324,6 +1327,7 @@ export default function Home() {
             .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
             .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
             .replace(/\\vec([^{}\s]+)([+\-><])/g, "\\vec{$1}$2")
+            .replace(/\{\./g, ".{")
 
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -1505,6 +1509,7 @@ export default function Home() {
           .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
           .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
           .replace(/\\vec([^{}\s]+)([+\-><])/g, "\\vec{$1}$2")
+          .replace(/\{\./g, ".{")
 
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
@@ -1689,6 +1694,7 @@ export default function Home() {
               .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
               .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
               .replace(/\\vec([^{}\s]+)([+\-><])/g, "\\vec{$1}$2")
+              .replace(/\{\./g, ".{")
 
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
@@ -2053,6 +2059,7 @@ export default function Home() {
           .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
           .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
           .replace(/\\vec([^{}\s]+)([+\-><])/g, "\\vec{$1}$2")
+          .replace(/\{\./g, ".{")
 
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
@@ -2194,6 +2201,7 @@ export default function Home() {
                 .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
                 .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
                 .replace(/\\vec([^{}\s]+)([+\-><])/g, "\\vec{$1}$2")
+                .replace(/\{\./g, ".{")
 
                 .replace(
                   /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
@@ -2379,6 +2387,7 @@ export default function Home() {
               .replace(/(?<!\$)(?<=^|\s)([A-Z]+)(?=\s|$)(?!\$)/g, "$$$1$$")
               .replace(/\\bar\{\{([^{}]+)\}\}/g, "\\bar{$1}")
               .replace(/\\vec([^{}\s]+)([+\-><])/g, "\\vec{$1}$2")
+              .replace(/\{\./g, ".{")
 
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
