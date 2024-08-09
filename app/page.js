@@ -2261,6 +2261,8 @@ export default function Home() {
                                       .replace(/\\cdot\s*/g, ".")
                                       .replace(/\s+\\right/g, "\\right")
                                       .replace(/\\!/g, "")
+                                      .replace(/\\text\{\s*\}/g, "")
+                                      .replace(/\\,/g, "")
                                       .replace(/\$\s*\$/g, "")
                                       .replace(/\$~(\S)/g, "$$$1")
                                       .replace(
@@ -2304,13 +2306,16 @@ export default function Home() {
                 return (
                   "$" +
                   p1
-                    .replace(/\{\{([^{}]*)\}\}/g, (nestedMatch, content) => {
-                      // Kiểm tra nếu không có ký tự giữa các dấu ngoặc đóng và mở
-                      if (!/\}\s*\{/.test(content)) {
-                        return `{${content}}`;
+                    .replace(
+                      /\{\{([^{}]*)\}\}/g,
+                      (nestedMatch, explanation) => {
+                        // Kiểm tra nếu không có ký tự giữa các dấu ngoặc đóng và mở
+                        if (!/\}\s*\{/.test(explanation)) {
+                          return `{${explanation}}`;
+                        }
+                        return nestedMatch;
                       }
-                      return nestedMatch;
-                    })
+                    )
                     .replace(/\s*([{}])\s*/g, "$1") +
                   "$"
                 );
@@ -2359,7 +2364,6 @@ export default function Home() {
                 return match.replace(/,\{([^{}]+)\}=/g, ",$1=");
               })
               .replace(/\\Delta([A-Za-z])/g, "\\Delta $1")
-
               .replace(/(\$[^$]+\$)/g, (match) => {
                 return match.replace(/\s*([+\-<>=])\s*/g, "$1");
               })
@@ -2369,7 +2373,11 @@ export default function Home() {
                   "$1{$2}$3"
                 );
               })
+
               .replace(/\\end\s*\{\s*align\s*\}\s*\\right/g, "}")
+              // .replace(/\\begin\s*\{\s*align\s*\}/g, "\\heva{")
+              // .replace(/\\left\\{/g, "")
+              // .replace(/\\left\\{\s*\\begin\s*\{\s*align\s*\}/g, "\\heva{")
               .replace(
                 /(\\left\\\{)(\s*\\begin\s*\{\s*align\s*\})/g,
                 (match, p1, p2) => {
