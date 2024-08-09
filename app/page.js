@@ -2844,7 +2844,7 @@ export default function Home() {
                     </svg>
                   </Link>
                   <Link
-                    href="https://www.youtube.com/watch?v=pC9yvFWojlw&t=57s"
+                    href="https://www.youtube.com/watch?v=6O6NZ-N669k"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
