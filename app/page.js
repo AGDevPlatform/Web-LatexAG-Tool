@@ -574,6 +574,7 @@ export default function Home() {
               .replace(/\{\./g, ".{")
               .replace(/\\text\{\{([^{}]+)\}\}/g, "\\text{$1}")
               .replace(/\{\{([^{}]*)\}([+\-\\]{1,2})/g, "{$1$2") // Xử lý trường hợp {{X}+, {{X}-, và {{X}\\
+              .replace(/\{\{\(([^()]*)\)\}([_^])/g, "{($1)$2") // Xử lý trường hợp {{(X)}^ và {{(X)}_
 
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
@@ -766,6 +767,7 @@ export default function Home() {
             .replace(/\{\./g, ".{")
             .replace(/\\text\{\{([^{}]+)\}\}/g, "\\text{$1}")
             .replace(/\{\{([^{}]*)\}([+\-\\]{1,2})/g, "{$1$2") // Xử lý trường hợp {{X}+, {{X}-, và {{X}\\
+            .replace(/\{\{\(([^()]*)\)\}([_^])/g, "{($1)$2") // Xử lý trường hợp {{(X)}^ và {{(X)}_
 
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -958,6 +960,7 @@ export default function Home() {
             .replace(/\{\./g, ".{")
             .replace(/\\text\{\{([^{}]+)\}\}/g, "\\text{$1}")
             .replace(/\{\{([^{}]*)\}([+\-\\]{1,2})/g, "{$1$2") // Xử lý trường hợp {{X}+, {{X}-, và {{X}\\
+            .replace(/\{\{\(([^()]*)\)\}([_^])/g, "{($1)$2") // Xử lý trường hợp {{(X)}^ và {{(X)}_
 
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -1338,6 +1341,7 @@ export default function Home() {
             .replace(/\{\./g, ".{")
             .replace(/\\text\{\{([^{}]+)\}\}/g, "\\text{$1}")
             .replace(/\{\{([^{}]*)\}([+\-\\]{1,2})/g, "{$1$2") // Xử lý trường hợp {{X}+, {{X}-, và {{X}\\
+            .replace(/\{\{\(([^()]*)\)\}([_^])/g, "{($1)$2") // Xử lý trường hợp {{(X)}^ và {{(X)}_
 
             .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
               if (p1) {
@@ -1522,6 +1526,7 @@ export default function Home() {
           .replace(/\{\./g, ".{")
           .replace(/\\text\{\{([^{}]+)\}\}/g, "\\text{$1}")
           .replace(/\{\{([^{}]*)\}([+\-\\]{1,2})/g, "{$1$2") // Xử lý trường hợp {{X}+, {{X}-, và {{X}\\
+          .replace(/\{\{\(([^()]*)\)\}([_^])/g, "{($1)$2") // Xử lý trường hợp {{(X)}^ và {{(X)}_
 
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
@@ -1709,6 +1714,7 @@ export default function Home() {
               .replace(/\{\./g, ".{")
               .replace(/\\text\{\{([^{}]+)\}\}/g, "\\text{$1}")
               .replace(/\{\{([^{}]*)\}([+\-\\]{1,2})/g, "{$1$2") // Xử lý trường hợp {{X}+, {{X}-, và {{X}\\
+              .replace(/\{\{\(([^()]*)\)\}([_^])/g, "{($1)$2") // Xử lý trường hợp {{(X)}^ và {{(X)}_
 
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
@@ -2076,6 +2082,7 @@ export default function Home() {
           .replace(/\{\./g, ".{")
           .replace(/\\text\{\{([^{}]+)\}\}/g, "\\text{$1}")
           .replace(/\{\{([^{}]*)\}([+\-\\]{1,2})/g, "{$1$2") // Xử lý trường hợp {{X}+, {{X}-, và {{X}\\
+          .replace(/\{\{\(([^()]*)\)\}([_^])/g, "{($1)$2") // Xử lý trường hợp {{(X)}^ và {{(X)}_
 
           .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
             if (p1) {
@@ -2220,6 +2227,7 @@ export default function Home() {
                 .replace(/\{\./g, ".{")
                 .replace(/\\text\{\{([^{}]+)\}\}/g, "\\text{$1}")
                 .replace(/\{\{([^{}]*)\}([+\-\\]{1,2})/g, "{$1$2") // Xử lý trường hợp {{X}+, {{X}-, và {{X}\\
+                .replace(/\{\{\(([^()]*)\)\}([_^])/g, "{($1)$2") // Xử lý trường hợp {{(X)}^ và {{(X)}_
 
                 .replace(
                   /(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g,
@@ -2416,6 +2424,7 @@ export default function Home() {
               .replace(/\{\./g, ".{")
               .replace(/\\text\{\{([^{}]+)\}\}/g, "\\text{$1}")
               .replace(/\{\{([^{}]*)\}([+\-\\]{1,2})/g, "{$1$2") // Xử lý trường hợp {{X}+, {{X}-, và {{X}\\
+              .replace(/\{\{\(([^()]*)\)\}([_^])/g, "{($1)$2") // Xử lý trường hợp {{(X)}^ và {{(X)}_
 
               .replace(/(\$[^$]+\$)|(-?\d+(?:[,.]\d+)*)/g, (match, p1, p2) => {
                 if (p1) {
