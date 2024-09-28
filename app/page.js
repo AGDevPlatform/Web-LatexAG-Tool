@@ -1831,7 +1831,7 @@ export default function Home() {
 
         return `\\begin{ex} %Câu ${
           index + 1
-        }\n${normalizedContent}\n\\choiceTF[1t]\n{${normalizedChoices.join(
+        }\n${normalizedContent}\n\\choiceTF[]\n{${normalizedChoices.join(
           "}\n{"
         )}}\n\\loigiai{${
           normalizedExplanation ? `\n${normalizedExplanation}\n` : ""

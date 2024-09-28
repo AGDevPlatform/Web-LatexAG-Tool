@@ -122,7 +122,7 @@ export default function Header() {
             className="bg-blue-100 text-blue-800  font-semibold px-2.5 py-0.5 rounded-lg "
             style={{ fontSize: "13px" }}
           >
-            ✨ 8/8/2024 - Thuật toán clean code được tối ưu cho Toggle Tex.
+            ✨ 28/9/2024 - Thuật toán clean code được tối ưu cho Toggle Tex.
           </span>
         </div>
       </div>
