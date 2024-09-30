@@ -808,7 +808,7 @@ export default function Home() {
                 return "$ " + p2.replace(",", "{,}") + " $";
               }
               return `$${p2}$`; // If it's a number not wrapped, wrap it with spaces
-            });
+            }); // New functionality to wrap single capital letters or groups of capital letters
         const processExplanation = (explanation) => {
           if (
             explanation === null ||
